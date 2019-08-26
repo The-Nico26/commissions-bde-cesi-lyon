@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Authentifiez vous !{% endblock %}
+
+{% block body %}
+    <h1>Authentifiez vous !</h1>
+    <p><a href="
+    https://login.microsoftonline.com/{{ tenant_id }}/oauth2/authorize?client_id={{ app_id }}&response_type=code&redirect_uri={{ callback_url }}&response_mode=query&state={{ state }}
+    ">Avec votre compte Viacesi</a></p>
+{% endblock %}
