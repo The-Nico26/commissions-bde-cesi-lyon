@@ -105,3 +105,8 @@ venv.bak/
 
 .idea
 db.sqlite3
+
+front-dist/*
+!front-dist/.gitkeep
+user-media/*
+!user-media/**/.gitkeep
