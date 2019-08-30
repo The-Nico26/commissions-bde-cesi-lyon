@@ -3,7 +3,7 @@ from django.db import models
 from users.models import User
 
 
-class Commissions(models.Model):
+class Commission(models.Model):
     """
     Le modèle contant toutes les informations d'une commission
     """
@@ -21,7 +21,7 @@ class Commissions(models.Model):
     description = models.TextField()
 
     # Le logo de la commission
-    logo = models.ImageField(upload_to="commissions/logos")
+    logo = models.ImageField(upload_to="commission/logos")
 
     # La banière de la commission
     banner = models.ImageField(upload_to="commission/banners", blank=True, null=True)
