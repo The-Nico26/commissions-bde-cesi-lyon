@@ -18,30 +18,31 @@ def auth(request):
     if request.user.is_authenticated:
         return redirect(state)
 
-    return render(request, "auth.html", {
-        "tenant_id": AUTH_VIACESI_TENANT_ID,
-        "app_id": AUTH_VIACESI_APP_ID,
-        "callback_url": request.build_absolute_uri("/auth/viacesi"),
-        "state": state
-    })
+    return redirect(
+        "https://login.microsoftonline.com/{}/oauth2/authorize?client_id={}&response_type=code&redirect_uri={}&response_mode=query&state={}".format(
+            AUTH_VIACESI_TENANT_ID,
+            AUTH_VIACESI_APP_ID,
+            request.build_absolute_uri("/auth/viacesi"),
+            state))
 
 
 def auth_callback(request):
+
+    next = request.GET["state"]
 
     if "error" in request.GET:
         if request.GET["error"] != "access_denied":
             messages.add_message(request, messages.ERROR,
                                          "Erreur lors de la connexion, veuillez rééssayer ou contacter un administrateur si le problème persiste")
             print("Authentication with viacesi failed : {}".format(request.GET["error_description"]))
-        return redirect(auth)
+        return redirect(next)
 
     code = request.GET["code"]
-    next = request.GET["state"]
 
     authenticated_user = authenticate(request, code=code)
 
     if authenticated_user is None:
-        return redirect(auth)
+        return redirect("/")
 
     login(request, authenticated_user)
     return redirect(next)

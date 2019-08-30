@@ -1,12 +1,67 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr-fr">
 <head>
     <meta charset="UTF-8">
     <title>{% block notitle %}{% block title %}{% endblock %} - {% endblock %}BDE Cesi Lyon</title>
+
+    <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/vars.css" %}"/>
+
+    <link rel="stylesheet" href="{% static "css/reset.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/base.css" %}"/>
     {% block head %}{% endblock %}
 </head>
 <body>
-{% block body %}
-{% endblock %}
+
+<aside class="main-aside">
+    <header class="main-header">
+        <h1>BDE CESI Lyon</h1>
+    </header>
+    <div class="separator"></div>
+    {% if user.is_authenticated %}
+        <a href="/logout" class="auth-panel authenticated clickable">
+            <div class="image">
+                <div class="placeholder"></div>
+            </div>
+            <div class="info">
+                <div class="welcome">Bienvenue</div>
+                <div class="name">{{ user.first_name }}</div>
+            </div>
+            <div class="icon">
+                <span class="iconify" data-icon="mdi-power"></span>
+            </div>
+        </a>
+    {% else %}
+        <div class="auth-panel unauthenticated">
+            <a class="auth-button" href="/login">
+                Se connecter avec Viacesi
+            </a>
+        </div>
+    {% endif %}
+    <div class="separator"></div>
+    <ul class="main-nav nav">
+        <li><a href="#" class="clickable">Commissions</a></li>
+        <li><a href="#" class="clickable">Le financement</a></li>
+        <li><a href="#" class="clickable rainbow">Créer une commission</a></li>
+    </ul>
+    <div class="filler"></div>
+    <div class="separator"></div>
+    <footer class="main-footer">
+        <ul>
+            <li>BDE CESI Lyon</li>
+            <li><a href="https://www.facebook.com/BDECesiLyon/">Facebook</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">Reglement intérieur</a></li>
+        </ul>
+    </footer>
+</aside>
+<section class="main-body">
+    {% block body %}
+    {% endblock %}
+</section>
+
 </body>
 </html>

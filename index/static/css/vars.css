@@ -1,0 +1,13 @@
+body {
+    --primary-color: #00a7e2;
+    --secondary-color: #ff005d;
+
+    --on-primary-color: white;
+    --on-secondary-color: white;
+
+    --title-color: #373737;
+    --text-color: #373737;
+
+    --paragraph-fonts: sans-serif;
+    --title-fonts: sans-serif;
+}
