@@ -21,6 +21,9 @@
             <img src="{% static "img/logo.jpg" %}" alt="BDE Cesi Lyon"/>
         </a>
     </header>
+
+    {# Authentification #}
+
     <div class="separator"></div>
     {% if user.is_authenticated %}
         <a href="/logout" class="auth-panel authenticated clickable">
@@ -37,19 +40,25 @@
         </a>
     {% else %}
         <div class="auth-panel unauthenticated">
-            <a class="auth-button" href="/login">
+            <a class="auth-button" href="/login?next={{ request.path }}">
                 Se connecter avec Viacesi
             </a>
         </div>
     {% endif %}
     <div class="separator"></div>
+
+    {# Menu principal #}
+
     <ul class="main-nav nav">
-        <li><a href="#" class="clickable">Commissions</a></li>
+        <li><a href="/commissions" class="clickable">Commissions</a></li>
         <!--<li><a href="#" class="clickable">Financement</a></li>-->
-        <li><a href="#" class="clickable rainbow">Créer une commission</a></li>
+        <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
     </ul>
     <div class="filler"></div>
     <div class="separator"></div>
+
+    {# Infos diverses dans le footer #}
+
     <footer class="main-footer">
         <ul>
             <li>BDE CESI Lyon</li>

@@ -1,0 +1,26 @@
+{% load humanize %}
+
+<bde-commission-card
+
+                banner-src="/media/{{ com.banner }}"
+                logo-src="/media/{{ com.logo }}"
+                commission-name="{{ com.name }}"
+                href="/commissions/c/{{ com.slug }}"
+        >
+
+            {{ com.short_description }}
+            <span slot="meta">Créé {{ com.creation_date | naturaltime }}
+            {% if not com.is_active %}
+                et cloturé {{ com.end_date | naturaltime }}
+            {% endif %}
+            </span>
+
+            {% for tag in com.tags.all %}
+                <bde-tag slot="tags" color="{{ tag.color }}" >{{ tag.name }}</bde-tag>
+            {% endfor %}
+
+            {% if not com.is_active %}
+                <bde-tag slot="tags">Inactive</bde-tag>
+            {% endif %}
+
+        </bde-commission-card>

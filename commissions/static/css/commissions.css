@@ -1,0 +1,54 @@
+.commission-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.commission-list > * {
+    margin: 15px;
+}
+
+.create-commission {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.create-commission a > * {
+    color: transparent;
+}
+
+.create-commission a {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 150%;
+}
+
+.create-commission .title {
+    font-weight: bold;
+}
+
+.create-commission .iconify {
+    font-size: 75px;
+    margin: 25px 0;
+    color: var(--primary-color)
+}
+
+.create-commission:hover, .create-commission:hover a > * {
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    color: var(--on-primary-color);
+}

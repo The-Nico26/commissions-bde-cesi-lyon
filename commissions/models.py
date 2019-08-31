@@ -1,6 +1,28 @@
 from django.db import models
+from django.utils.text import slugify
 
 from users.models import User
+
+
+class Tag(models.Model):
+    """
+    Les tags associable aux commissions pour les trier et les retrouver
+    """
+    # Le nom du tag
+    name = models.CharField(max_length=100)
+
+    # Le nom du tag modifié pour tenir dans une URL
+    slug = models.SlugField(unique=True, blank=True)
+
+    # Couleur du tag
+    color = models.CharField(max_length=20)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Tag, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class Commission(models.Model):
@@ -13,6 +35,9 @@ class Commission(models.Model):
 
     # Le nom de la commission
     name = models.CharField(max_length=255)
+
+    # Le nom de la commission modifié pour qu'il soit valide dans une URL
+    slug = models.SlugField(unique=True, blank=True)
 
     # Une courte description de la commission en quelques mots
     short_description = models.CharField(max_length=255)
@@ -40,3 +65,13 @@ class Commission(models.Model):
 
     # La date de dissolution de la commission
     end_date = models.DateTimeField(default=None, blank=True, null=True)
+
+    # Les tags de la commission
+    tags = models.ManyToManyField(Tag, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Commission, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name

@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Parcourir les commissions{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/commissions.css" %}"/>
+    <script src="{% static "components/card.js" %}"></script>
+    <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/commission-card.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="commission-list">
+
+    {% for com in commissions %}
+        {% include "fragments/commission-card.html" %}
+    {% endfor %}
+
+    <bde-card class="create-commission">
+        <a href="/commissions/create">
+            <div class="title">Tu ne trouves pas ce que tu cherches ?</div>
+            <span class="iconify" data-icon="mdi-creation"></span>
+            <div>Crée ta commission et soit financé !</div>
+        </a>
+    </bde-card>
+
+</div>
+{% endblock %}
