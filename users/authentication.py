@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth.models import Group, Permission
 from raven.transport import requests
 
 from users.models import User
@@ -55,7 +56,19 @@ class ViacesiAuthBackend:
                 first_name=user_info_json["givenName"],
                 last_name=user_info_json["surname"].capitalize(),
                 viacesi_id=user_info_json["id"])
+
             currentUser.save()
+
+            group, created = Group.objects.get_or_create(name="members")
+            group.user_set.add(currentUser)
+
+            if created:
+                group.permissions.add([
+                    Permission.objects.get_by_natural_key("users.view_full_profile")
+                ])
+
+            group.save()
+
             print("Created new user for email {}".format(user_info_json["mail"]))
 
         return currentUser

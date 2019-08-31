@@ -15,7 +15,7 @@
             {% endif %}
             </span>
 
-            <bde-user slot="president" role="Président">{{ com.president.get_full_name }} </bde-user>
+            <bde-user slot="president" role="Président">{% include "fragments/safe_full_name.html" with user=com.president %}</bde-user>
 
             {% for tag in com.tags.all %}
                 <bde-tag slot="tags" color="{{ tag.color }}" >{{ tag.name }}</bde-tag>

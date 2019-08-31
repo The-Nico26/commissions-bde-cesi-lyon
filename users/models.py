@@ -57,3 +57,9 @@ class User(AbstractUser):
     is_active = models.BooleanField(default=True)
 
     objects = UserManager()
+
+    class Meta(AbstractUser.Meta):
+
+        permissions = [
+            ("view_full_profile", "Can view a complete profile of other users")
+        ]
