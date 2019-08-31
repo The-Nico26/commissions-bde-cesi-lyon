@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ com.name }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ com.name }}"/>
+    <meta property="og:image" content="http://{{ request.get_host }}/media/{{ com.logo }}" />
+    <meta property="og:description" content="{{ com.short_description }}"
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}

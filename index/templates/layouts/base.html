@@ -14,6 +14,14 @@
 
     <script src="{% static "components/user.js" %}"></script>
     {% block head %}{% endblock %}
+
+    {% block opengraph %}
+        <meta property="og:title" content="BDE Cesi Lyon" />
+        <meta property="og:image" content="http://{{ request.get_host }}{% static "img/logo.jpg" %}" />
+    {% endblock %}
+        <meta property="og:site_name" content="BDE Cesi Lyon"/>
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:url" content="{{request.build_absolute_uri}}" />
 </head>
 <body>
 

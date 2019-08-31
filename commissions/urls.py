@@ -1,7 +1,8 @@
 from django.urls import path
 
-from commissions.views import list_commissions
+from commissions.views import list_commissions, view_commission
 
 urlpatterns = [
-    path("", list_commissions, name="commission_list")
+    path("/<slug:slug>", view_commission, name="commission_view"),
+    path("", list_commissions, name="commission_list"),
 ]
