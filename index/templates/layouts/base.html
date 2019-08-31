@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="{% static "css/reset.css" %}"/>
     <link rel="stylesheet" href="{% static "css/base.css" %}"/>
+
+    <script src="{% static "components/user.js" %}"></script>
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -27,13 +29,7 @@
     <div class="separator"></div>
     {% if user.is_authenticated %}
         <a href="/logout" class="auth-panel authenticated clickable">
-            <div class="image">
-                <div class="placeholder"></div>
-            </div>
-            <div class="info">
-                <div class="welcome">Bienvenue</div>
-                <div class="name">{{ user.first_name }}</div>
-            </div>
+            <bde-user role="Bienvenue"><span class="name">{{ user.first_name }}</span></bde-user>
             <div class="icon">
                 <span class="iconify" data-icon="mdi-power"></span>
             </div>

@@ -124,24 +124,8 @@ body {
 .auth-panel.authenticated {
     display: flex;
     flex-direction: row;
-    padding: 10px 0;
+    padding: 10px 0 10px 10px;
     align-items: center;
-}
-
-.auth-panel .image {
-    padding: 0 10px
-}
-
-.auth-panel .image > * {
-    width: 40px;
-    height: 40px;
-    background: #e1e1e1;
-    border-radius: 100%;
-    border: none;
-}
-
-.auth-panel .info {
-    flex: 1;
 }
 
 .auth-panel .icon {
@@ -151,13 +135,6 @@ body {
     opacity: 0.7;
 }
 
-.auth-panel .welcome {
-    font-size: 13px;
-    margin-bottom: 4px;
-    color: var(--text-color);
-}
-
 .auth-panel .name {
     font-weight: bold;
-    color: var(--text-color);
 }

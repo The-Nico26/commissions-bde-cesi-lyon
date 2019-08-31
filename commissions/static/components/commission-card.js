@@ -44,6 +44,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+                background-color: var(--primary-color);
             }
     
             .banner img {
@@ -122,6 +123,19 @@
                 display: block;
             }
             
+            .president {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+            
+            .president slot::slotted(*) {
+                color: white;
+                background-color: rgba(0,0,0,0.3);
+                border-radius: 50px;
+                padding-right: 15px;
+            }
+            
         </style>
     
         <bde-card class="card">
@@ -129,6 +143,8 @@
                 <div class="banner">
                     <img id="banner"/>
                 </div>
+                
+                <div class="president"><slot name="president"></slot></div>
         
                 <div class="logo">
                     <img id="logo"/>
