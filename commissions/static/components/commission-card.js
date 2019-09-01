@@ -127,6 +127,7 @@
                 position: absolute;
                 top: 10px;
                 left: 10px;
+                pointer-events: none;
             }
             
             .president slot::slotted(*) {

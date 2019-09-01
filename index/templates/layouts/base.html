@@ -40,7 +40,12 @@
     <div class="separator"></div>
     {% if user.is_authenticated %}
         <a href="/logout" class="auth-panel authenticated clickable">
-            <bde-user role="Bienvenue"><span class="name">{{ user.first_name }}</span></bde-user>
+            <bde-user
+                    {% if user.profile_picture is not None %}
+                        image-src="/media/{{ user.profile_picture }}"
+                    {% endif %}
+                    role="Bienvenue"
+            ><span class="name">{{ user.first_name }}</span></bde-user>
             <div class="icon">
                 <span class="iconify" data-icon="mdi-power"></span>
             </div>

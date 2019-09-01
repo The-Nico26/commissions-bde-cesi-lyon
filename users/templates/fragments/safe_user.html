@@ -4,6 +4,10 @@
             role="{{role}}"
         {% endif %}
 
+        {% if user.profile_picture is not None %}
+            image-src="/media/{{ user.profile_picture }}"
+        {% endif %}
+
         {% if perms.users.view_full_profile %}
             href="mailto:{{ user.email }}"
             title="Contacter {% include "fragments/safe_full_name.html" %}"

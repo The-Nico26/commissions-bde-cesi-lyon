@@ -50,6 +50,9 @@ class User(AbstractUser):
     "L'adresse Email de l'utilisateur"
     email = models.EmailField(max_length=255, unique=True)
 
+    # Image de profil de l'utilisateur
+    profile_picture = models.ImageField(upload_to="user/profile", blank=True, null=True)
+
     "L'identifiant de l'utilisateur sur l'AD du CESI (None si l'utilisateur n'est pas enregistré via l'AD)"
     viacesi_id = models.CharField(max_length=50, unique=True, null=True, default=None)
 

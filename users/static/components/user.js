@@ -17,7 +17,7 @@
         color: inherit;
         text-decoration: inherit;
         border-radius: 50px;
-        padding-right: 5px;
+        padding-right: 10px;
     }
     
     .user[href]:hover {
