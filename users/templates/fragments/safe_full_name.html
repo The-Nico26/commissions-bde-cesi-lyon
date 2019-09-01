@@ -1,5 +1,1 @@
-{% if perms.users.view_full_profile %}
-{{ user.get_full_name }}
-{% else %}
-{{ user.first_name }}
-{% endif %}
+{% if perms.users.view_full_profile %}{{ user.get_full_name }}{% else %}{{ user.first_name }}{% endif %}

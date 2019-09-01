@@ -9,10 +9,7 @@
         >
 
             {{ com.short_description }}
-            <span slot="meta">Créé {{ com.creation_date | naturaltime }}
-            {% if not com.is_active %}
-                et cloturé {{ com.end_date | naturaltime }}
-            {% endif %}
+            <span slot="meta">Création : {{ com.creation_date | naturalday }}{% if not com.is_active %}, Cloture : {{ com.end_date | naturalday }}{% endif %}
             </span>
 
             <bde-user slot="president" role="Président">{% include "fragments/safe_full_name.html" with user=com.president %}</bde-user>

@@ -14,6 +14,14 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        color: inherit;
+        text-decoration: inherit;
+        border-radius: 50px;
+        padding-right: 5px;
+    }
+    
+    .user[href]:hover {
+        background-color: #ebebeb;
     }
 
     .image {
@@ -49,7 +57,7 @@
     }
     
     </style>
-    <div class="user">
+    <a class="user" id="link">
         <div class="image">
             <div class="placeholder" id="placeholder-pic"></div>
             <img class="hidden" id="pic"/>
@@ -58,7 +66,7 @@
             <div class="role hidden" id="role"></div>
             <div class="name"><slot></slot></div>
         </div>
-    </div>
+    </a>
     `
 
     customElements.define("bde-user", class extends HTMLElement {
@@ -86,6 +94,20 @@
             }
         }
 
+        get href(){
+            return this.$href
+        }
+
+        set href(val){
+            this.$href = val;
+            let link = this.root.getElementById("link")
+            if(typeof this.$href != "undefined" && this.$href != ""){
+                link.href = this.$href
+            } else {
+                link.href = null
+            }
+        }
+
         set imageSrc(val){
             this.$imageSrc = val;
             let img = this.root.getElementById("pic")
@@ -101,7 +123,7 @@
         }
 
         static get observedAttributes(){
-            return ['role', 'image-src']
+            return ['role', 'image-src', 'href']
         }
 
         attributeChangedCallback(name,lastval,newval){
@@ -111,6 +133,9 @@
                     break;
                 case 'image-src':
                     this.imageSrc = newval
+                    break;
+                case 'href':
+                    this.href = newval
                     break;
             }
         }

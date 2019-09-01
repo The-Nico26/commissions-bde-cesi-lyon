@@ -1,0 +1,13 @@
+<bde-user
+
+        {% if role is not None %}
+            role="{{role}}"
+        {% endif %}
+
+        {% if perms.users.view_full_profile %}
+            href="mailto:{{ user.email }}"
+            title="Contacter {% include "fragments/safe_full_name.html" %}"
+        {% endif %}
+>
+    {% include "fragments/safe_full_name.html" %}
+</bde-user>

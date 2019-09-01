@@ -9,5 +9,5 @@ body {
     --text-color: #373737;
 
     --paragraph-fonts: sans-serif;
-    --title-fonts: sans-serif;
+    --title-fonts: 'Roboto Slab', serif;
 }

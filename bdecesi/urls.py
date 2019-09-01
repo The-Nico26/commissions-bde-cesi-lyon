@@ -22,7 +22,7 @@ from bdecesi import settings
 urlpatterns = [
     path('', include("users.urls")),
     path('', include("index.urls")),
-    path('commissions',include("commissions.urls")),
+    path('commissions/',include("commissions.urls")),
     path('admin/', admin.site.urls),
 ]
 
