@@ -6,7 +6,7 @@ Plateforme de gestion des commissions du BDE CESI de Lyon.
 Installez les prérequis avec pip
 
 ```sh-session
-pip install -r requirement
+pip install -r requirements
 ```
 
 Deployez les migrations
