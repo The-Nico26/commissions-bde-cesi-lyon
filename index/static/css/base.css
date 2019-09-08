@@ -16,11 +16,106 @@ body {
     justify-content: flex-start;
     align-items: stretch;
 
+    overflow-y: auto;
+    overflow-x: hidden;
+
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    background-color: white;
+}
+
+.main-aside.activated {
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    left: 0;
+}
+
+.main-aside.activated .mobile-close {
+    background-color: transparent;
+    position: fixed;
+    left: 250px;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+}
+
+.main-aside:not(.activated) .mobile-close {
+    display: none;
 }
 
 .main-body {
     margin-left: 250px;
+        padding-top: 60px;
+}
+
+.page-header {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.25);
+    z-index: 999;
+
+    padding: 0 30px;
+
+    margin-left: 250px;
+}
+
+.page-header > * {
+    height: 40px;
+    min-width: 40px;
+}
+
+.page-header .iconify {
+    font-size: 35px;
+}
+
+.page-header .toolbar-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.page-header .page-toolbar {
+    flex: 1;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+
+.page-header .menu-activator {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .main-body {
+        margin-left: 0;
+    }
+
+    .main-aside {
+        left: -300px;
+        box-shadow: none;
+        transition: left 0.5s ease;
+    }
+
+    .page-header {
+        margin-left: 0;
+        padding: 0 10px;
+    }
+
+    .page-header .menu-activator {
+        display: block;
+    }
 }
 
 .main-aside .main-header {

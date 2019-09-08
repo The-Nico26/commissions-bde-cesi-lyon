@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static "css/base.css" %}"/>
 
     <script src="{% static "components/user.js" %}"></script>
+    <script src="{% static "components/class-switcher.js" %}"></script>
     {% block head %}{% endblock %}
 
     {% block opengraph %}
@@ -28,7 +29,17 @@
 </head>
 <body>
 
+<header class="page-header">
+    <bde-class-switcher target=".main-aside" target-class="activated" class="menu-activator toolbar-button">
+        <span class="iconify" data-icon="mdi-menu"></span>
+    </bde-class-switcher>
+    <div class="page-toolbar">
+        {% block header %}{% endblock %}
+    </div>
+</header>
+
 <aside class="main-aside">
+    <bde-class-switcher class="mobile-close" target=".main-aside" target-class="activated"></bde-class-switcher>
     <header class="main-header">
         <a href="/">
             <img src="{% static "img/logo.jpg" %}" alt="BDE Cesi Lyon"/>
