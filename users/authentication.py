@@ -70,6 +70,7 @@ class ViacesiAuthBackend:
             currentUser = User.objects.create_user(
                 user_info_json["mail"],
                 password=None,
+                username=user_info_json["mail"],
                 first_name=user_info_json["givenName"],
                 last_name=user_info_json["surname"].capitalize(),
                 viacesi_id=user_info_json["id"])
