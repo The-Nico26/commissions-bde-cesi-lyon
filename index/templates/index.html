@@ -1,6 +1,26 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block notitle %}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/commissions.css" %}"/>
+    <script src="{% static "components/card.js" %}"></script>
+    <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/commission-card.js" %}"></script>
+{% endblock %}
 
 {% block body %}
+
+    <h2>Random commissions</h2>
+
+    {% for com in random_commissions %}
+        {% include "fragments/commission-card.html" %}
+    {% endfor %}
+
+    <h2>Dernières commissions</h2>
+
+    {% for com in latest_commissions %}
+        {% include "fragments/commission-card.html" %}
+    {% endfor %}
+
 {% endblock %}
