@@ -44,57 +44,13 @@ body {
 
 .main-body {
     margin-left: 250px;
-        padding-top: 60px;
 }
 
 .page-header {
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
-    width: 100%;
-    background: white;
-    box-shadow: 0 0 8px rgba(0,0,0,0.25);
     z-index: 999;
-
-    padding: 0 30px;
-
     margin-left: 250px;
-}
-
-.page-header > * {
-    height: 40px;
-    min-width: 40px;
-}
-
-.page-header .iconify {
-    font-size: 35px;
-}
-
-.page-header .toolbar-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.page-header .page-toolbar {
-    flex: 1;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-
-.page-header .menu-activator {
-    display: none;
+    width: calc(100% - 250px);
 }
 
 @media screen and (max-width: 800px) {
@@ -110,11 +66,7 @@ body {
 
     .page-header {
         margin-left: 0;
-        padding: 0 10px;
-    }
-
-    .page-header .menu-activator {
-        display: block;
+        width: 100%;
     }
 }
 

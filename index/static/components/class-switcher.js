@@ -16,9 +16,18 @@
         switchClass(){
             if(!this.targetClass)
                 return;
-            let targets = this.target ?
-                Array.from(document.querySelectorAll(this.target)) :
-                [this]
+            let targets = []
+
+            if(this.target){
+                if(typeof this.target === "string"){
+                    targets = Array.from(document.querySelectorAll(this.target))
+                } else if(typeof this.target === "object") {
+                    targets = this.target
+                }
+            } else {
+                targets = [this]
+            }
+
             targets.forEach(el => {
                 if(el.classList.contains(this.targetClass)){
                     el.classList.remove(this.targetClass)
