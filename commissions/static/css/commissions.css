@@ -52,3 +52,25 @@
     -webkit-background-clip: border-box;
     color: var(--on-primary-color);
 }
+
+.commission-explaination {
+    margin: 40px 10vw 0;
+    padding: 10px;
+}
+
+.commission-explaination > *:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.commission-explaination h1 {
+    font-size: 40px;
+    font-family: var(--title-fonts);
+    margin-bottom: 15px !important;
+}
+
+@media screen and (max-width: 800px) {
+    .commission-explaination {
+        margin: 15px 5vw 0;
+        text-align: justify;
+    }
+}
