@@ -23,6 +23,13 @@
     font-family: var(--title-fonts);
 }
 
+.jumbo .title-wrapper {
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .jumbo .jumbo-content {
     font-family: var(--paragraph-fonts);
     font-size: 20px;
