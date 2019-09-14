@@ -84,12 +84,12 @@
                 font-style: italic;
                 text-align: center;
                 font-size: 15px;
+                max-height: 32px;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 margin-bottom: 10px;
                 font-family: sans-serif;
                 flex: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
             }
     
             .meta {
