@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static "css/reset.css" %}"/>
     <link rel="stylesheet" href="{% static "css/base.css" %}"/>
 
+    <script src="{% static "components/notifications.js" %}"></script>
     <script src="{% static "components/icon.js" %}"></script>
     <script src="{% static "components/user.js" %}"></script>
     <script src="{% static "components/class-switcher.js" %}"></script>
@@ -104,6 +105,24 @@
             body.style.paddingTop = `${header.getBoundingClientRect().height}px`
         }
     })()
+</script>
+
+<script>
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}
+            window.notifications.sendDebug("{{ message | escapejs }}")
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            window.notifications.sendInfo("{{ message | escapejs }}")
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            window.notifications.sendSuccess("{{ message | escapejs }}")
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            window.notifications.sendWarning("{{ message | escapejs }}")
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            window.notifications.sendError("{{ message | escapejs }}")
+        {% else %}
+            window.notifications.send("{{ message.level | escapejs }}", "{{ message | escapejs }}")
+        {% endif %}
+    {% endfor %}
 </script>
 
 </body>
