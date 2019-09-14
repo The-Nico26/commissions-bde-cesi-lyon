@@ -53,14 +53,14 @@
 
             <div class="commission-roles">
 
-                    {% include "fragments/safe_user.html" with user=com.president role="Président" %}
+                    {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
 
                     {% if com.deputy is not None %}
-                        {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant" %}
+                        {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant·e" %}
                     {% endif %}
 
                     {% if com.treasurer_id != com.president_id %}
-                        {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier" %}
+                        {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier·ere" %}
                     {% endif %}
 
             </div>
