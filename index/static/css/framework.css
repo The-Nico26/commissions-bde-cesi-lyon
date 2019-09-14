@@ -1,0 +1,29 @@
+.btn {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: var(--on-primary-color);
+    background-color: var(--primary-color);
+}
+
+.btn-primary:disabled {
+    cursor: default;
+    background: rgba(56,56,56,0.8);
+    opacity: 0.7;
+}
+
+.btn bde-icon {
+    height: 25px;
+}
+
+.btn bde-icon:last-child {
+    margin-right: -10px;
+}

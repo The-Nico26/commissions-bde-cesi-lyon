@@ -1,0 +1,36 @@
+.com-progression {
+    flex: 1;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+.com-progress-element.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.com-progress-separator {
+    width: 30px;
+    opacity: 0.5;
+}
+
+.com-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 25px;
+}
+
+@media screen and (max-width: 800px) {
+    .com-progression {
+        padding-left: 10px;
+    }
+
+    .com-progression .com-progress-element:not(.active), .com-progression .com-progress-separator {
+        display: none;
+    }
+}

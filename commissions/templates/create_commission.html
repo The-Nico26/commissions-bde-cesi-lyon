@@ -1,6 +1,28 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block title %}Créer une commission{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/create-commission.css" %}">
+{% endblock %}
+
+{% block header %}
+    <div class="com-progression">
+        <span class="com-progress-element active">Introduction</span>
+        <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
+        <span class="com-progress-element">Bases</span>
+        <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
+        <span class="com-progress-element">Membres</span>
+        <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
+        <span class="com-progress-element">Description</span>
+        <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
+        <span class="com-progress-element">Fin</span>
+    </div>
+    <div class="com-toolbar">
+        <button class="btn btn-primary">Démarrer <bde-icon icon="mdi-chevron-right"></bde-icon></button>
+    </div>
+{% endblock %}
 
 {% block body %}
 
