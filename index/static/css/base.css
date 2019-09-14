@@ -207,7 +207,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 5px 0 5px 15px;
+    padding: 5px 15px;
 }
 
 .main-aside .small-commission .small-commission-info {
