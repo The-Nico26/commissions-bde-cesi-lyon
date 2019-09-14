@@ -72,6 +72,18 @@
         <!--<li><a href="#" class="clickable">Financement</a></li>-->
         <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
     </ul>
+    {% if userCommissions %}
+        <div class="separator"></div>
+    {% endif %}
+    <ul class="nav">
+        {% for com in userCommissions %}
+            <li><a href="/commissions/{{ com.slug }}" class="clickable small-commission">
+                <div class="small-commission-logo"><img src="/media/{{ com.logo }}"/></div>
+                <div class="small-commission-info">{{com.name}}</div>
+                <div class="small-commission-icon"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
+            </a></li>
+        {% endfor %}
+    </ul>
     <div class="filler"></div>
     <div class="separator"></div>
 
