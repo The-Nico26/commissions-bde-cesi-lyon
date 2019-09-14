@@ -75,3 +75,12 @@ class Commission(models.Model):
 
     def __str__(self):
         return self.name
+
+    def has_change_permission(self, request):
+        return self.is_active and ((
+            request.user.get_username() == self.president.get_username()
+        ) or (
+            request.user.get_username() == self.treasurer.get_username()
+        ) or (
+            self.deputy is not None and request.user.get_username() == self.deputy.get_username()
+        ))
