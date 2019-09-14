@@ -34,3 +34,31 @@
         display: none;
     }
 }
+
+.com-form {
+    padding: 0 10vw;
+}
+
+.com-form-section {
+    min-height: calc(100vh - 60px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.section-title {
+    font-family: var(--title-fonts);
+    font-size: 50px;
+    opacity: 0.8;
+    width: 100%;
+}
+
+.next-button {
+    transition: 0.5s ease opacity;
+}
+
+.next-button:disabled {
+    opacity: 0;
+}

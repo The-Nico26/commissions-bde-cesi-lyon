@@ -5,25 +5,49 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static "css/create-commission.css" %}">
+    <script src="{% static "js/create-commission.js" %}"></script>
 {% endblock %}
 
 {% block header %}
-    <div class="com-progression">
-        <span class="com-progress-element active">Introduction</span>
+    <div class="com-progression" id="progression">
+        <a href="#" class="com-progress-element active" data-referer="introduction-section" data-next-name="Démarrer">Introduction</a>
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
-        <span class="com-progress-element">Bases</span>
+        <a href="#" class="com-progress-element" data-referer="basis-section">Bases</a>
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
-        <span class="com-progress-element">Membres</span>
+        <a href="#" class="com-progress-element" data-referer="members-section">Membres</a>
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
-        <span class="com-progress-element">Description</span>
+        <a href="#" class="com-progress-element" data-referer="description-section">Description</a>
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
-        <span class="com-progress-element">Fin</span>
+        <a href="#" class="com-progress-element" data-referer="end-section" data-next-name="Créer ma commission" data-next-rainbow>Validation</a>
     </div>
     <div class="com-toolbar">
-        <button class="btn btn-primary">Démarrer <bde-icon icon="mdi-chevron-right"></bde-icon></button>
+        <button class="btn btn-primary next-button" id="next-button"><span class="content">Démarrer</span> <bde-icon icon="mdi-chevron-right"></bde-icon></button>
     </div>
 {% endblock %}
 
 {% block body %}
+
+    <form method="post" class="com-form" id="com-form">
+
+        <div class="com-form-section" id="introduction-section">
+        </div>
+
+        <div class="com-form-section" id="basis-section">
+            <h2 class="section-title">Les bases</h2>
+        </div>
+
+        <div class="com-form-section" id="members-section">
+            <h2 class="section-title">Les membres</h2>
+        </div>
+
+        <div class="com-form-section" id="description-section">
+            <h2 class="section-title">La description</h2>
+        </div>
+
+        <div class="com-form-section" id="end-section">
+            <h2 class="section-title">Félicitations</h2>
+        </div>
+
+    </form>
 
 {% endblock %}
