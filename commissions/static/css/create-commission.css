@@ -62,3 +62,48 @@
 .next-button:disabled {
     opacity: 0;
 }
+
+.introduction-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    min-height: 100vh;
+
+    padding-bottom: 200px;
+}
+
+.introduction-section .main-title, .introduction-section .motto {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.introduction-section .main-title {
+    font-size: 60px;
+    font-family: var(--title-fonts);
+    margin-bottom: 15px;
+}
+
+.introduction-section .icon {
+    color: #815DA5;
+    width: 150px;
+    margin-bottom: 50px;
+}
+
+.introduction-section .motto {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.introduction-section .short-explaination {
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    width: 100%;
+    text-align: justify;
+}
