@@ -13,7 +13,7 @@
 
     flex: 1;
 
-    padding: 0 18vw;
+    padding: 0 18vw 200px;
 }
 
 .main-title, .motto {
@@ -33,7 +33,6 @@
     color: #815DA5;
     width: 150px;
     margin-bottom: 50px;
-    margin-top: -200px;
 }
 
 .motto {
@@ -81,7 +80,7 @@
 @media screen and (max-width: 1200px) {
 
     .unauth {
-        padding: 0 10vw;
+        padding: 0 10vw 200px;
     }
 }
 
