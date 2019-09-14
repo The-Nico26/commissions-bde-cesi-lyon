@@ -6,6 +6,7 @@ from django.core.files.base import ContentFile
 from raven.transport import requests
 from django.contrib import messages
 
+from commissions.models import Commission, Tag
 from users.models import User
 from users.settings import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
 import os
@@ -90,10 +91,19 @@ class ViacesiAuthBackend:
             group.user_set.add(currentUser)
 
             if created:
-                content_type = ContentType.objects.get_for_model(User)
+                user_ct = ContentType.objects.get_for_model(User)
                 group.permissions.add(Permission.objects.get(
                         codename="view_full_profile",
-                        content_type=content_type
+                        content_type=user_ct
+                    ))
+                commission_ct = ContentType.objects.get_for_model(Commission)
+                group.permissions.add(Permission.objects.get(
+                        codename="add_commission",
+                        content_type=commission_ct
+                    ))
+                group.permissions.add(Permission.objects.get(
+                        codename="view_commission",
+                        content_type=commission_ct
                     ))
 
             group.save()
