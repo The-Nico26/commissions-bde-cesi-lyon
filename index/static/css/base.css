@@ -186,3 +186,22 @@ body {
 .auth-panel .name {
     font-weight: bold;
 }
+
+.main-notifications {
+    width: 30vw;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-notifications {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .main-notifications {
+        width: 100%;
+    }
+}

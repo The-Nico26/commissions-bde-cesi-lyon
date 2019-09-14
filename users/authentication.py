@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import ContentFile
 from raven.transport import requests
+from django.contrib import messages
 
 from users.models import User
 from users.settings import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
@@ -65,6 +66,7 @@ class ViacesiAuthBackend:
                     "{}.png".format(user_info_json["id"]),
                     ContentFile(picture_r.content),
                     save=True)
+            messages.add_message(request, messages.SUCCESS, "Bon retour {} !".format(currentUser.first_name))
 
         except User.DoesNotExist:
             currentUser = User.objects.create_user(
@@ -82,6 +84,7 @@ class ViacesiAuthBackend:
                     save=True)
 
             currentUser.save()
+            messages.add_message(request, messages.SUCCESS, "Bienvenue {} !".format(currentUser.first_name))
 
             group, created = Group.objects.get_or_create(name="members")
             group.user_set.add(currentUser)
