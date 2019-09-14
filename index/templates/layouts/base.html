@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <title>{% block notitle %}{% block title %}{% endblock %} - {% endblock %}BDE Cesi Lyon</title>
 
-    <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700&display=swap" rel="stylesheet">
 
+    <script src="//code.iconify.design/1/1.0.0-rc1/iconify.min.js"></script>
 
     <link rel="stylesheet" href="{% static "css/vars.css" %}"/>
-
     <link rel="stylesheet" href="{% static "css/reset.css" %}"/>
     <link rel="stylesheet" href="{% static "css/base.css" %}"/>
 
+    <script src="{% static "components/icon.js" %}"></script>
     <script src="{% static "components/user.js" %}"></script>
+    <script src="{% static "components/class-switcher.js" %}"></script>
+    <script src="{% static "components/mobile-header.js" %}"></script>
     {% block head %}{% endblock %}
 
     {% block opengraph %}
@@ -28,7 +30,10 @@
 </head>
 <body>
 
+<bde-mobile-header aside-target=".main-aside" class="page-header">{% block header %}{% endblock %}</bde-mobile-header>
+
 <aside class="main-aside">
+    <bde-class-switcher class="mobile-close" target=".main-aside" target-class="activated"></bde-class-switcher>
     <header class="main-header">
         <a href="/">
             <img src="{% static "img/logo.jpg" %}" alt="BDE Cesi Lyon"/>
@@ -86,6 +91,20 @@
     {% block body %}
     {% endblock %}
 </section>
+
+<script>
+    (() => {
+        let header = document.querySelector(".page-header")
+        let body = document.querySelector(".main-body")
+
+        resizePadding()
+        window.addEventListener("resize",resizePadding)
+
+        function resizePadding(){
+            body.style.paddingTop = `${header.getBoundingClientRect().height}px`
+        }
+    })()
+</script>
 
 </body>
 </html>

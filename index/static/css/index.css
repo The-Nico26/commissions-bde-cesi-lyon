@@ -1,0 +1,152 @@
+.jumbo {
+    width: 100%;
+    padding: 0 10vw;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: rgba(255,255,255,0.9);
+
+    background-image: url("/static/img/cesi.png");
+    background-position: bottom;
+    background-size: cover;
+}
+
+.jumbo > * {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.jumbo .jumbo-title {
+    font-size: 45px;
+    font-family: var(--title-fonts);
+}
+
+.jumbo .title-wrapper {
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jumbo .jumbo-content {
+    font-family: var(--paragraph-fonts);
+    font-size: 20px;
+    line-height: 125%;
+}
+
+.jumbo .buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.jumbo .buttons > * {
+    margin: 5px;
+}
+
+.jumbo .buttons .button {
+    border: 2px rgba(255,255,255,0.7) solid;
+    background: transparent;
+    border-radius: 5px;
+    color: rgba(255,255,255,0.9);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.jumbo .buttons .button.primary {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+}
+
+.jumbo .buttons .button:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.jumbo .buttons .button.primary:hover {
+    background-color: var(--primary-color);
+}
+
+@media screen and (max-width: 800px) {
+    .jumbo {
+        padding: 0 5vw;
+    }
+
+    .jumbo h2 {
+        font-size: 30px;
+        font-family: var(--title-fonts);
+    }
+
+    .jumbo p {
+        font-family: var(--paragraph-fonts);
+        font-size: 18px;
+    }
+
+    .jumbo .buttons {
+        flex-direction: column;
+    }
+}
+
+.content-shelf {
+    margin: 25px 5vw 75px;
+}
+
+.shelf-title {
+    width: 100%;
+    font-family: var(--title-fonts);
+    font-size: 35px;
+    margin-bottom: 20px;
+    margin-left: 2vw;
+}
+
+.shelf-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.shelf-content > * {
+    margin: 10px;
+    width: auto;
+}
+
+.more-card {
+    width: 200px;
+    height: 200px;
+    margin: 50px;
+}
+
+.more-card .more {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    font-size: 18px;
+    text-align: center;
+    padding: 25px;
+    opacity: 0.7;
+}
+
+.more-card bde-icon {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 800px) {
+
+    .shelf-title {
+        text-align: center;
+        font-size: 25px;
+    }
+
+    .shelf-content {
+        justify-content: center;
+    }
+}

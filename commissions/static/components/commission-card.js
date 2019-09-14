@@ -86,6 +86,10 @@
                 font-size: 15px;
                 margin-bottom: 10px;
                 font-family: sans-serif;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
     
             .meta {
@@ -102,9 +106,20 @@
             .link {
                 text-decoration: inherit;
                 color: inherit;
-                display: block;
                 width: 100%;
                 height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+            }
+            
+            .info {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+                flex: 1;
             }
             
             .tags {
@@ -150,18 +165,20 @@
                 <div class="logo">
                     <img id="logo"/>
                 </div>
-                <h4 class="name" id="name"></h4>
-        
-                <p class="short-description">
-                    <slot></slot>
-                </p>
-        
-                <div class="tags">
-                    <slot name="tags"></slot>
-                </div>
-                
-                <div class="meta">
-                    <slot name="meta"></slot>
+                <div class="info">
+                    <h4 class="name" id="name"></h4>
+            
+                    <p class="short-description">
+                        <slot></slot>
+                    </p>
+            
+                    <div class="tags">
+                        <slot name="tags"></slot>
+                    </div>
+                    
+                    <div class="meta">
+                        <slot name="meta"></slot>
+                    </div>
                 </div>
             </a>
         </bde-card>
