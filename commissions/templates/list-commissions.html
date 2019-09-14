@@ -25,13 +25,16 @@
             {% include "fragments/commission-card.html" %}
         {% endfor %}
 
-        <bde-card class="create-commission">
-            <a href="/commissions/create">
-                <div class="title">Tu ne trouves pas ce que tu cherches ?</div>
-                <span class="iconify" data-icon="mdi-creation"></span>
-                <div>Crée ta commission et soit financé !</div>
-            </a>
-        </bde-card>
+
+        {% if not user.is_authenticated or perms.commissions.add_commission %}
+            <bde-card class="create-commission">
+                <a href="/commissions/create">
+                    <div class="title">Tu ne trouves pas ce que tu cherches ?</div>
+                    <span class="iconify" data-icon="mdi-creation"></span>
+                    <div>Crée ta commission et soit financé !</div>
+                </a>
+            </bde-card>
+        {% endif %}
 
     </div>
 {% endblock %}

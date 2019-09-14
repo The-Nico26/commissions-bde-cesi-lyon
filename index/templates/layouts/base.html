@@ -70,7 +70,9 @@
     <ul class="main-nav nav">
         <li><a href="/commissions" class="clickable">Commissions</a></li>
         <!--<li><a href="#" class="clickable">Financement</a></li>-->
-        <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
+        {% if not user.is_authenticated or perms.commissions.add_commission %}
+            <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
+        {% endif %}
     </ul>
     {% if userCommissions %}
         <div class="separator"></div>
