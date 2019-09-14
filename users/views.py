@@ -50,6 +50,6 @@ def auth_callback(request):
 
 @login_required
 def logoutView(request):
-    messages.add_message(request, messages.INFO, "Au revoir {}".format(request.user.first_name))
+    messages.add_message(request, messages.SUCCESS, "À bientôt {}".format(request.user.first_name))
     logout(request)
     return redirect("/")
