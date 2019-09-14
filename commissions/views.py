@@ -18,3 +18,11 @@ def view_commission(request, slug):
     return render(request, "view_commission.html", {
         'com': com
     })
+
+
+def create_commission(request):
+
+    if not request.user.is_authenticated:
+        return render(request, "create_commission_unauthenticated.html")
+
+    return render(request, "create_commission.html")
