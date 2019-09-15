@@ -34,6 +34,27 @@ class ImageSelectorWidget(forms.FileInput):
     template_name = "widgets/image-selector.html"
 
 
+class UserSelectorWidget(forms.Select):
+
+    option_inherits_attrs = True
+    template_name = 'widgets/user-selector.html'
+
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+
+        if index > 0 and type(self.choices.queryset[index-1]) is User:
+            usr = self.choices.queryset[index-1]
+            attributes = {
+                "data-name": usr.get_full_name(),
+                "data-email": usr.email,
+            }
+            if usr.profile_picture != "":
+                attributes["data-profile-picture"] = "/media/{}".format(usr.profile_picture)
+        else:
+            attributes = None
+
+        return super().create_option(name, value, label, selected, index, subindex, attributes)
+
+
 class CreateCommissionForm(forms.Form):
     name = forms.CharField(label='Nom', max_length=100, required=True)
     short_description = forms.CharField(label='Courte description', max_length=200, required=True)
@@ -43,8 +64,8 @@ class CreateCommissionForm(forms.Form):
     banner = forms.ImageField(required=True, label='Bannière', widget=ImageSelectorWidget)
 
     has_treasurer = forms.BooleanField(label="Je suis le trésorier", widget=forms.CheckboxInput, required=False, initial=True)
-    treasurer = forms.ModelChoiceField(queryset=User.objects.all(), label='Trésorier·ere', required=False, widget=forms.Select)
+    treasurer = forms.ModelChoiceField(queryset=User.objects.all(), label='Trésorier·ere', required=False, widget=UserSelectorWidget)
     whant_substitute = forms.BooleanField(label="Je veux un·e suppléant·e", widget=forms.CheckboxInput, required=False, initial=False)
-    substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=forms.Select, required=False)
+    substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=UserSelectorWidget, required=False)
 
     description = forms.CharField(label='Description', widget=forms.Textarea, required=True)
