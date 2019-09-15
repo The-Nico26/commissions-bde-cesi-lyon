@@ -73,7 +73,7 @@
 
     min-height: 100vh;
 
-    padding-bottom: 200px;
+    padding-bottom: 100px;
 }
 
 .introduction-section .main-title, .introduction-section .motto, .end-section .main-title {
@@ -101,14 +101,56 @@
 }
 
 .introduction-section .short-explaination {
+    width: 100%;
+
     border-radius: 10px;
     background-color: #f0f0f0;
-    padding: 10px;
+    padding: 20px;
+}
+
+.introduction-section .short-explaination .definitions {
     width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.introduction-section .short-explaination .definitions > * {
+    width: 100vw;
+    max-width: 300px;
+
+    padding: 20px;
     text-align: justify;
+    margin: 10px;
+
+    position: relative;
+}
+
+.introduction-section .word {
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.introduction-section .word em {
+    font-style: italic;
+}
+
+.introduction-section .short-explaination p {
+    line-height: 125%;
+}
+
+.introduction-section .short-explaination h3 {
+    float: left;
+    font-size: 40px;
+    font-family: var(--title-fonts);
+    color: rgba(0,0,0,0.3);
 }
 
 .end-section .short-explaination {
+
     margin-bottom: 50px;
 }
 
