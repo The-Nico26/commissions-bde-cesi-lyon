@@ -5,7 +5,7 @@
         connectedCallback(){
             this.simplemde = new SimpleMDE({
                 element: this.querySelector("textarea"),
-                spellcheck: false
+                spellChecker: false
             });
         }
 

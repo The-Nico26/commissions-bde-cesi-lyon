@@ -153,16 +153,11 @@
             <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
-                    <div class="com-field-activation">
-                        {{ form.has_treasurer }}
-                        <label for="{{ form.has_treasurer.id_for_label }}">{{ form.has_treasurer.label }}</label>
-                    </div>
                     {{ form.treasurer }}
                 </div>
                 <div class="com-field-explaination">
                     <p>Le trésorier est la personne en charge de la gestion du budget de la commission. C'est le trésorier qui est en charge d'éstimer les couts, de faire des demandes de financement et de communiquer avec le BDE à propos du budget et des dépenses.</p>
                     <p>Tu peux cumuler les rôles de président et de trésorier</p>
-                    <p><strong>Pour ajouter un étudiant, il faut qu'il se soit déjà connecté une fois au site</strong></p>
                     <div class="com-field-errors">
                         {{ form.has_treasurer.errors }}
                         {{ form.treasurer.errors }}
@@ -173,16 +168,11 @@
             <div class="com-field-wrapper{% if form.substitute.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ form.substitute.id_for_label }}">{{ form.substitute.label }}</label>
-                    <div class="com-field-activation">
-                        {{ form.whant_substitute }}
-                        <label for="{{ form.whant_substitute.id_for_label }}">{{ form.whant_substitute.label }}</label>
-                    </div>
                     {{ form.substitute }}
                 </div>
                 <div class="com-field-explaination">
                     <p>Le suppléant est le remplaceant du président lorsque ce dernier n'est pas disponible.</p>
-                    <p>Il n'est pas obligatoir d'avoir un suppléant</p>
-                    <p><strong>Pour ajouter un étudiant, il faut qu'il se soit déjà connecté une fois au site</strong></p>
+                    <p>Le poste de suppléant est <strong>facultatif</strong></p>
                     <div class="com-field-errors">
                         {{ form.whant_substitute.errors }}
                         {{ form.substitute.errors }}

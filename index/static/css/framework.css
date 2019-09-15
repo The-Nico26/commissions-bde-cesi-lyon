@@ -41,7 +41,7 @@
 
 /* --------- FROMS --------------- */
 
-input:not([type="checkbox"]) {
+input:not([type="checkbox"]), .form-field {
     background: rgb(245, 245, 245);
     border: none;
     border-bottom: #d6d6d6 solid 3px;
@@ -50,10 +50,10 @@ input:not([type="checkbox"]) {
     transition: ease border-color 0.5s;
 }
 
-input:not([type="checkbox"]):focus {
+input:not([type="checkbox"]):focus, .form-field:focus {
     border-color: var(--primary-color);
 }
 
-input:not([type="checkbox"]):not(:empty):invalid {
+input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invalid {
     border-color: #9b0000;
 }

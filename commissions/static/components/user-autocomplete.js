@@ -83,12 +83,20 @@
             
             .current-user {
                 cursor: pointer;
+                width: 100%;
+            }
+            
+            .autocompletion-panel input {
+                padding-top: 15px;
+                padding-bottom: 15px;
             }
             
         </style>
     
         <div class="input-field">
-            <bde-user id="current-user" class="current-user hidden"></bde-user>
+            <div class="form-field hidden current-user" id="current-user-container">
+                <bde-user id="current-user"></bde-user>
+            </div>
             <div class="autocompletion-panel" id="panel">
                 <input type="text" id="text-field" class="hidden" placeholder="Chercher un utilisateur..."/>
                 <div class="autocomplete-content">
@@ -187,11 +195,11 @@
 
         showInput(){
                 this.textField.classList.remove("hidden")
-                this.currentUser.classList.add("hidden")
+                this.root.getElementById("current-user-container").classList.add("hidden")
         }
 
         showUser(){
-                this.currentUser.classList.remove("hidden")
+                this.root.getElementById("current-user-container").classList.remove("hidden")
                 this.textField.classList.add("hidden")
         }
 

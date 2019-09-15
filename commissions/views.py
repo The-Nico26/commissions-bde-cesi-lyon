@@ -46,13 +46,12 @@ def create_commission(request):
 
             commission.tags.set(form.cleaned_data["tags"])
 
-            if form.cleaned_data["has_treasurer"] and form.cleaned_data["treasurer"] is not None:
+            if form.cleaned_data["treasurer"] is not None:
                 commission.treasurer = form.cleaned_data["treasurer"]
             else:
                 commission.treasurer = request.user
 
-            if form.cleaned_data["whant_substitute"]:
-                commission.deputy = form.cleaned_data["substitute"]
+            commission.deputy = form.cleaned_data["substitute"]
 
             commission.president = request.user
 
@@ -63,7 +62,7 @@ def create_commission(request):
             messages.add_message(request, messages.ERROR, "Tu n'as pas correctement remplis le formulaire de creation")
 
     else:
-        form = CreateCommissionForm()
+        form = CreateCommissionForm(initial={'treasurer': request.user})
 
     return render(request, "create_commission.html", {
         'form': form
