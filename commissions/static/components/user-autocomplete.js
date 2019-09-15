@@ -2,6 +2,7 @@
 
     // language=HTML
     const TEMPLATE = `
+        <link rel="stylesheet" href="/static/css/framework.css">
         <style>
     
             :host {
