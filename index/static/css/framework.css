@@ -32,3 +32,9 @@
 .btn bde-icon:last-child {
     margin-right: -10px;
 }
+
+/*----------- EDITOR ------------*/
+
+.CodeMirror-fullscreen, .editor-toolbar.fullscreen  {
+    z-index: 2000 !important;
+}

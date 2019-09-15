@@ -55,6 +55,10 @@ class UserSelectorWidget(forms.Select):
         return super().create_option(name, value, label, selected, index, subindex, attributes)
 
 
+class MarkdownWidget(forms.Textarea):
+    template_name = 'widgets/markdown.html'
+
+
 class CreateCommissionForm(forms.Form):
     name = forms.CharField(label='Nom', max_length=100, required=True)
     short_description = forms.CharField(label='Courte description', max_length=200, required=True)
@@ -68,4 +72,4 @@ class CreateCommissionForm(forms.Form):
     whant_substitute = forms.BooleanField(label="Je veux un·e suppléant·e", widget=forms.CheckboxInput, required=False, initial=False)
     substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=UserSelectorWidget, required=False)
 
-    description = forms.CharField(label='Description', widget=forms.Textarea, required=True)
+    description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)

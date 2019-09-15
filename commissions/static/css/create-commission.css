@@ -231,21 +231,37 @@
 
 .com-field > label {
     margin-bottom: 10px;
+    font-size: 25px;
+    font-family: var(--title-fonts);
+    color: rgba(0,0,0,0.5);
 }
 
 .com-field-activation {
     margin-bottom: 25px;
 }
 
-.com-field textarea {
-    width: 100%;
-    min-height: 500px;
-    resize: none;
-}
-
 .com-field-errors {
     color: #c82600;
     font-style: italic;
+}
+
+.com-field-wrapper.vertical {
+    flex-direction: column;
+}
+
+.com-field-wrapper.vertical .com-field-explaination {
+    border-bottom: 5px solid rgba(0,0,0,0.4);
+    border-left: none;
+}
+
+.com-field-wrapper.vertical .com-field {
+    padding-right: 0;
+    padding-top: 50px;
+    padding-bottom: 25px;
+}
+
+.com-field-wrapper.vertical .com-field > * {
+    width: 100%;
 }
 
 @media screen and (max-width: 800px) {
