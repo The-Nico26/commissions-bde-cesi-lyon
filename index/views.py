@@ -8,7 +8,7 @@ from commissions.models import Tag
 
 def index(request):
 
-    commissions = Commission.objects.order_by("-creation_date")
+    commissions = Commission.objects.order_by("-creation_date").filter(is_active=True)
 
     # Get the 5 latest commissions created
     latest_commissions = commissions[:5]

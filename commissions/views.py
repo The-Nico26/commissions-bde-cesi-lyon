@@ -5,7 +5,7 @@ from django.contrib import messages
 
 def list_commissions(request):
 
-    commissions = Commission.objects.order_by("-creation_date")
+    commissions = Commission.objects.order_by("-creation_date").order_by("-is_active")
 
     return render(request, "list-commissions.html", {
         "commissions": commissions
