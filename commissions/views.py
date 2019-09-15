@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, get_object_or_404, redirect
 from commissions.models import Commission
-
+from commissions.forms import CreateCommissionForm
+from django.contrib import messages
 
 def list_commissions(request):
 
@@ -25,4 +25,46 @@ def create_commission(request):
     if not request.user.is_authenticated:
         return render(request, "create_commission_unauthenticated.html")
 
-    return render(request, "create_commission.html")
+    if not request.user.has_perm("commissions.add_commission"):
+        messages.add_message(request,messages.ERROR,"Tu n'est pas autorisé à créer une commission, désolé...")
+        return redirect("/")
+
+    if request.method == "POST":
+        form = CreateCommissionForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            commission = Commission()
+
+            commission.name = form.cleaned_data["name"]
+            commission.short_description = form.cleaned_data["short_description"]
+            commission.logo = form.cleaned_data["logo"]
+            commission.banner = form.cleaned_data["banner"]
+            commission.description = form.cleaned_data["description"]
+
+            commission.save()
+
+            commission.tags.set(form.cleaned_data["tags"])
+
+            if form.cleaned_data["has_treasurer"] and form.cleaned_data["treasurer"] is not None:
+                commission.treasurer = form.cleaned_data["treasurer"]
+            else:
+                commission.treasurer = request.user
+
+            if form.cleaned_data["whant_substitute"]:
+                commission.deputy = form.cleaned_data["substitute"]
+
+            commission.president = request.user
+
+            commission.save()
+
+            return redirect("/commissions/{}".format(commission.slug))
+        else:
+            messages.add_message(request, messages.ERROR, "Tu n'as pas correctement remplis le formulaire de creation")
+
+    else:
+        form = CreateCommissionForm()
+
+    return render(request, "create_commission.html", {
+        'form': form
+    })

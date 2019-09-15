@@ -14,6 +14,8 @@
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
         <a href="#" class="com-progress-element" data-referer="basis-section">Bases</a>
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
+        <a href="#" class="com-progress-element" data-referer="images-section">Illustration</a>
+        <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
         <a href="#" class="com-progress-element" data-referer="members-section">Membres</a>
         <div class="com-progress-separator"><bde-icon icon="mdi-chevron-right"></bde-icon></div>
         <a href="#" class="com-progress-element" data-referer="description-section">Description</a>
@@ -27,7 +29,9 @@
 
 {% block body %}
 
-    <form method="post" class="com-form" id="com-form">
+    <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
+
+        {% csrf_token %}
 
         <div class="com-form-section introduction-section" id="introduction-section">
 
@@ -39,22 +43,184 @@
 
             <p class="short-explaination">Une commission est un groupe d'étudiants du CESI qui organise des activités autour d'un thème commun.</p>
 
+            {{ form.non_field_errors }}
+
         </div>
 
         <div class="com-form-section" id="basis-section">
-            <h2 class="section-title">Les bases</h2>
+
+            <div class="com-field-wrapper{% if form.name.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Donnes un nom qui claque à ta commission !</p>
+                    <div class="com-examples">
+                        <h4>Exemples</h4>
+                        <ul>
+                            <li>Club de plongée</li>
+                            <li>Cesi-crèpes</li>
+                            <li>Les Globetrotters</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.name.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.short_description.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.short_description.id_for_label }}">{{ form.short_description.label }}</label>
+                    {{ form.short_description }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>La courte description est une sorte de slogan pour ta commission... Elle sera affiché sur la page d'acceuil, sur la liste des commissions, etc.</p>
+                    <p>Soit bref, synthetique et créatif !</p>
+                    <div class="com-examples">
+                        <h4>Exemples</h4>
+                        <ul>
+                            <li>Le club des adorateurs du pastafarisme</li>
+                            <li>Viens t'entrainer au moulage de sushi avec nous !</li>
+                            <li>Exploration, Urbex et Barbecue entre amis</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.short_description.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.tags.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.tags.id_for_label }}">{{ form.tags.label }}</label>
+                    {{ form.tags }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Selectionne jusqu'à 3 Tags qui représentent ta commission. Cela permet de trier et de recommander les commissions aux autres étuidiants</p>
+                    <div class="com-field-errors">
+                        {{ form.tags.errors }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="com-form-section" id="images-section">
+
+            <div class="com-field-wrapper{% if form.logo.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.logo.id_for_label }}">{{ form.logo.label }}</label>
+                    {{ form.logo }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Il est temps de donner à ta commission une belle apparence ! Ajoute un logo pour attirer les étudant et représenter ta commission.</p>
+                    <p>Le logo sera utilisé dans des cadres carrés et pourra être redimentionné si besoin</p>
+                    <div class="com-field-errors">
+                        {{ form.logo.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.banner.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
+                    {{ form.banner }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>La bannière permet de donner une image plus sympatique de la page de présentation de ta commission. Elle est affichée derrère le logo.</p>
+                    <p>La bannière sera utilisée dans des cadres plus larges que haut et pourrait être redimentionnée si besoin</p>
+                    <div class="com-field-errors">
+                        {{ form.banner.errors }}
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="com-form-section" id="members-section">
-            <h2 class="section-title">Les membres</h2>
+
+            <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
+                <div class="com-field">
+                    <div class="com-field-activation">
+                        {{ form.has_treasurer }}
+                        <label for="{{ form.has_treasurer.id_for_label }}">{{ form.has_treasurer.label }}</label>
+                    </div>
+                    <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
+                    {{ form.treasurer }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Le trésorier est la personne en charge de la gestion du budget de la commission. C'est le trésorier qui est en charge d'éstimer les couts, de faire des demandes de financement et de communiquer avec le BDE à propos du budget et des dépenses.</p>
+                    <p>Tu peux cumuler les rôles de président et de trésorier</p>
+                    <p><strong>Pour ajouter un étudiant, il faut qu'il se soit déjà connecté une fois au site</strong></p>
+                    <div class="com-field-errors">
+                        {{ form.has_treasurer.errors }}
+                        {{ form.treasurer.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.substitute.errors %} error{% endif %}">
+                <div class="com-field">
+                    <div class="com-field-activation">
+                        {{ form.whant_substitute }}
+                        <label for="{{ form.whant_substitute.id_for_label }}">{{ form.whant_substitute.label }}</label>
+                    </div>
+                    <label for="{{ form.substitute.id_for_label }}">{{ form.substitute.label }}</label>
+                    {{ form.substitute }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Le suppléant est le remplaceant du président lorsque ce dernier n'est pas disponible.</p>
+                    <p>Il n'est pas obligatoir d'avoir un suppléant</p>
+                    <p><strong>Pour ajouter un étudiant, il faut qu'il se soit déjà connecté une fois au site</strong></p>
+                    <div class="com-field-errors">
+                        {{ form.whant_substitute.errors }}
+                        {{ form.substitute.errors }}
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="com-form-section" id="description-section">
-            <h2 class="section-title">La description</h2>
+            <div class="com-field-wrapper{% if form.description.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                    {{ form.description }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>La description de la commission est un élément important de sa présentation. Tu peux y décrire les activités, les projet, les membres, les valeurs et tout autre éléméent en rapport avec la commission. Cette description est la première impression que les étudiants aurons de ta commission, soigne la bien.</p>
+                    <p>Tu peux formater ta description en utilisant le langage <a
+                            href="https://blog.wax-o.com/2014/04/tutoriel-un-guide-pour-bien-commencer-avec-markdown/">Markdown</a></p>
+                    <div class="com-examples">
+                        <h4>Aide</h4>
+                        <ul>
+                            <li><code># Titre 1</code> Titre de première importance</li>
+                            <li><code>## Titre 2</code> Titre de deuxième importance</li>
+                            <li><code>*text*</code> En italique</li>
+                            <li><code>**texte**</code> En gras</li>
+                            <li>Laisse une ligne blanche pour passer un paragraphe</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.description.errors }}
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="com-form-section" id="end-section">
-            <h2 class="section-title">Félicitations</h2>
+        <div class="com-form-section end-section" id="end-section">
+
+            <div class="icon"><bde-icon icon="mdi-creation"></bde-icon></div>
+
+            <h1 class="main-title">C'est parti&nbsp;!</h1>
+
+            <p class="short-explaination">Clique sur le bouton ci-dessous pour créer ta commission maintenant !</p>
+
+            <button class="btn btn-rainbow">Créer ma commission <bde-icon icon="ion-ios-rocket"></bde-icon></button>
+
         </div>
 
     </form>
