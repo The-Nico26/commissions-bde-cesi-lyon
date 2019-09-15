@@ -31,7 +31,9 @@
         <p class="jumbo-content" >Tu peux dès maintenant créer ta commission et être financés par le BDE pour toutes les activités de la vie associative ! Soit créatif, tout est permis !</p>
         <div class="buttons">
             <a class="button primary" href="/commissions">Parcourir les commissions</a>
-            <a class="button" href="/commissions/create">Créer une commission</a>
+            {% if not user.is_authenticated or perms.commissions.add_commission %}
+                <a class="button" href="/commissions/create">Créer une commission</a>
+            {% endif %}
         </div>
     </div>
     <div class="content-shelf">

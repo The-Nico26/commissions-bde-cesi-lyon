@@ -1,0 +1,59 @@
+.btn {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: var(--on-primary-color);
+    background-color: var(--primary-color);
+}
+
+.btn-rainbow {
+    color: var(--on-primary-color);
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+.btn-primary:disabled {
+    cursor: default;
+    background: rgba(56,56,56,0.8);
+    opacity: 0.7;
+}
+
+.btn bde-icon {
+    height: 25px;
+}
+
+.btn bde-icon:last-child {
+    margin-right: -10px;
+}
+
+/*----------- EDITOR ------------*/
+
+.CodeMirror-fullscreen, .editor-toolbar.fullscreen  {
+    z-index: 2000 !important;
+}
+
+/* --------- FROMS --------------- */
+
+input:not([type="checkbox"]), .form-field {
+    background: rgb(245, 245, 245);
+    border: none;
+    border-bottom: #d6d6d6 solid 3px;
+    border-radius: 5px 5px 0 0;
+    padding: 5px 10px;
+    transition: ease border-color 0.5s;
+}
+
+input:not([type="checkbox"]):focus, .form-field:focus {
+    border-color: var(--primary-color);
+}
+
+input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invalid {
+    border-color: #9b0000;
+}

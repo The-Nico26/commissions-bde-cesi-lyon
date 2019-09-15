@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static "css/vars.css" %}"/>
     <link rel="stylesheet" href="{% static "css/reset.css" %}"/>
     <link rel="stylesheet" href="{% static "css/base.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/framework.css" %}"/>
 
     <script src="{% static "components/notifications.js" %}"></script>
     <script src="{% static "components/icon.js" %}"></script>
@@ -70,7 +71,9 @@
     <ul class="main-nav nav">
         <li><a href="/commissions" class="clickable">Commissions</a></li>
         <!--<li><a href="#" class="clickable">Financement</a></li>-->
-        <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
+        {% if not user.is_authenticated or perms.commissions.add_commission %}
+            <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
+        {% endif %}
     </ul>
     {% if userCommissions %}
         <div class="separator"></div>
