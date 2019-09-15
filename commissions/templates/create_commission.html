@@ -152,11 +152,11 @@
 
             <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
                 <div class="com-field">
+                    <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
                     <div class="com-field-activation">
                         {{ form.has_treasurer }}
                         <label for="{{ form.has_treasurer.id_for_label }}">{{ form.has_treasurer.label }}</label>
                     </div>
-                    <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
                     {{ form.treasurer }}
                 </div>
                 <div class="com-field-explaination">
@@ -172,11 +172,11 @@
 
             <div class="com-field-wrapper{% if form.substitute.errors %} error{% endif %}">
                 <div class="com-field">
+                    <label for="{{ form.substitute.id_for_label }}">{{ form.substitute.label }}</label>
                     <div class="com-field-activation">
                         {{ form.whant_substitute }}
                         <label for="{{ form.whant_substitute.id_for_label }}">{{ form.whant_substitute.label }}</label>
                     </div>
-                    <label for="{{ form.substitute.id_for_label }}">{{ form.substitute.label }}</label>
                     {{ form.substitute }}
                 </div>
                 <div class="com-field-explaination">
