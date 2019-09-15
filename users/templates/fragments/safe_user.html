@@ -4,7 +4,7 @@
             role="{{role}}"
         {% endif %}
 
-        {% if user.profile_picture is not None %}
+        {% if user.profile_picture is not None and user.profile_picture != "" %}
             image-src="/media/{{ user.profile_picture }}"
         {% endif %}
 

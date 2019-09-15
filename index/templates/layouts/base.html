@@ -100,6 +100,11 @@
             <li><a href="#">Status</a></li>
             <li><a href="#">Reglement intérieur</a></li>
         </ul>
+        {% if user.is_staff %}
+        <ul>
+            <li><a href="/admin">Administration avancée</a></li>
+        </ul>
+        {% endif %}
     </footer>
 </aside>
 <section class="main-body">
