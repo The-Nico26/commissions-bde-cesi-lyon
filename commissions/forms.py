@@ -80,6 +80,16 @@ class EditCommissionForm(ModelForm):
     class Meta:
         model = Commission
         fields = ['name', 'description', 'short_description', 'tags']
+        labels = {
+            "name": "Nom",
+            "short_description": "Courte description",
+            "description": "Description",
+            "tags": "Tags"
+        }
+        widgets = {
+            'tags': TagSelectorWidget(max_selection=3),
+            'description': MarkdownWidget
+        }
 
 
 class EditLogoForm(forms.Form):

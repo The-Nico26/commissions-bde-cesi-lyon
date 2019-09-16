@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from commissions.models import Commission
 from commissions.forms import CreateCommissionForm, EditCommissionForm
 from django.contrib import messages
+from commissions.models import Tag
 from django.forms.models import model_to_dict
 
 def list_commissions(request):
@@ -34,6 +35,9 @@ def edit_commission(request, slug):
     com = get_object_or_404(Commission, slug=slug)
 
     edit_form = EditCommissionForm(request.POST or None, instance=com)
+
+    # Put the queryset back on the form
+    edit_form.fields["tags"].queryset = Tag.objects.all()
 
     if edit_form.is_valid():
         edit_form.save()
