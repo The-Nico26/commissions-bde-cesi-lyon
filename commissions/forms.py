@@ -71,3 +71,11 @@ class CreateCommissionForm(forms.Form):
     substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=UserSelectorWidget, required=False)
 
     description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)
+
+
+class EditCommissionForm(forms.Form):
+    name = forms.CharField(label='Nom', max_length=100, required=True)
+    short_description = forms.CharField(label='Courte description', max_length=100, required=True)
+    tags = forms.ModelMultipleChoiceField(label='Tags', queryset=Tag.objects.all(), to_field_name="name", widget=TagSelectorWidget(max_selection=3), required=False)
+
+    description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)

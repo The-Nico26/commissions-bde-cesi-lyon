@@ -80,7 +80,7 @@
     {% endif %}
     <ul class="nav">
         {% for com in userCommissions %}
-            <li><a href="/commissions/{{ com.slug }}" class="clickable small-commission">
+            <li><a href="/commissions/{{ com.slug }}/manage" class="clickable small-commission">
                 <div class="small-commission-logo"><img src="/media/{{ com.logo }}"/></div>
                 <div class="small-commission-info">{{com.name}}</div>
             </a></li>

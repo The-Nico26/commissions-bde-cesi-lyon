@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from commissions.models import Commission
-from commissions.forms import CreateCommissionForm
+from commissions.forms import CreateCommissionForm, EditCommissionForm
 from django.contrib import messages
 
 def list_commissions(request):
@@ -17,6 +17,22 @@ def view_commission(request, slug):
 
     return render(request, "view_commission.html", {
         'com': com
+    })
+
+
+def edit_commission(request, slug):
+    com = get_object_or_404(Commission, slug=slug)
+
+    edit_form = EditCommissionForm(initial={
+        "name": com.name,
+        "short_description": com.short_description,
+        "tags": com.tags,
+        "description": com.description,
+    })
+
+    return render(request, "edit_commission.html", {
+        'com': com,
+        "edit_form": edit_form
     })
 
 

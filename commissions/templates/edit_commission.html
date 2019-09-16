@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Gerer {{ com.name }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/framework.css" %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" ></script>
+    <script src="{% static "components/tag-selector.js" %}"></script>
+    <script src="{% static "components/markdown.js" %}"></script>
+    <script src="{% static "components/image-selector.js" %}"></script>
+    <script src="{% static "components/tag.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+    {{edit_form}}
+{% endblock %}
