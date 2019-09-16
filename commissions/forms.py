@@ -80,3 +80,11 @@ class EditCommissionForm(ModelForm):
     class Meta:
         model = Commission
         fields = ['name', 'description', 'short_description', 'tags']
+
+
+class EditLogoForm(forms.Form):
+    logo = forms.ImageField(required=True, label='Logo', widget=ImageSelectorWidget)
+
+
+class EditBannerForm(forms.Form):
+    banner = forms.ImageField(required=True, label='Bannière', widget=ImageSelectorWidget)
