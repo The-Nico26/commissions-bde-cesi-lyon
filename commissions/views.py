@@ -57,6 +57,8 @@ def create_commission(request):
 
             commission.save()
 
+            messages.add_message(request, messages.SUCCESS, "Youhou ! Ta commission {} à bien été crée ! Amuses toi bien".format(commission.name))
+
             return redirect("/commissions/{}".format(commission.slug))
         else:
             messages.add_message(request, messages.ERROR, "Tu n'as pas correctement remplis le formulaire de creation")
