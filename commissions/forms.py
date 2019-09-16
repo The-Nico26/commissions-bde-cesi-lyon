@@ -2,6 +2,9 @@ from django import forms
 
 from commissions.models import Tag
 from commissions.models import User
+from commissions.models import Commission
+from django.forms import ModelForm
+
 
 class TagSelectorWidget(forms.SelectMultiple):
 
@@ -73,9 +76,7 @@ class CreateCommissionForm(forms.Form):
     description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)
 
 
-class EditCommissionForm(forms.Form):
-    name = forms.CharField(label='Nom', max_length=100, required=True)
-    short_description = forms.CharField(label='Courte description', max_length=100, required=True)
-    tags = forms.ModelMultipleChoiceField(label='Tags', queryset=Tag.objects.all(), to_field_name="name", widget=TagSelectorWidget(max_selection=3), required=False)
-
-    description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)
+class EditCommissionForm(ModelForm):
+    class Meta:
+        model = Commission
+        fields = ['name', 'description', 'short_description', 'tags']
