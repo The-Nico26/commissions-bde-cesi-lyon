@@ -84,3 +84,6 @@ class Commission(models.Model):
         ) or (
             self.deputy is not None and request.user.get_username() == self.deputy.get_username()
         ))
+
+    def has_change_members_permission(self, request):
+        return self.is_active and request.user.get_username() == self.president.get_username()

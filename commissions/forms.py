@@ -92,6 +92,20 @@ class EditCommissionForm(ModelForm):
         }
 
 
+class EditCommissionMembersForm(ModelForm):
+    class Meta:
+        model = Commission
+        fields = ['deputy', 'treasurer']
+        labels = {
+            'deputy': "Trésorier·ere",
+            'treasurer': "Suppléant·e"
+        }
+        widgets = {
+            'treasurer': UserSelectorWidget,
+            'deputy': UserSelectorWidget
+        }
+
+
 class EditLogoForm(forms.Form):
     logo = forms.ImageField(required=True, label='Logo', widget=ImageSelectorWidget)
 
