@@ -17,7 +17,8 @@ def view_commission(request, slug):
     com = get_object_or_404(Commission, slug=slug)
 
     return render(request, "view_commission.html", {
-        'com': com
+        'com': com,
+        'can_manage': com.has_change_permission(request)
     })
 
 
