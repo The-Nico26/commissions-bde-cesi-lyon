@@ -66,6 +66,17 @@
     margin-left: 35px;
 }
 
+.manage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.manage bde-icon {
+    margin-right: 5px;
+}
+
 .commission-header .info .commission-name {
     font-size: 55px;
     font-family: var(--title-fonts);
