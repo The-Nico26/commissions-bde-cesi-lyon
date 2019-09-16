@@ -14,5 +14,9 @@
 {% endblock %}
 
 {% block body %}
+    <form method="post">
+    {% csrf_token %}
     {{edit_form}}
+    <button>Modifier</button>
+    </form>
 {% endblock %}
