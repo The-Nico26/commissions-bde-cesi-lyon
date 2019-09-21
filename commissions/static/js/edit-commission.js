@@ -24,7 +24,6 @@
     }
 
     function enableSave(){
-        console.log("Enabled")
         if(submitButton.disabled)
             submitButton.parentElement.pulse()
         submitButton.disabled = false

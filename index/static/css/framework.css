@@ -16,16 +16,23 @@
     border: none;
 }
 
+.btn-danger {
+    color: white;
+    background-color: #ff3c38;
+    border-color: #892323;
+}
+
 .btn-rainbow {
     color: var(--on-primary-color);
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: none;
 }
 
-.btn-primary:disabled {
+.btn-primary:disabled, .btn-danger:disabled {
     cursor: default;
     background: rgba(56,56,56,0.8);
     opacity: 0.7;
+    border-color: #373737;
 }
 
 .btn bde-icon {
@@ -233,4 +240,16 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
         padding-top: 50px;
         padding-bottom: 25px;
     }
+}
+
+/*------------- MODAL --------------- */
+
+.modal-content {
+    padding: 15px;
+}
+
+.modal-title {
+    font-family: var(--title-fonts);
+    font-size: 30px;
+    margin: 20px 0;
 }

@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="{% static "css/manage-commission.css" %}">
     <script src="{% static "components/pulse.js" %}"></script>
     <script src="{% static "components/user-autocomplete.js" %}"></script>
-    <script src="{% static "js/edit-commission.js" %}"></script>
+    <script src="{% static "components/modal.js" %}"></script>
+    <script src="{% static "components/icon.js" %}"></script>
+    <script src="{% static "js/edit-members-commission.js" %}"></script>
 {% endblock %}
 
 {% block header %}
@@ -79,7 +81,7 @@
                 </div>
                 <div class="com-field-explaination">
                     <p>Le président est le grand chef de la commission, c'est l'instigateur du projet et responsable des activités qui sont organisées</p>
-                    <p><strong>Si vous changez de président vous passez le pouvoir de cette commission au nouveau président</strong></p>
+                    <p><strong>Si tu changes de président tu passes le pouvoir de cette commission au nouveau président</strong></p>
                     <div class="com-field-errors">
                         {{ form.president.errors }}
                     </div>
@@ -88,6 +90,25 @@
         </div>
 
         </form>
+
+        <bde-modal id="president-changed-modal" data-initialpresident="{{ form.president.value }}">
+            <div class="danger-area modal-content president-changed-modal">
+                <h3 class="modal-title">Passation de pouvoirs</h3>
+                <p>Tu as changé le président de cette commission. Cela signifie qui tu éfféctue une passation de pouvoir de l'ensemble de la direction de la commission <strong id="commission-name">{{com.name}}</strong> à <strong id="new-president">Jhon Doe</strong>.</p>
+                <p>Cette personne disposera des pleins pouvoirs de modification de la commissions et de ses membres. Elle sera aussi reconnue comme président au yeux du BDE et sera responsable de la commission.</p>
+                <p>Apres cette action, tu n'aura plus accès à cette page et tu perdra tes pouvoirs de président</p>
+                <p>Est tu sûr de vouloir effectuer une passation de pouvoirs ? Si oui, écrit le nom de la commission en entier dans le champ ci-dessous pour valider l'action.</p>
+
+                <input type="text" id="validation-form" placeholder="Nom de la commission" autocomplete="off" value=""/>
+
+                <div class="toolbar">
+                    <button class="btn btn-danger" id="modal-submit" disabled>Passation de pouvoirs</button>
+                    <button class="btn" id="modal-cancel">Annuler</button>
+                </div>
+
+            </div>
+        </bde-modal>
+
     </div>
 
 {% endblock %}
