@@ -2,6 +2,9 @@ from django import forms
 
 from commissions.models import Tag
 from commissions.models import User
+from commissions.models import Commission
+from django.forms import ModelForm
+
 
 class TagSelectorWidget(forms.SelectMultiple):
 
@@ -71,3 +74,39 @@ class CreateCommissionForm(forms.Form):
     substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=UserSelectorWidget, required=False)
 
     description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)
+
+
+class EditCommissionForm(ModelForm):
+    class Meta:
+        model = Commission
+        fields = ['name', 'description', 'short_description', 'tags', 'logo', 'banner']
+        labels = {
+            "name": "Nom",
+            "short_description": "Courte description",
+            "description": "Description",
+            "tags": "Tags",
+            "logo": "Logo",
+            "banner": "Bannière"
+        }
+        widgets = {
+            'tags': TagSelectorWidget(max_selection=3),
+            'description': MarkdownWidget,
+            'logo': ImageSelectorWidget(attrs={"data-description": "Changer le logo"}),
+            'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"}),
+        }
+
+
+class EditCommissionMembersForm(ModelForm):
+    class Meta:
+        model = Commission
+        fields = ['deputy', 'treasurer', 'president']
+        labels = {
+            'treasurer': "Trésorier·ere",
+            'deputy': "Suppléant·e",
+            'president': "Président·e"
+        }
+        widgets = {
+            'treasurer': UserSelectorWidget,
+            'deputy': UserSelectorWidget,
+            'president': UserSelectorWidget
+        }

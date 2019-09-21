@@ -133,6 +133,16 @@ body {
     -webkit-background-clip: border-box;
 }
 
+.main-aside .active {
+    border-right: solid 5px var(--primary-color);
+    background: rgba(0,0,0,0.1);
+}
+
+.main-aside .rainbow.active {
+    border-color: var(--secondary-color);
+}
+
+
 .auth-panel.unauthenticated {
     padding: 10px;
 }
@@ -195,6 +205,7 @@ body {
     position: fixed;
     bottom: 0;
     right: 0;
+    z-index: 5000;
 }
 
 @media screen and (max-width: 1200px) {

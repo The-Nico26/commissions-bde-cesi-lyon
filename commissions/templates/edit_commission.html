@@ -1,0 +1,123 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Gerer {{ com.name }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/framework.css" %}">
+    <link rel="stylesheet" href="{% static "css/manage-commission.css" %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" ></script>
+    <script src="{% static "components/tag-selector.js" %}"></script>
+    <script src="{% static "components/markdown.js" %}"></script>
+    <script src="{% static "components/image-selector.js" %}"></script>
+    <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/pulse.js" %}"></script>
+    <script src="{% static "js/edit-commission.js" %}"></script>
+{% endblock %}
+
+{% block header %}
+    <div class="com-toolbar">
+        <a class="btn see-com" href="/commissions/{{ com.slug }}">Voir la commission</a>
+        <div class="separator"></div>
+        {% if can_change_member %}
+        <a class="btn" href="/commissions/{{ com.slug }}/manage/members" >Membres</a>
+        {% endif %}
+        <bde-pulse>
+            <button class="btn btn-primary" id="save-button" disabled>Enregistrer</button>
+        </bde-pulse>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="manage-body">
+        <div class="banner">
+            <img src="/media/{{ com.banner }}" alt="Bannière de {{ com.name }}" />
+        </div>
+        <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <header class="commission-header">
+                <div class="logo">
+                    <img src="/media/{{ com.logo }}" alt="Logo de {{ com.name }}">
+                    {{ edit_form.logo }}
+                </div>
+                <div class="rest">
+                    {{ edit_form.banner }}
+                </div>
+            </header>
+
+            <div class="com-field-errors">
+                {{ edit_form.non_field_errors }}
+                {% if edit_form.logo.errors %}
+                    <h3>Logo :</h3>
+                    {{ edit_form.logo.errors }}
+                {% endif %}
+                {% if edit_form.banner.errors %}
+                    <h3>Bannière :</h3>
+                    {{ edit_form.banner.errors }}
+                {% endif %}
+            </div>
+
+            <div class="com-field-wrapper{% if edit_form.name.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ edit_form.name.id_for_label }}">{{ edit_form.name.label }}</label>
+                    <div class="com-field-errors">
+                        {{ edit_form.name.errors }}
+                    </div>
+                    {{ edit_form.name }}
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if edit_form.short_description.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ edit_form.short_description.id_for_label }}">{{ edit_form.short_description.label }}</label>
+                    <div class="com-field-errors">
+                        {{ edit_form.short_description.errors }}
+                    </div>
+                    {{ edit_form.short_description }}
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if edit_form.tags.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ edit_form.tags.id_for_label }}">{{ edit_form.tags.label }}</label>
+                    <div class="com-field-errors">
+                        {{ edit_form.tags.errors }}
+                    </div>
+                    {{ edit_form.tags }}
+                </div>
+            </div>
+
+            <div class="vertical com-field-wrapper{% if edit_form.description.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ edit_form.description.id_for_label }}">{{ edit_form.description.label }}</label>
+                    <div class="com-field-errors">
+                        {{ edit_form.tags.description }}
+                    </div>
+                    {{ edit_form.description }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Tu peux formater ta description en utilisant le langage <a
+                            href="https://simplemde.com/markdown-guide">Markdown</a></p>
+                    <div class="com-examples">
+                        <h4>Aide</h4>
+                        <ul>
+                            <li><code># Titre 1</code> Titre de première importance</li>
+                            <li><code>## Titre 2</code> Titre de deuxième importance</li>
+                            <li><code>*text*</code> En italique</li>
+                            <li><code>**texte**</code> En gras</li>
+                            <li>Laisse une ligne blanche pour passer un paragraphe</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ edit_form.description.errors }}
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

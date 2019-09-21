@@ -22,14 +22,15 @@
             }
             
             .drop-area {
-                color: rgba(0,0,0,0.3);
+                color: rgba(0,0,0,0.5);
                 border: 5px dashed currentColor;
                 border-radius: 10px;
                 
                 background: transparent;
                 
                 width: 100%;
-                height: 200px;
+                height: 100%;
+                max-height: 200px;
                 
                 display: flex;
                 justify-content: center;
@@ -61,7 +62,7 @@
                 <div class="icon">
                     <bde-icon icon="mdi-image"></bde-icon>
                 </div>
-                <p>Clique ou glisse une image ici pour l'importer</p>
+                <p id="description" >Clique ou glisse une image ici pour l'importer</p>
             </div>
         </button>
     `
@@ -104,6 +105,11 @@
                 this.handleDrop(e)
             })
 
+            if(this.fieldEl.hasAttribute("data-description")){
+                this.root.getElementById("description").innerHTML =
+                    this.fieldEl.getAttribute("data-description")
+            }
+
             this.updateImage()
         }
 
@@ -141,7 +147,7 @@
             if(e.dataTransfer.files.length === 1){
                 this.fieldEl.value = ""
                 this.fieldEl.files = e.dataTransfer.files
-                this.updateImage()
+                this.fieldEl.dispatchEvent(new Event("change"))
             }
         }
     })

@@ -186,6 +186,7 @@
                     this.currentUser.imageSrc = ""
                 }
                 this.currentUser.role = selectedOption.getAttribute("data-email")
+                this.textField.value = selectedOption.getAttribute("data-email")
                 this.showUser()
             } else {
                 this.showInput()
@@ -218,7 +219,7 @@
             } else {
                 this.fieldEl.value = ""
             }
-            this.updateInput()
+            this.fieldEl.dispatchEvent(new Event("change"))
         }
 
         updateAutocomplete() {
