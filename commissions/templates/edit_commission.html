@@ -12,6 +12,7 @@
     <script src="{% static "components/markdown.js" %}"></script>
     <script src="{% static "components/image-selector.js" %}"></script>
     <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/pulse.js" %}"></script>
     <script src="{% static "js/edit-commission.js" %}"></script>
 {% endblock %}
 
@@ -20,7 +21,9 @@
         <a class="btn see-com" href="/commissions/{{ com.slug }}">Voir la commission</a>
         <div class="separator"></div>
         <a class="btn" >Membres</a>
-        <button class="btn btn-primary" id="save-button" disabled>Enregistrer</button>
+        <bde-pulse>
+            <button class="btn btn-primary" id="save-button" disabled>Enregistrer</button>
+        </bde-pulse>
     </div>
 {% endblock %}
 

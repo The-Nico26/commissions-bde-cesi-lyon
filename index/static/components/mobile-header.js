@@ -53,8 +53,7 @@
                 display: flex;
                 justify-content: right;
                 align-items: center;
-                overflow-x: auto;
-                overflow-y: hidden;
+                overflow: visible;
             }
             
             .menu-activator {
