@@ -1,0 +1,93 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Gerer {{ com.name }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/framework.css" %}">
+    <link rel="stylesheet" href="{% static "css/manage-commission.css" %}">
+    <script src="{% static "components/pulse.js" %}"></script>
+    <script src="{% static "components/user-autocomplete.js" %}"></script>
+    <script src="{% static "js/edit-commission.js" %}"></script>
+{% endblock %}
+
+{% block header %}
+    <div class="com-toolbar">
+        <a class="btn see-com" href="/commissions/{{ com.slug }}">Voir la commission</a>
+        <div class="separator"></div>
+        <a class="btn" href="/commissions/{{ com.slug }}/manage" >Général</a>
+        <bde-pulse>
+            <button class="btn btn-primary" id="save-button" disabled>Enregistrer</button>
+        </bde-pulse>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="manage-body">
+        <div class="banner">
+            <img src="/media/{{ com.banner }}" alt="Bannière de {{ com.name }}" />
+        </div>
+        <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <header class="commission-header">
+                <div class="logo">
+                    <img src="/media/{{ com.logo }}" alt="Logo de {{ com.name }}">
+                </div>
+            </header>
+
+            <div class="com-field-errors">
+                {{ form.non_field_errors }}
+            </div>
+
+            <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
+                    {{ form.treasurer }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Le trésorier est la personne en charge de la gestion du budget de la commission. C'est le trésorier qui est en charge d'estimer les coûts, de faire des demandes de financement et de communiquer avec le BDE à propos du budget et des dépenses.</p>
+                    <p>Le président peut cumuler le poste de président et de trésorier</p>
+                    <div class="com-field-errors">
+                        {{ form.treasurer.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.substitute.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.deputy.id_for_label }}">{{ form.deputy.label }}</label>
+                    {{ form.deputy }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Le suppléant est le remplaçant du président lorsque ce dernier n'est pas disponible.</p>
+                    <p>Le poste de suppléant est <strong>facultatif</strong></p>
+                    <div class="com-field-errors">
+                        {{ form.deputy.errors }}
+                    </div>
+                </div>
+            </div>
+
+        <div class="danger-area">
+            <h3 class="com-light-title" >Zone dangereuse</h3>
+
+            <div class="com-field-wrapper{% if form.president.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.president.id_for_label }}">{{ form.president.label }}</label>
+                    {{ form.president }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Le président est le grand chef de la commission, c'est l'instigateur du projet et responsable des activités qui sont organisées</p>
+                    <p><strong>Si vous changez de président vous passez le pouvoir de cette commission au nouveau président</strong></p>
+                    <div class="com-field-errors">
+                        {{ form.president.errors }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </form>
+    </div>
+
+{% endblock %}

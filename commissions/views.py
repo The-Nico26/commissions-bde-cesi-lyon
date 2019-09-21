@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from commissions.models import Commission
-from commissions.forms import CreateCommissionForm, EditCommissionForm
+from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm
 from django.contrib import messages
 from commissions.models import Tag
 from django.forms.models import model_to_dict
+
+from users.models import User
 
 
 def list_commissions(request):
@@ -49,7 +51,44 @@ def edit_commission(request, slug):
     return render(request, "edit_commission.html", {
         'com': com,
         "edit_form": edit_form,
-        "active_commission_id": com.id
+        "active_commission_id": com.id,
+        "can_change_member": com.has_change_members_permission(request)
+    })
+
+
+def edit_members_commission(request, slug):
+    if not request.user.is_authenticated:
+        return redirect("/login?next={}".format(request.path))
+
+    com = get_object_or_404(Commission, slug=slug)
+
+    if not com.has_change_permission(request):
+        messages.add_message(request, messages.ERROR, "Tu ne peux pas modifier cette commission, désolé...")
+        return redirect("/commissions/{}".format(com.slug))
+
+    if not com.has_change_members_permission(request):
+        messages.add_message(request, messages.ERROR, "Tu ne peux pas modifier les membres de cette commission, désolé...")
+        return redirect("/commissions/{}/manage".format(com.slug))
+
+    form = EditCommissionMembersForm(request.POST or None, instance=com)
+    form.fields["treasurer"].queryset = User.objects.all().filter(is_active=True)
+    form.fields["deputy"].queryset = User.objects.all().filter(is_active=True).exclude(id=com.president.id)
+    form.fields["president"].queryset = User.objects.all().filter(is_active=True)
+
+    if form.is_valid():
+        form.save()
+        messages.add_message(request, messages.SUCCESS, "Membres de la commission modifiés")
+        if com.has_change_members_permission(request):
+            return redirect("/commissions/{}/manage/members".format(com.slug))
+        elif com.has_change_permission(request):
+            return redirect("/commissions/{}/manage".format(com.slug))
+        else:
+            return redirect("/commissions/{}".format(com.slug))
+
+    return render(request, "edit_members_commission.html", {
+        "com": com,
+        "form": form,
+        "active_commission_id": com.id,
     })
 
 

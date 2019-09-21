@@ -99,12 +99,14 @@ class EditCommissionForm(ModelForm):
 class EditCommissionMembersForm(ModelForm):
     class Meta:
         model = Commission
-        fields = ['deputy', 'treasurer']
+        fields = ['deputy', 'treasurer', 'president']
         labels = {
-            'deputy': "Trésorier·ere",
-            'treasurer': "Suppléant·e"
+            'treasurer': "Trésorier·ere",
+            'deputy': "Suppléant·e",
+            'president': "Président·e"
         }
         widgets = {
             'treasurer': UserSelectorWidget,
-            'deputy': UserSelectorWidget
+            'deputy': UserSelectorWidget,
+            'president': UserSelectorWidget
         }
