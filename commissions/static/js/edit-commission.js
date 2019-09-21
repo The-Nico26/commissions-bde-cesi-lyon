@@ -10,7 +10,10 @@
 
         submitButton.addEventListener("click", submitForm)
         Array.from(form.querySelectorAll("input, select, textarea"))
-            .forEach(el => el.addEventListener("change", enableSave))
+            .forEach(el => {
+                el.addEventListener("change", enableSave)
+                el.addEventListener("keyup", enableSave)
+            })
 
     }
 
