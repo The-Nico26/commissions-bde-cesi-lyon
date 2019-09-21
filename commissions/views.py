@@ -5,12 +5,14 @@ from django.contrib import messages
 from commissions.models import Tag
 from django.forms.models import model_to_dict
 
+
 def list_commissions(request):
 
     commissions = Commission.objects.order_by("-creation_date").order_by("-is_active")
 
     return render(request, "list-commissions.html", {
-        "commissions": commissions
+        "commissions": commissions,
+        "active_commissions": True
     })
 
 
@@ -26,7 +28,7 @@ def view_commission(request, slug):
 def edit_commission(request, slug):
 
     if not request.user.is_authenticated:
-        return render(request, "create_commission_unauthenticated.html")
+        return redirect("/login?next={}".format(request.path))
 
     com = get_object_or_404(Commission, slug=slug)
 
@@ -46,7 +48,8 @@ def edit_commission(request, slug):
 
     return render(request, "edit_commission.html", {
         'com': com,
-        "edit_form": edit_form
+        "edit_form": edit_form,
+        "active_commission_id": com.id
     })
 
 
@@ -97,5 +100,6 @@ def create_commission(request):
         form = CreateCommissionForm(initial={'treasurer': request.user})
 
     return render(request, "create_commission.html", {
-        'form': form
+        'form': form,
+        "active_commission_creation": True
     })

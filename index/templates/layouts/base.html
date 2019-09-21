@@ -69,10 +69,10 @@
     {# Menu principal #}
 
     <ul class="main-nav nav">
-        <li><a href="/commissions" class="clickable">Commissions</a></li>
+        <li><a href="/commissions" class="clickable{% if active_commissions %} active{% endif %}">Commissions</a></li>
         <!--<li><a href="#" class="clickable">Financement</a></li>-->
         {% if not user.is_authenticated or perms.commissions.add_commission %}
-            <li><a href="/commissions/create" class="clickable rainbow">Créer une commission</a></li>
+            <li><a href="/commissions/create" class="clickable rainbow{% if active_commission_creation %} active{% endif %}">Créer une commission</a></li>
         {% endif %}
     </ul>
     {% if userCommissions %}
@@ -80,7 +80,7 @@
     {% endif %}
     <ul class="nav">
         {% for com in userCommissions %}
-            <li><a href="/commissions/{{ com.slug }}/manage" class="clickable small-commission">
+            <li><a href="/commissions/{{ com.slug }}/manage" class="clickable small-commission{% if active_commission_id and com.id == active_commission_id %} active{% endif %}">
                 <div class="small-commission-logo"><img src="/media/{{ com.logo }}"/></div>
                 <div class="small-commission-info">{{com.name}}</div>
             </a></li>
