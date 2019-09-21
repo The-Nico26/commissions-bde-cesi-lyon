@@ -97,8 +97,12 @@
             <li><a href="https://www.facebook.com/BDECesiLyon/">Facebook</a></li>
         </ul>
         <ul>
-            <li><a href="#">Status</a></li>
-            <li><a href="#">Reglement intérieur</a></li>
+            {% if status_doc %}
+                <li><a href="/media/{{ status_doc.file }}">Status</a></li>
+            {% endif %}
+            {% if rules_doc %}
+                <li><a href="/media/{{ rules_doc.file }}">Reglement intérieur</a></li>
+            {% endif %}
         </ul>
         {% if user.is_staff %}
         <ul>

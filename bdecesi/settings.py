@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'index.context_processor.availableCommissions',
+                'index.context_processor.currentDocuments',
             ],
         },
     },
