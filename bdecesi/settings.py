@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'index',
     'commissions',
     'users',
+    'documents',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
