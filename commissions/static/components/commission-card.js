@@ -51,6 +51,12 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                
+                transition: 0.5s ease transform;
+            }
+            
+            .card:hover .banner img {
+                transform: scale(1.05);
             }
     
             .logo {
