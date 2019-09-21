@@ -218,7 +218,7 @@
             } else {
                 this.fieldEl.value = ""
             }
-            this.updateInput()
+            this.selectEl.dispatchEvent(new Event("change"))
         }
 
         updateAutocomplete() {

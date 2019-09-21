@@ -1,0 +1,40 @@
+.manage-body {
+    padding: 50px 10vw;
+}
+
+.com-toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    flex-wrap: wrap;
+}
+
+.com-toolbar > * {
+    margin: 5px;
+    height: 31px;
+}
+
+.com-toolbar .separator {
+    flex: 1;
+}
+
+.more-forms {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.more-forms > * {
+    margin: 5px;
+}
+
+@media screen and (max-width: 800px) {
+
+    .see-com {
+        display: none;
+    }
+
+}

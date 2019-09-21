@@ -89,7 +89,7 @@
         toggleOption(optionIndex){
             let option = this.selectEl.querySelectorAll("option").item(optionIndex)
             option.selected = !option.selected;
-            this.updateSelected()
+            this.selectEl.dispatchEvent(new Event("change"))
         }
 
         updateSelected() {
