@@ -28,11 +28,11 @@ def edit_commission(request, slug):
     if not request.user.is_authenticated:
         return render(request, "create_commission_unauthenticated.html")
 
-    if not request.user.has_perm("commissions.change_commission"):
-        messages.add_message(request,messages.ERROR,"Tu n'es pas autorisé à modifier une commission, désolé...")
-        return redirect("/")
-
     com = get_object_or_404(Commission, slug=slug)
+
+    if not com.has_change_permission(request):
+        messages.add_message(request, messages.ERROR, "Tu ne peux pas modifier cette commission, désolé...")
+        return redirect("/commissions/{}".format(com.slug))
 
     edit_form = EditCommissionForm(request.POST or None, instance=com)
 
@@ -41,7 +41,8 @@ def edit_commission(request, slug):
 
     if edit_form.is_valid():
         edit_form.save()
-        return redirect("/commissions/{}".format(com.slug))
+        messages.add_message(request, messages.SUCCESS, "Commission mise à jour")
+        return redirect("/commissions/{}/manage".format(com.slug))
 
     return render(request, "edit_commission.html", {
         'com': com,
