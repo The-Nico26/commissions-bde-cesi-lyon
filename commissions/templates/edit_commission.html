@@ -30,18 +30,39 @@
 {% block body %}
 
     <div class="manage-body">
-        <form method="post" id="com-form">
+        <div class="banner">
+            <img src="/media/{{ com.banner }}" alt="Bannière de {{ com.name }}" />
+        </div>
+        <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
             {% csrf_token %}
 
+            <header class="commission-header">
+                <div class="logo">
+                    <img src="/media/{{ com.logo }}" alt="Logo de {{ com.name }}">
+                    {{ edit_form.logo }}
+                </div>
+                <div class="rest">
+                    {{ edit_form.banner }}
+                </div>
+            </header>
+
             <div class="com-field-errors">
-                {{ form.non_field_errors }}
+                {{ edit_form.non_field_errors }}
+                {% if edit_form.logo.errors %}
+                    <h3>Logo :</h3>
+                    {{ edit_form.logo.errors }}
+                {% endif %}
+                {% if edit_form.banner.errors %}
+                    <h3>Bannière :</h3>
+                    {{ edit_form.banner.errors }}
+                {% endif %}
             </div>
 
             <div class="com-field-wrapper{% if edit_form.name.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ edit_form.name.id_for_label }}">{{ edit_form.name.label }}</label>
                     <div class="com-field-errors">
-                        {{ form.name.errors }}
+                        {{ edit_form.name.errors }}
                     </div>
                     {{ edit_form.name }}
                 </div>
@@ -51,7 +72,7 @@
                 <div class="com-field">
                     <label for="{{ edit_form.short_description.id_for_label }}">{{ edit_form.short_description.label }}</label>
                     <div class="com-field-errors">
-                        {{ form.short_description.errors }}
+                        {{ edit_form.short_description.errors }}
                     </div>
                     {{ edit_form.short_description }}
                 </div>
@@ -61,22 +82,17 @@
                 <div class="com-field">
                     <label for="{{ edit_form.tags.id_for_label }}">{{ edit_form.tags.label }}</label>
                     <div class="com-field-errors">
-                        {{ form.tags.errors }}
+                        {{ edit_form.tags.errors }}
                     </div>
                     {{ edit_form.tags }}
                 </div>
-            </div>
-
-            <div class="more-forms">
-                <button class="btn" type="button">Changer le logo</button>
-                <button class="btn" type="button">Changer la bannière</button>
             </div>
 
             <div class="vertical com-field-wrapper{% if edit_form.description.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ edit_form.description.id_for_label }}">{{ edit_form.description.label }}</label>
                     <div class="com-field-errors">
-                        {{ form.tags.description }}
+                        {{ edit_form.tags.description }}
                     </div>
                     {{ edit_form.description }}
                 </div>

@@ -79,16 +79,20 @@ class CreateCommissionForm(forms.Form):
 class EditCommissionForm(ModelForm):
     class Meta:
         model = Commission
-        fields = ['name', 'description', 'short_description', 'tags']
+        fields = ['name', 'description', 'short_description', 'tags', 'logo', 'banner']
         labels = {
             "name": "Nom",
             "short_description": "Courte description",
             "description": "Description",
-            "tags": "Tags"
+            "tags": "Tags",
+            "logo": "Logo",
+            "banner": "Bannière"
         }
         widgets = {
             'tags': TagSelectorWidget(max_selection=3),
-            'description': MarkdownWidget
+            'description': MarkdownWidget,
+            'logo': ImageSelectorWidget(attrs={"data-description": "Changer le logo"}),
+            'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"}),
         }
 
 
@@ -104,11 +108,3 @@ class EditCommissionMembersForm(ModelForm):
             'treasurer': UserSelectorWidget,
             'deputy': UserSelectorWidget
         }
-
-
-class EditLogoForm(forms.Form):
-    logo = forms.ImageField(required=True, label='Logo', widget=ImageSelectorWidget)
-
-
-class EditBannerForm(forms.Form):
-    banner = forms.ImageField(required=True, label='Bannière', widget=ImageSelectorWidget)

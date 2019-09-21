@@ -34,7 +34,7 @@ def edit_commission(request, slug):
         messages.add_message(request, messages.ERROR, "Tu ne peux pas modifier cette commission, désolé...")
         return redirect("/commissions/{}".format(com.slug))
 
-    edit_form = EditCommissionForm(request.POST or None, instance=com)
+    edit_form = EditCommissionForm(request.POST or None, request.FILES or None, instance=com)
 
     # Put the queryset back on the form
     edit_form.fields["tags"].queryset = Tag.objects.all()
