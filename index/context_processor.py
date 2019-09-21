@@ -1,5 +1,6 @@
 from commissions.models import Commission
 from documents.models import Document
+from users.models import User
 
 
 def availableCommissions(request):
@@ -30,5 +31,14 @@ def currentDocuments(request):
     return {
         'status_doc': current_status,
         'rules_doc': current_rules,
+    }
+
+
+def supportTeam(request):
+
+    support = User.objects.filter(support_member=True).exclude(id=request.user.id)
+
+    return {
+        'support_team': support,
     }
 

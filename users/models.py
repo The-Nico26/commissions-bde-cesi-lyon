@@ -59,6 +59,9 @@ class User(AbstractUser):
     "Un champ boolean définissant si l'utilisateur peut se connecter et doit apparaitre sur le site comme membre actif"
     is_active = models.BooleanField(default=True)
 
+    "L'utlisateur est il un référent pour le support, son nom et adresse email sera affiché sur le site en tant que référent"
+    support_member = models.BooleanField(default=False)
+
     objects = UserManager()
 
     class Meta(AbstractUser.Meta):

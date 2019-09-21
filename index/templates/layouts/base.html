@@ -87,6 +87,18 @@
         {% endfor %}
     </ul>
     <div class="filler"></div>
+
+    {# Equipe de support du BDE #}
+
+    {% if support_team and user.is_authenticated %}
+    <div class="separator"></div>
+        <div class="support-members">
+            <h6 class="support-title">Une question ? Mail donc un membre du BDE</h6>
+            {% for user in support_team %}
+                {% include "fragments/safe_user.html" %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="separator"></div>
 
     {# Infos diverses dans le footer #}

@@ -253,3 +253,22 @@ body {
     width: 30px;
     opacity: 0.6;
 }
+
+.support-members {
+    padding: 10px;
+}
+
+.support-members .support-title {
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 150%;
+}
+
+.support-members bde-user {
+    padding-right: 10px;
+}
+
+.support-members bde-user:not(:last-child) {
+    margin-bottom: 5px;
+}

@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'index.context_processor.availableCommissions',
                 'index.context_processor.currentDocuments',
+                'index.context_processor.supportTeam',
             ],
         },
     },
