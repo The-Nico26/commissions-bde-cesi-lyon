@@ -55,3 +55,7 @@ a {
 	color: inherit;
 	text-decoration: inherit;
 }
+
+input, button, textarea, select {
+	outline: none;
+}

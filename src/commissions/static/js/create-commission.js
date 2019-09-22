@@ -80,12 +80,12 @@
         if(!section)
             return;
 
-        let top = Math.max(0,section.sectionEl.offsetTop - 70);
+        let top = Math.round(Math.max(0,section.sectionEl.offsetTop - 70));
 
         let interval = setInterval(() => {
             if(document.documentElement.scrollTop == top){
                 document.documentElement.scrollTo(0, top)
-                clearInterval(interval)
+                clearAll()
             }
 
             let nextScroll = 0;
@@ -98,6 +98,15 @@
 
             document.documentElement.scrollTo(0, nextScroll)
         },10)
+
+        let timeout = setTimeout(() => {
+            clearAll()
+        },2000)
+
+        function clearAll(){
+            clearTimeout(timeout)
+            clearInterval(interval)
+        }
 
     }
 
