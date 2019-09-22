@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -6,11 +7,11 @@ from django.core.files.base import ContentFile
 from raven.transport import requests
 from django.contrib import messages
 
-from commissions.models import Commission, Tag
+from commissions.models import Commission
 from users.models import User
-from users.settings import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
-import os
+from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
 
+logger = logging.getLogger(__name__)
 
 class ViacesiAuthBackend:
     """
@@ -28,16 +29,24 @@ class ViacesiAuthBackend:
         if code is None or request is None:
             return None
 
+        if os.getenv("ENVIRONMENT", "production") == "production":
+            redirection = request.build_absolute_uri("/auth/viacesi").replace("http://", "https://")
+        else:
+            redirection = request.build_absolute_uri("/auth/viacesi")
+
+        logger.info("Usage of Viacesi Authentication")
+
         r = requests.post(
             self.GET_TOKEN_URL.format(AUTH_VIACESI_TENANT_ID),
             data=self.GET_TOKEN_BODY.format(
                 AUTH_VIACESI_APP_ID,
                 AUTH_VIACESI_APP_SECRET,
                 code,
-                request.build_absolute_uri("/auth/viacesi")))
+                redirection))
 
         if r.status_code != 200:
-            print(r.json())
+            logger.error("Can't get token")
+            logger.error(r.json())
             return None
 
         tokens_json = r.json()
@@ -46,7 +55,8 @@ class ViacesiAuthBackend:
         info_r = requests.get(self.GET_USER_INFO_URL, headers={'Authorization': 'Bearer {}'.format(access_token)})
 
         if info_r.status_code != 200:
-            print(info_r.json())
+            logger.error("Can't get user info")
+            logger.error(r.json())
             return None
 
         user_info_json = info_r.json()
@@ -108,7 +118,7 @@ class ViacesiAuthBackend:
 
             group.save()
 
-            print("Created new user for email {}".format(user_info_json["mail"]))
+            logger.info("Created new user for email {}".format(user_info_json["mail"]))
 
         return currentUser
 

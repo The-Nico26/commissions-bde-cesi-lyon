@@ -1,0 +1,53 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - db-content:/var/lib/postgresql/data
+    networks:
+      - overlay
+
+  django:
+    image: epickiwi/bdecesi-django
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+    volumes:
+      - user-media:/code/user-media
+    networks:
+      - overlay
+
+  proxy:
+    image: epickiwi/bdecesi-proxy
+    volumes:
+      - user-media:/var/media
+    depends_on:
+      - django
+      - db
+    networks:
+      - overlay
+      - traefik-net
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.bde-cesi.rule: "Host(`bdecesi.epickiwi.fr`)"
+        traefik.http.services.bde-cesi.loadbalancer.server.port: "80"
+        traefik.http.routers.bde-cesi.entrypoints: web-secure
+        traefik.http.routers.bde-cesi.tls.certresolver: letsencrypt
+        traefik.http.routers.bde-cesi-insecure.entrypoints: web
+        traefik.http.routers.bde-cesi-insecure.rule: "Host(`bdecesi.epickiwi.fr`)"
+        traefik.http.routers.bde-cesi-insecure.middlewares: file.https-redirect
+
+volumes:
+  user-media:
+  db-content:
+
+networks:
+  overlay:
+  traefik-net:
+    external: true

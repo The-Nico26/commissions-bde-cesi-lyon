@@ -1,3 +1,5 @@
+import logging
+import os
 from random import randrange
 
 from django.contrib import messages
@@ -5,7 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from users.settings import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID
+from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID
+
+logger = logging.getLogger(__name__)
 
 
 def auth(request):
@@ -18,11 +22,16 @@ def auth(request):
     if request.user.is_authenticated:
         return redirect(state)
 
+    if os.getenv("ENVIRONMENT", "production") == "production":
+        redirection = request.build_absolute_uri("/auth/viacesi").replace("http://", "https://")
+    else:
+        redirection = request.build_absolute_uri("/auth/viacesi")
+
     return redirect(
         "https://login.microsoftonline.com/{}/oauth2/authorize?client_id={}&response_type=code&redirect_uri={}&response_mode=query&state={}".format(
             AUTH_VIACESI_TENANT_ID,
             AUTH_VIACESI_APP_ID,
-            request.build_absolute_uri("/auth/viacesi"),
+            redirection,
             state))
 
 
@@ -42,6 +51,9 @@ def auth_callback(request):
     authenticated_user = authenticate(request, code=code)
 
     if authenticated_user is None:
+        messages.add_message(request, messages.ERROR,
+                             "Nous n'avons pas pu vous connecter, veuillez rééssayer ou contacter un administrateur si le problème persiste")
+        logger.warning("Unauthenticated user")
         return redirect("/")
 
     login(request, authenticated_user)
