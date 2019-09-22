@@ -1,3 +1,4 @@
+import logging
 import os
 from random import randrange
 
@@ -7,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID
+
+logger = logging.getLogger(__name__)
 
 
 def auth(request):
@@ -48,6 +51,9 @@ def auth_callback(request):
     authenticated_user = authenticate(request, code=code)
 
     if authenticated_user is None:
+        messages.add_message(request, messages.ERROR,
+                             "Nous n'avons pas pu vous connecter, veuillez rééssayer ou contacter un administrateur si le problème persiste")
+        logger.warning("Unauthenticated user")
         return redirect("/")
 
     login(request, authenticated_user)

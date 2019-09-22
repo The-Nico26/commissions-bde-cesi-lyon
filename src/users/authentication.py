@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import ContentFile
@@ -8,6 +10,7 @@ from commissions.models import Commission
 from users.models import User
 from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
 
+logger = logging.getLogger(__name__)
 
 class ViacesiAuthBackend:
     """
@@ -25,6 +28,8 @@ class ViacesiAuthBackend:
         if code is None or request is None:
             return None
 
+        logger.info("Usage of Viacesi Authentication")
+
         r = requests.post(
             self.GET_TOKEN_URL.format(AUTH_VIACESI_TENANT_ID),
             data=self.GET_TOKEN_BODY.format(
@@ -34,7 +39,8 @@ class ViacesiAuthBackend:
                 request.build_absolute_uri("/auth/viacesi")))
 
         if r.status_code != 200:
-            print(r.json())
+            logger.error("Can't get token")
+            logger.error(r.json())
             return None
 
         tokens_json = r.json()
@@ -43,7 +49,8 @@ class ViacesiAuthBackend:
         info_r = requests.get(self.GET_USER_INFO_URL, headers={'Authorization': 'Bearer {}'.format(access_token)})
 
         if info_r.status_code != 200:
-            print(info_r.json())
+            logger.error("Can't get user info")
+            logger.error(r.json())
             return None
 
         user_info_json = info_r.json()
@@ -105,7 +112,7 @@ class ViacesiAuthBackend:
 
             group.save()
 
-            print("Created new user for email {}".format(user_info_json["mail"]))
+            logger.info("Created new user for email {}".format(user_info_json["mail"]))
 
         return currentUser
 
