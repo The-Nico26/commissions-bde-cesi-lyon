@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from src.commissions.models import Commission, Tag
+from commissions.models import Commission, Tag
 
 
 @admin.register(Commission)

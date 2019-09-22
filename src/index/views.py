@@ -2,7 +2,8 @@ import random
 
 from django.shortcuts import render
 
-from src.commissions.models import Commission
+from commissions.models import Commission
+from commissions.models import Tag
 
 
 def index(request):

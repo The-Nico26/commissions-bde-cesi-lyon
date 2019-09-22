@@ -1,12 +1,15 @@
+import logging
+
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import ContentFile
 from raven.transport import requests
 from django.contrib import messages
 
-from src.commissions.models import Commission
-from src.users.models import User
-from src.bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
+from commissions.models import Commission, Tag
+from users.models import User
+from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
+import os
 
 
 class ViacesiAuthBackend:

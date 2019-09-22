@@ -30,9 +30,9 @@
         </div>
         <p class="jumbo-content" >Tu peux dès maintenant créer ta commission et être financé par le BDE pour toutes les activités de la vie associative ! Sois créatif, tout est permis !</p>
         <div class="buttons">
-            <a class="button primary" href="/src/commissionsions">Parcourir les commissions</a>
+            <a class="button primary" href="/commissions">Parcourir les commissions</a>
             {% if not user.is_authenticated or perms.commissions.add_commission %}
-                <a class="button" href="/src/commissions/create">Créer une commission</a>
+                <a class="button" href="/commissions/create">Créer une commission</a>
             {% endif %}
         </div>
     </div>
@@ -44,7 +44,7 @@
         {% endfor %}
 
         <bde-card class="more-card">
-            <a class="more" href="/src/commissionsions">
+            <a class="more" href="/commissions">
                 <bde-icon icon="mdi-creation" ></bde-icon>
                 <div>Encore {{ commission_count }} commissions à découvrir</div>
             </a>
@@ -60,7 +60,7 @@
         {% endfor %}
 
         <bde-card class="more-card">
-            <a class="more" href="/src/commissionsions">
+            <a class="more" href="/commissions">
                 <bde-icon icon="mdi-creation" ></bde-icon>
                 <div>Encore {{ commission_count }} commissions à découvrir</div>
             </a>

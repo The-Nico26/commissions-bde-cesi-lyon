@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from src.commissions.models import Commission
-from src.commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm
+from commissions.models import Commission
+from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm
 from django.contrib import messages
-from src.commissions.models import Tag
+from commissions.models import Tag
+from django.forms.models import model_to_dict
 
-from src.users.models import User
+from users.models import User
 
 
 def list_commissions(request):

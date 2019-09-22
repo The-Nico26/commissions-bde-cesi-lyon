@@ -1,9 +1,11 @@
+from random import randrange
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 
-from src.bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID
+from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID
 
 
 def auth(request):

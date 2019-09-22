@@ -1,6 +1,6 @@
-from src.commissions.models import Commission
-from src.documents import Document
-from src.users.models import User
+from commissions.models import Commission
+from documents.models import Document
+from users.models import User
 
 
 def availableCommissions(request):

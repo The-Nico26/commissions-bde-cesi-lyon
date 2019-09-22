@@ -1,8 +1,8 @@
 from django import forms
 
-from src.commissions.models import Tag
-from src.commissions.models import User
-from src.commissions.models import Commission
+from commissions.models import Tag
+from commissions.models import User
+from commissions.models import Commission
 from django.forms import ModelForm
 
 

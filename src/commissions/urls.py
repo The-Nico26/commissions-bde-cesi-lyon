@@ -1,6 +1,6 @@
 from django.urls import path
 
-from src.commissions import list_commissions, view_commission, create_commission, edit_commission, \
+from commissions.views import list_commissions, view_commission, create_commission, edit_commission, \
     edit_members_commission
 
 urlpatterns = [
