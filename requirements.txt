@@ -3,3 +3,6 @@ markdown
 pillow
 django
 python-dotenv
+gunicorn
+psycopg2-binary
+raven

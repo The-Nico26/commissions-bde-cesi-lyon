@@ -54,7 +54,6 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-src/db.sqlite3
 
 # Flask stuff:
 instance/
@@ -110,3 +109,5 @@ front-dist/*
 !front-dist/.gitkeep
 src/user-media/*
 !src/user-media/**/.gitkeep
+src/static-files/*
+proxy/static-files/*

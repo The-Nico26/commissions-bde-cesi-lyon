@@ -1,0 +1,48 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - db-content:/var/lib/postgresql/data
+    networks:
+      - overlay
+
+  django:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+    volumes:
+      - user-media:/code/user-media
+    networks:
+      - overlay
+
+  proxy:
+    build: proxy
+    volumes:
+      - user-media:/var/media
+    depends_on:
+      - django
+      - db
+    networks:
+      - overlay
+      - traefik-net
+    deploy:
+      labels:
+        traefik.frontend.rule: "Host:bdecesi.epickiwi.fr"
+        traefik.port: 80
+
+volumes:
+  user-media:
+  db-content:
+
+networks:
+  overlay:
+  traefik-net:
+    external: true
+    name: traefik-net
