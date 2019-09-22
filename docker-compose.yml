@@ -10,7 +10,7 @@ services:
       - overlay
 
   django:
-    build: .
+    image: epickiwi/bdecesi-django
     env_file:
       - .env
     environment:
@@ -23,7 +23,7 @@ services:
       - overlay
 
   proxy:
-    build: proxy
+    image: epickiwi/bdecesi-proxy
     volumes:
       - user-media:/var/media
     depends_on:
@@ -45,4 +45,3 @@ networks:
   overlay:
   traefik-net:
     external: true
-    name: traefik-net
