@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
-from users.models import User
+from src.users.models import User
 
 
 class Tag(models.Model):
