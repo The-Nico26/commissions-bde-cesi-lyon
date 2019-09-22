@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -28,6 +29,11 @@ class ViacesiAuthBackend:
         if code is None or request is None:
             return None
 
+        if os.getenv("ENVIRONMENT", "production") == "production":
+            redirection = request.build_absolute_uri("/auth/viacesi").replace("http://", "https://")
+        else:
+            redirection = request.build_absolute_uri("/auth/viacesi")
+
         logger.info("Usage of Viacesi Authentication")
 
         r = requests.post(
@@ -36,7 +42,7 @@ class ViacesiAuthBackend:
                 AUTH_VIACESI_APP_ID,
                 AUTH_VIACESI_APP_SECRET,
                 code,
-                request.build_absolute_uri("/auth/viacesi")))
+                redirection))
 
         if r.status_code != 200:
             logger.error("Can't get token")
