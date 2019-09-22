@@ -1,3 +1,4 @@
+import os
 from random import randrange
 
 from django.contrib import messages
@@ -18,11 +19,16 @@ def auth(request):
     if request.user.is_authenticated:
         return redirect(state)
 
+    if os.getenv("ENVIRONMENT", "production") == "production":
+        redirection = request.build_absolute_uri("/auth/viacesi").replace("http://", "https://")
+    else:
+        redirection = request.build_absolute_uri("/auth/viacesi")
+
     return redirect(
         "https://login.microsoftonline.com/{}/oauth2/authorize?client_id={}&response_type=code&redirect_uri={}&response_mode=query&state={}".format(
             AUTH_VIACESI_TENANT_ID,
             AUTH_VIACESI_APP_ID,
-            request.build_absolute_uri("/auth/viacesi"),
+            redirection,
             state))
 
 
