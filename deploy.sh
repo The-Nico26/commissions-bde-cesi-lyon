@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Collecting static files"
-ENVIRONMENT=development python src/manage.py collectstatic
+ENVIRONMENT=development python3 src/manage.py collectstatic
 rm -r proxy/static-files
 mv src/static-files proxy/static-files
 
