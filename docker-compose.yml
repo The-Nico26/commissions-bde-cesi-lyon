@@ -34,6 +34,9 @@ services:
       - traefik-net
     deploy:
       labels:
+        traefik.enable: true
+        traefik.http.routers.epickiwi-web.rule: Host(`epickiwi.fr`)
+        traefik.http.services.epickiwi-web.loadbalancer.server.port: 80
 
 volumes:
   user-media:
