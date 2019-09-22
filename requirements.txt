@@ -2,3 +2,4 @@ requests
 markdown
 pillow
 django
+python-dotenv

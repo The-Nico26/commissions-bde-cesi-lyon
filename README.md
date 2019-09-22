@@ -9,6 +9,16 @@ Installez les prérequis avec pip
 pip install -r requirements.txt
 ```
 
+Créez le fichier `.env` dans le dossier du projet python.
+Ce fichier contiens les paramètres secret de l'application.
+
+```.env
+SECRETKEY=azertyuiop
+VIACESI_TENANT_ID=12345-67890
+VIACESI_APP_ID=12345-67890
+VIACESI_APP_SECRET=qsdfghjklm
+```
+
 Deployez les migrations
 
 ```sh-session

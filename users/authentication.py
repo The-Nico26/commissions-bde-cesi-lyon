@@ -8,7 +8,7 @@ from django.contrib import messages
 
 from commissions.models import Commission, Tag
 from users.models import User
-from users.settings import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
+from bdecesi.keys import AUTH_VIACESI_TENANT_ID, AUTH_VIACESI_APP_ID, AUTH_VIACESI_APP_SECRET
 import os
 
 
