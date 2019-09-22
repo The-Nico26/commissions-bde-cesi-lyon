@@ -9,5 +9,4 @@ docker build . -t epickiwi/bdecesi-django
 docker build proxy -t epickiwi/bdecesi-proxy
 
 echo "Starting stack"
-#docker stack deploy --compose-file docker-compose.yml bde-cesi-lyon
-docker-compose up
+docker stack deploy --compose-file docker-compose.yml bde-cesi-lyon
