@@ -89,7 +89,7 @@
     flex-wrap: wrap;
 }
 
-.com-toolbar > * {
+.com-toolbar .btn {
     margin: 5px;
     height: 31px;
 }

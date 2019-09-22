@@ -59,8 +59,11 @@
 
         setIconSvg(){
             let fontSize = window.getComputedStyle(this, null).getPropertyValue('font-size')
-            this.root.getElementById("icon").innerHTML = Iconify.getSVG(this.icon,{
-                'data-height': parseFloat(fontSize)
+
+            let height = parseFloat(fontSize)
+
+            this.root.getElementById("icon").innerHTML = Iconify.getSVG(this.icon, isNaN(height) ? {} : {
+                'data-height': height
             })
         }
 

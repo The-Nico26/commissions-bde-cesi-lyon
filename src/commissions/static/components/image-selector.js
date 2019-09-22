@@ -10,6 +10,14 @@
                 height: auto;
             }
             
+            .info {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            
             .hidden {
                 display: none;
             }
@@ -46,12 +54,9 @@
                 color: var(--primary-color)
             }
             
-            .icon {
+            .icon, .icon > * {
                 height: 60px;
-            }
-            
-            .info {
-                padding: 20px;
+                width: 60px;
             }
             
         </style>
@@ -78,6 +83,10 @@
         }
 
         connectedCallback(){
+            requestAnimationFrame(this.init.bind(this))
+        }
+
+        init(){
             this.fieldEl = this.querySelector("input[type=\"file\"]")
             this.container = this.root.getElementById("container")
 

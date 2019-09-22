@@ -56,10 +56,12 @@
         }
 
         connectedCallback(){
-            this.selectEl = this.querySelector("select")
-            this.renderOptions()
+            requestAnimationFrame(() => {
+                this.selectEl = this.querySelector("select")
+                this.renderOptions()
 
-            this.selectEl.addEventListener("change", () => this.updateSelected())
+                this.selectEl.addEventListener("change", () => this.updateSelected())
+            })
         }
 
         renderOptions(){

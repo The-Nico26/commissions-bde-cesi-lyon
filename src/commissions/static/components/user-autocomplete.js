@@ -119,6 +119,10 @@
         }
 
         connectedCallback(){
+            requestAnimationFrame(this.init.bind(this))
+        }
+
+        init(){
             this.fieldEl = this.querySelector("select")
             this.currentUser = this.root.getElementById("current-user")
             this.textField = this.root.getElementById("text-field")
