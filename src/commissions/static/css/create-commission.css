@@ -15,6 +15,7 @@
 
 .com-progress-separator {
     width: 30px;
+    height: 30px;
     opacity: 0.5;
 }
 
@@ -91,7 +92,7 @@
 
 .introduction-section .icon, .end-section .icon {
     color: #815DA5;
-    width: 150px;
+    height: 150px;
     margin-bottom: 50px;
 }
 
@@ -159,7 +160,7 @@
 }
 
 .end-section .btn bde-icon {
-    width: 35px;
+    height: 35px;
 }
 
 @media screen and (max-width: 800px) {
