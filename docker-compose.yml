@@ -39,9 +39,10 @@ services:
         traefik.http.services.bde-cesi.loadbalancer.server.port: "80"
         traefik.http.routers.bde-cesi.entrypoints: web-secure
         traefik.http.routers.bde-cesi.tls.certresolver: letsencrypt
+        traefik.http.middlewares.test-redirectscheme.redirectscheme.scheme: https
         traefik.http.routers.bde-cesi-insecure.entrypoints: web
         traefik.http.routers.bde-cesi-insecure.rule: "Host(`bdecesi.epickiwi.fr`)"
-        traefik.http.routers.bde-cesi-insecure.middlewares: file.https-redirect
+        traefik.http.routers.bde-cesi-insecure.middlewares: bde-cesi-https
 
 volumes:
   user-media:
