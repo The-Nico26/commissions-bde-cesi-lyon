@@ -95,7 +95,9 @@ def edit_members_commission(request, slug):
 def create_commission(request):
 
     if not request.user.is_authenticated:
-        return render(request, "create_commission_unauthenticated.html")
+        return render(request, "create_commission_unauthenticated.html",{
+            "active_commission_creation": True
+        })
 
     if not request.user.has_perm("commissions.add_commission"):
         messages.add_message(request,messages.ERROR,"Tu n'es pas autorisé à créer une commission, désolé...")
