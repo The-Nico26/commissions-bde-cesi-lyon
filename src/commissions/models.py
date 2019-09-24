@@ -34,13 +34,13 @@ class Commission(models.Model):
     is_active = models.BooleanField(default=True)
 
     # Le nom de la commission
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=30)
 
     # Le nom de la commission modifié pour qu'il soit valide dans une URL
     slug = models.SlugField(unique=True, blank=True)
 
     # Une courte description de la commission en quelques mots
-    short_description = models.CharField(max_length=255)
+    short_description = models.CharField(max_length=60)
 
     # Une longue description formattée en Markdown
     description = models.TextField()

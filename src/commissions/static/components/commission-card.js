@@ -80,7 +80,7 @@
             .name {
                 text-align: center;
                 margin-top: 0;
-                margin-bottom: 10px;
+                margin-bottom: 5px;
                 font-family: sans-serif;
                 font-size: 20px;
                 color: #414141;
@@ -158,6 +158,12 @@
                 padding-right: 15px;
             }
             
+            .autoresizer {
+                display: block;
+                width: 100%;
+                height: 20px;
+            }
+            
         </style>
     
         <bde-card class="card">
@@ -172,7 +178,7 @@
                     <img id="logo"/>
                 </div>
                 <div class="info">
-                    <h4 class="name" id="name"></h4>
+                    <h4 class="name"><bde-autoresize id="name" class="autoresizer"></bde-autoresize></h4>
             
                     <p class="short-description">
                         <slot></slot>

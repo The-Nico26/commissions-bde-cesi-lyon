@@ -63,8 +63,8 @@ class MarkdownWidget(forms.Textarea):
 
 
 class CreateCommissionForm(forms.Form):
-    name = forms.CharField(label='Nom', max_length=100, required=True)
-    short_description = forms.CharField(label='Courte description', max_length=100, required=True)
+    name = forms.CharField(label='Nom', max_length=30, required=True)
+    short_description = forms.CharField(label='Courte description', max_length=60, required=True)
     tags = forms.ModelMultipleChoiceField(label='Tags', queryset=Tag.objects.all(), to_field_name="name", widget=TagSelectorWidget(max_selection=3), required=False)
 
     logo = forms.ImageField(required=True, label='Logo', widget=ImageSelectorWidget)
@@ -92,7 +92,7 @@ class EditCommissionForm(ModelForm):
             'tags': TagSelectorWidget(max_selection=3),
             'description': MarkdownWidget,
             'logo': ImageSelectorWidget(attrs={"data-description": "Changer le logo"}),
-            'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"}),
+            'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"})
         }
 
 
