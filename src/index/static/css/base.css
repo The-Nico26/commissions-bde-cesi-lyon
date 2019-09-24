@@ -1,6 +1,7 @@
 body {
     font-family: var(--paragraph-fonts);
     color: var(--text-color);
+    font-size: 17px;
 }
 
 .main-aside {

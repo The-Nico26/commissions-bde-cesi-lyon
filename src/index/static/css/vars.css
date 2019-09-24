@@ -8,6 +8,6 @@ body {
     --title-color: #373737;
     --text-color: #373737;
 
-    --paragraph-fonts: sans-serif;
+    --paragraph-fonts: 'roboto', sans-serif;
     --title-fonts: 'Roboto Slab', serif;
 }
