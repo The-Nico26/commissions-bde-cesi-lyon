@@ -1,0 +1,185 @@
+.com-progression {
+    flex: 1;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+.com-progress-element.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.com-progress-separator {
+    width: 30px;
+    height: 30px;
+    opacity: 0.5;
+}
+
+.com-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 25px;
+}
+
+@media screen and (max-width: 800px) {
+    .com-progression {
+        padding-left: 10px;
+    }
+
+    .com-progression .com-progress-element:not(.active), .com-progression .com-progress-separator {
+        display: none;
+    }
+}
+
+.com-form {
+    padding: 0 10vw;
+}
+
+.com-form-section {
+    min-height: calc(100vh - 60px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-title {
+    font-family: var(--title-fonts);
+    font-size: 50px;
+    opacity: 0.8;
+    width: 100%;
+}
+
+.next-button {
+    transition: 0.5s ease opacity;
+}
+
+.next-button:disabled {
+    opacity: 0;
+}
+
+.introduction-section, .end-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    min-height: 100vh;
+
+    padding-bottom: 100px;
+}
+
+.introduction-section .main-title, .introduction-section .motto, .end-section .main-title {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.introduction-section .main-title, .end-section .main-title {
+    font-size: 60px;
+    font-family: var(--title-fonts);
+    margin-bottom: 15px;
+}
+
+.introduction-section .icon, .end-section .icon {
+    color: #815DA5;
+    height: 150px;
+    margin-bottom: 50px;
+}
+
+.introduction-section .motto {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.introduction-section .short-explaination {
+    width: 100%;
+
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.introduction-section .short-explaination .definitions {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.introduction-section .short-explaination .definitions > * {
+    width: 100vw;
+    max-width: 300px;
+
+    padding: 20px;
+    text-align: justify;
+    margin: 10px;
+
+    position: relative;
+}
+
+.introduction-section .word {
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.introduction-section .word em {
+    font-style: italic;
+}
+
+.introduction-section .short-explaination p {
+    line-height: 125%;
+}
+
+.introduction-section .short-explaination h3 {
+    float: left;
+    font-size: 40px;
+    font-family: var(--title-fonts);
+    color: rgba(0,0,0,0.3);
+}
+
+.end-section .short-explaination {
+
+    margin-bottom: 50px;
+}
+
+.end-section .btn {
+    font-size: 20px;
+}
+
+.end-section .btn bde-icon {
+    height: 35px;
+}
+
+@media screen and (max-width: 800px) {
+
+    .introduction-section {
+        padding: 0 5vw;
+    }
+
+    .introduction-section .main-title {
+        font-size: 40px;
+    }
+
+    .introduction-section .short-explaination {
+        margin: 0;
+        width: 100%;
+    }
+
+    .introduction-section .icon {
+        display: none;
+    }
+
+}

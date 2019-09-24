@@ -1,0 +1,193 @@
+.commission {
+    position: relative;
+}
+
+.banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.commission-body {
+    z-index: 1;
+    position: relative;
+
+    width: 70%;
+    margin: auto;
+    padding-top: 145px;
+    padding-bottom: 100px;
+}
+
+@media screen and (min-width: 1700px) {
+    .commission-body {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .commission-body {
+        width: 90%;
+    }
+}
+
+.logo {
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
+    border: solid 5px white;
+    background: white;
+    overflow: hidden;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.commission-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.commission-header .info {
+    flex: 1;
+
+    margin-top: 60px;
+    margin-left: 35px;
+}
+
+.manage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.manage bde-icon {
+    margin-right: 5px;
+}
+
+.commission-header .info .commission-name {
+    font-size: 55px;
+    font-family: var(--title-fonts);
+    color: var(--title-color);
+}
+
+.commission-name > bde-autoresize {
+    width: 100%;
+    height: 55px;
+}
+
+.commission-header .info .tags {
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.commission-header .info .tags > * {
+    margin: 0 5px;
+}
+
+
+@media screen and (max-width: 800px) {
+    .commission-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .commission-header .info {
+        margin: 0;
+    }
+
+    .commission-header .info .commission-name {
+        text-align: center;
+    }
+
+    .commission-header .info .tags {
+        justify-content: center;
+    }
+}
+
+.commission-description {
+    padding: 30px 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.commission-roles {
+    padding-bottom: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.commission-roles > * {
+    width: auto;
+    margin: 10px 0;
+}
+
+.commission-meta {
+    text-align: right;
+    font-style: italic;
+}
+
+.commission-meta > * {
+    display: inline-block;
+}
+
+.commission-meta > *:not(:last-child)::after {
+    content: "-";
+}
+
+.inactive-modal {
+    background: #373737;
+    color: rgba(255,255,255,0.7);
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 15px;
+    position: relative;
+}
+
+.inactive-modal::before {
+    content: "";
+    opacity: 0.8;
+    display: block;
+    width: 100%;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: repeating-linear-gradient(135deg, #373737 -25px,#373737 0px, #747474 0px,#747474 25px);
+}
+
+.inactive-modal h3 {
+    font-family: var(--title-fonts);
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.inactive-modal p {
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.inactive-modal p:last-child{
+    margin-bottom: 0;
+}
+
+.inactive-modal strong {
+    font-weight: bold;
+}

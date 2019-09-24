@@ -1,0 +1,104 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load markdown %}
+{% load humanize %}
+
+{% block title %}{{ com.name }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/commission.css" %}" />
+    <link rel="stylesheet" href="{% static "css/framework.css" %}" />
+    <link rel="stylesheet" href="{% static "css/markdown.css" %}" />
+    <script src="{% static "components/tag.js" %}"></script>
+{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ com.name }}"/>
+    <meta property="og:image" content="http://{{ request.get_host }}/media/{{ com.logo }}" />
+    <meta property="og:description" content="{{ com.short_description }}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="commission">
+        <div class="banner">
+            <img src="/media/{{ com.banner }}" alt="Bannière de {{ com.name }}" />
+        </div>
+
+        <div class="commission-body">
+
+            <header class="commission-header">
+
+                <div class="logo">
+                    <img src="/media/{{ com.logo }}" alt="Logo de {{ com.name }}">
+                </div>
+
+                <div class="info">
+                    <div class="tags">
+
+                        {% if not com.is_active %}
+                            <bde-tag slot="tags">Inactive</bde-tag>
+                        {% endif %}
+
+                        {% for tag in com.tags.all %}
+                            <bde-tag slot="tags" color="{{ tag.color }}" >
+                                {{ tag.name }}
+                            </bde-tag>
+                        {% endfor %}
+
+                    </div>
+                    <h1 class="commission-name"><bde-autoresize>{{ com.name }}</bde-autoresize></h1>
+                </div>
+
+            </header>
+
+            <p class="commission-description">{{ com.short_description }}</p>
+
+            {% if can_manage %}
+                <div class="manage">
+                    <a href="/commissions/{{ com.slug }}/manage" class="btn btn-primary"><bde-icon icon="mdi-gear"></bde-icon> Gérer</a>
+                </div>
+            {% endif %}
+
+            <div class="commission-roles">
+
+                    {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
+
+                    {% if com.deputy is not None %}
+                        {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant·e" %}
+                    {% endif %}
+
+                    {% if com.treasurer_id != com.president_id %}
+                        {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier·ere" %}
+                    {% endif %}
+
+            </div>
+
+
+            {% if not com.is_active %}
+            <div class="inactive-modal">
+                <h3>Commission inactive</h3>
+                <p>Une commission inactive est une commission qui fut cloturée par son président ou le conseil d'administration car elle a terminé son projet ou qu'elle n'est pas assez active pour pouvoir accueil de nouveaux membres et organiser de nouveaux evenement</p>
+                <p><strong>Mais tout n'est pas perdu ! </strong> Il est encore possible de réouvrir la commission et ainsi la faire renaitre de ses cendres. Prend contact avec le conseil d'administration du BDE si tu est motivé pour devenir le nouveau président de {{ com.name }}...</p>
+            </div>
+            {% endif %}
+
+            <div class="commission-long-description markdown">
+                {{ com.description | markdown | safe }}
+            </div>
+
+            <div class="commission-meta">
+                <div class="created">
+                    Création : {{ com.creation_date | naturalday }}
+                </div>
+                {% if not com.is_active %}
+                    <div class="closed">
+                        Cloture : {{ com.creation_date | naturalday }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

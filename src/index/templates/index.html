@@ -1,0 +1,88 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block notitle %}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <script src="{% static "components/card.js" %}"></script>
+    <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/commission-card.js" %}"></script>
+    <script src="{% static "components/multiword.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="jumbo">
+        <div class="title-wrapper">
+            <h2 class="jumbo-title" >Viens <bde-multiword>
+                <span>t'amuser</span>
+                <span>faire du sport</span>
+                <span>découvrir</span>
+                <span>créer</span>
+                <span>faire des rencontres</span>
+                <span>manger</span>
+                <span>jouer</span>
+                <span>inventer</span>
+                <span>discuter</span>
+                <span>t'entrainer</span>
+            </bde-multiword> le jeudi après-midi</h2>
+        </div>
+        <p class="jumbo-content" >Tu peux dès maintenant créer ta commission et être financé par le BDE pour toutes les activités de la vie associative ! Sois créatif, tout est permis !</p>
+        <div class="buttons">
+            <a class="button primary" href="/commissions">Parcourir les commissions</a>
+            {% if not user.is_authenticated or perms.commissions.add_commission %}
+                <a class="button" href="/commissions/create">Créer une commission</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="content-shelf">
+        <h2 class="shelf-title">Dernières commissions</h2>
+        <div class="shelf-content">
+        {% for com in latest_commissions %}
+            {% include "fragments/commission-card.html" %}
+        {% endfor %}
+
+        {% if commission_count > 5 %}
+            <bde-card class="more-card">
+                <a class="more" href="/commissions">
+                    <bde-icon icon="mdi-creation" ></bde-icon>
+                    <div>Encore {{ commission_count }} commissions à découvrir</div>
+                </a>
+            </bde-card>
+        {% else %}
+            {% if not user.is_authenticated or perms.commissions.add_commission %}
+                <bde-card class="create-commission">
+                    <a href="/commissions/create">
+                        <div class="title">Toi aussi, sois acteur de la vie asso !</div>
+                        <span class="iconify" data-icon="mdi-creation"></span>
+                        <div>Crée ta commission et sois financé !</div>
+                    </a>
+                </bde-card>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+
+
+    {% if commission_count > 5 %}
+        <div class="content-shelf">
+            <h2 class="shelf-title">Quelques commissions à découvrir</h2>
+            <div class="shelf-content">
+            {% for com in random_commissions %}
+                {% include "fragments/commission-card.html" %}
+            {% endfor %}
+
+            {% if commission_count > 5 %}
+                <bde-card class="more-card">
+                    <a class="more" href="/commissions">
+                        <bde-icon icon="mdi-creation" ></bde-icon>
+                        <div>Encore {{ commission_count }} commissions à découvrir</div>
+                    </a>
+                </bde-card>
+            {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
