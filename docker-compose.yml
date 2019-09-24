@@ -35,9 +35,10 @@ services:
     deploy:
       labels:
         traefik.enable: "true"
-        traefik.http.routers.bde-cesi.rule: "Host(`bdecesilyon.fr`)"
         traefik.http.services.bde-cesi.loadbalancer.server.port: "80"
+
         traefik.http.routers.bde-cesi.entrypoints: web-secure
+        traefik.http.routers.bde-cesi.rule: "Host(`bdecesilyon.fr`)"
         traefik.http.routers.bde-cesi.tls.certresolver: letsencrypt
 
         traefik.http.routers.bde-cesi-insecure.entrypoints: web
@@ -45,16 +46,17 @@ services:
         traefik.http.routers.bde-cesi-insecure.middlewares: force-https@file
 
         traefik.http.routers.bde-cesi-insecure-old.entrypoints: web
-        traefik.http.routers.bde-cesi-insecure.rule: "Host(`bdecesi.epickiwi.fr`)"
-        traefik.http.routers.bde-cesi-insecure.middlewares: bde-cesi-redirect
+        traefik.http.routers.bde-cesi-insecure-old.rule: "Host(`bdecesi.epickiwi.fr`)"
+        traefik.http.routers.bde-cesi-insecure-old.middlewares: bde-cesi-redirect
 
-        traefik.http.routers.bde-cesi-insecure-old.entrypoints: web-secure
-        traefik.http.routers.bde-cesi-insecure.rule: "Host(`bdecesi.epickiwi.fr`)"
-        traefik.http.routers.bde-cesi-insecure.middlewares: bde-cesi-redirect
-        traefik.http.routers.bde-cesi.tls.certresolver: letsencrypt
+        traefik.http.routers.bde-cesi-old.entrypoints: web-secure
+        traefik.http.routers.bde-cesi-old.rule: "Host(`bdecesi.epickiwi.fr`)"
+        traefik.http.routers.bde-cesi-old.middlewares: bde-cesi-redirect
+        traefik.http.routers.bde-cesi-old.tls.certresolver: letsencrypt
 
-        traefik.http.middlewares.bde-cesi-redirect.redirectregex.regex: "^(https?)://localhost/(.*)"
+        traefik.http.middlewares.bde-cesi-redirect.redirectregex.regex: "^(https?)://bdecesi.epickiwi.fr/(.*)"
         traefik.http.middlewares.bde-cesi-redirect.redirectregex.replacement: "$${1}://bdecesilyon.fr/$${2}"
+        traefik.http.middlewares.bde-cesi-redirect.redirectregex.permanent: true
 
 volumes:
   user-media:
