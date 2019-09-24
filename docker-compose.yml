@@ -56,7 +56,7 @@ services:
 
         traefik.http.middlewares.bde-cesi-redirect.redirectregex.regex: "^(https?)://bdecesi.epickiwi.fr/(.*)"
         traefik.http.middlewares.bde-cesi-redirect.redirectregex.replacement: "$${1}://bdecesilyon.fr/$${2}"
-        traefik.http.middlewares.bde-cesi-redirect.redirectregex.permanent: true
+        traefik.http.middlewares.bde-cesi-redirect.redirectregex.permanent: "true"
 
 volumes:
   user-media:
