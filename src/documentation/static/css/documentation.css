@@ -1,0 +1,55 @@
+.document-body {
+    padding: 200px 20vw;
+}
+
+.document-body.markdown h1 {
+    font-size: 50px;
+}
+
+.document-body.markdown h1:first-of-type {
+    font-size: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+@media screen and (min-width: 801px) {
+    .document-body.markdown h2 {
+        font-size: 40px;
+    }
+
+    .document-body.markdown h3 {
+        font-size: 30px;
+    }
+
+    .document-body.markdown h4 {
+        font-size: 20px;
+    }
+
+    .document-body.markdown h5 {
+        font-size: 14px;
+    }
+
+    .document-body.markdown h6 {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .document-body.markdown h1:first-of-type {
+        font-size: 30px;
+    }
+
+    .document-body {
+        padding: 200px 5vw;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .document-body.markdown h1:first-of-type {
+        font-size: 40px;
+    }
+
+    .document-body {
+        padding: 200px 10vw;
+    }
+}
