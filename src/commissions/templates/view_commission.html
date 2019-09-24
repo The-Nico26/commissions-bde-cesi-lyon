@@ -83,7 +83,7 @@
             {% endif %}
 
             <div class="commission-long-description markdown">
-                {{ com.description | markdown | safe }}
+                {{ com.description | escape | markdown | safe }}
             </div>
 
             <div class="commission-meta">
