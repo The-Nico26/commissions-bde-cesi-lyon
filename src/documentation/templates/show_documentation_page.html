@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load markdown %}
+{% load humanize %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/documentation.css" %}" />
+    <link rel="stylesheet" href="{% static "css/framework.css" %}" />
+    <link rel="stylesheet" href="{% static "css/markdown.css" %}" />
+    <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/icon.js" %}"></script>
+    <script src="{% static "components/autoresize.js" %}"></script>
+{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:image" content="http://{{ request.get_host }}{% static "img/logo.jpg" %}" />
+    <meta property="og:description" content="{{ description }}"/>
+{% endblock %}
+
+{% block body %}
+
+    <div class="document-body">
+
+        <header class="doc-header">
+            <div class="icon">
+                <bde-icon icon="fa-solid:book"></bde-icon>
+            </div>
+            <h1 class="title" ><bde-autoresize>{{title}}</bde-autoresize></h1>
+        </header>
+
+        <div class="document-content markdown">
+
+            {{ html_content | safe }}
+
+            <footer class="toolbar" >
+                <a class="github" href="{{html_url}}" title="Voir sur GitHub"><bde-icon icon="mdi-github-circle" ></bde-icon></a>
+            </footer>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -191,3 +191,13 @@
 .inactive-modal strong {
     font-weight: bold;
 }
+
+@media print {
+    .commission-body {
+        width: 90% !important;
+    }
+
+    .manage {
+        display: none;
+    }
+}

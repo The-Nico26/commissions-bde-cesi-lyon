@@ -78,6 +78,7 @@
         {% if not user.is_authenticated or perms.commissions.add_commission %}
             <li><a href="/commissions/create" class="clickable rainbow{% if active_commission_creation %} active{% endif %}">Créer une commission</a></li>
         {% endif %}
+        <li><a href="/guide" class="clickable{% if active_guide %} active{% endif %}">Guide de la Vie Asso</a></li>
     </ul>
     {% if userCommissions %}
         <div class="separator"></div>

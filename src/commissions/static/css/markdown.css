@@ -12,7 +12,7 @@
 .markdown ol,
 .markdown pre,
 .markdown p{
-    margin: 15px 0;
+    margin-bottom: 15px;
 }
 
 .markdown h1,
@@ -81,6 +81,11 @@
 .markdown ul,
 .markdown ol {
     padding-left: 20px;
+    margin-top: 5px;
+}
+
+.markdown li {
+    margin-bottom: 5px;
 }
 
 .markdown ul {
@@ -102,4 +107,10 @@
     width: 100%;
     max-height: 500px;
     object-fit: scale-down;
+}
+
+@media screen and (max-width: 800px) {
+    .markdown blockquote {
+        width: 100%;
+    }
 }
