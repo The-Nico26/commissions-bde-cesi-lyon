@@ -102,10 +102,10 @@ def show_page(request, path="/"):
     })
 
 def check_guide_request_error(request, path, only500=False):
-    if not only500 and 400 <= request.status_code < 500:
+    if not only500 and request.status_code == 404:
         raise Http404("Page du guide \"{}\" non trouvée".format(path))
 
-    elif request.status_code > 200 and not 400 <= request.status_code < 500:
+    elif request.status_code > 200 and not request.status_code == 404:
         logger.error("Error while getting {} page of the guide".format(path))
         logger.error("url: {}; code : {}; content : {}".format(request.url, request.status_code,
                                                                request.text))
