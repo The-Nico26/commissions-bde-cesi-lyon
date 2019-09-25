@@ -69,6 +69,12 @@ class Commission(models.Model):
     # Les tags de la commission
     tags = models.ManyToManyField(Tag, blank=True)
 
+    # Le hashtag associé à la commission
+    hashtag = models.CharField(max_length=100, blank=True, null=True)
+
+    # La date à laquelle le Hashtag à été défini
+    hashtag_definition_date = models.DateTimeField(blank=True, null=True)
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Commission, self).save(*args, **kwargs)
