@@ -144,3 +144,19 @@ def create_commission(request):
         'form': form,
         "active_commission_creation": True
     })
+
+def manage_commission_social(request, slug):
+    if not request.user.is_authenticated:
+        return redirect("/login?next={}".format(request.path))
+
+    com = get_object_or_404(Commission, slug=slug)
+
+    if not com.has_change_permission(request):
+        messages.add_message(request, messages.ERROR, "Tu ne peux pas modifier cette commission, désolé...")
+        return redirect("/commissions/{}".format(com.slug))
+
+    return render(request, "manage_social.html", {
+        'com': com,
+        "active_commission_id": com.id,
+        "can_change_member": com.has_change_members_permission(request)
+    })

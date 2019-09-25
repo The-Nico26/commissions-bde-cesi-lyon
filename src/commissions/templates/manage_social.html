@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Gerer {{ com.name }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/framework.css" %}">
+    <link rel="stylesheet" href="{% static "css/manage-commission.css" %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" ></script>
+    <script src="{% static "components/tag-selector.js" %}"></script>
+    <script src="{% static "components/markdown.js" %}"></script>
+    <script src="{% static "components/image-selector.js" %}"></script>
+    <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/pulse.js" %}"></script>
+    <script src="{% static "js/edit-commission.js" %}"></script>
+{% endblock %}
+
+{% block header %}
+    <div class="com-toolbar">
+        <a class="btn see-com" href="/commissions/{{ com.slug }}">Voir la commission</a>
+        <div class="separator"></div>
+        <a class="btn" href="/commissions/{{ com.slug }}/manage" >Général</a>
+        {% if can_change_member %}
+        <a class="btn" href="/commissions/{{ com.slug }}/manage/members" >Membres</a>
+        {% endif %}
+        <bde-pulse>
+            <button class="btn btn-primary" id="save-button" disabled>Enregistrer</button>
+        </bde-pulse>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="manage-social-body">
+        
+    </div>
+
+{% endblock %}
