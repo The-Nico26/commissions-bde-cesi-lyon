@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static "css/framework.css" %}" />
     <link rel="stylesheet" href="{% static "css/markdown.css" %}" />
     <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/icon.js" %}"></script>
+    <script src="{% static "components/autoresize.js" %}"></script>
 {% endblock %}
 
 {% block opengraph %}
@@ -20,8 +22,24 @@
 
 {% block body %}
 
-    <div class="document-body markdown">
-        {{ html_content | safe }}
+    <div class="document-body">
+
+        <header class="doc-header">
+            <div class="icon">
+                <bde-icon icon="fa-solid:book"></bde-icon>
+            </div>
+            <h1 class="title" ><bde-autoresize>{{title}}</bde-autoresize></h1>
+        </header>
+
+        <div class="document-content markdown">
+
+            {{ html_content | safe }}
+
+            <footer class="toolbar" >
+                <a class="github" href="{{html_url}}" title="Voir sur GitHub"><bde-icon icon="mdi-github-circle" ></bde-icon></a>
+            </footer>
+        </div>
+
     </div>
 
 {% endblock %}

@@ -48,6 +48,7 @@ def show_page(request, path="/"):
         if 400 <= firstR.status_code < 500:
             path += ".md"
             firstRwithext = requests.get(REPOSITORY_URL.format(path), auth=auth)
+
             check_guide_request_error(firstRwithext, path)
             firstR = firstRwithext
 
@@ -70,13 +71,15 @@ def show_page(request, path="/"):
 
         binaryContent = base64.b64decode(result["content"])
         originalPath = result["path"]
+        html_url = result["html_url"]
         logger.info("Updated cache for documentation page {}".format(path))
-        contentcache[request_path] = (time.time(), binaryContent, result["path"], is_directory)
+        contentcache[request_path] = (time.time(), binaryContent, result["path"], is_directory, html_url)
 
     else:
         is_directory = contentcache[request_path][3]
         binaryContent = contentcache[request_path][1]
         originalPath = contentcache[request_path][2]
+        html_url = contentcache[request_path][3]
 
     if not originalPath.endswith(".md"):
         return HttpResponse(binaryContent, content_type=mimetypes.guess_type(originalPath))
@@ -89,16 +92,18 @@ def show_page(request, path="/"):
 
     description = re.sub(r'^(.+\.)', r'\1', textContent.splitlines()[2])
 
-    md = markdown.Markdown(extensions=[DocumentationExtention(current_path=request.path, is_directory=is_directory)])
-
-    html_content = md.convert(textContent)
+    html_content = markdown.markdown(textContent[len(title)+2:], extensions = [
+        'extra',
+        DocumentationExtention(current_path=request.path, is_directory=is_directory)
+    ])
 
     return render(request, "show_documentation_page.html", {
         "content": textContent,
         "html_content": html_content,
         "title": title,
         "description": description,
-        "active_guide": True
+        "active_guide": True,
+        "html_url": html_url
     })
 
 def check_guide_request_error(request, path, only500=False):
@@ -110,7 +115,7 @@ def check_guide_request_error(request, path, only500=False):
         logger.error("url: {}; code : {}; content : {}".format(request.url, request.status_code,
                                                                request.text))
         raise ValueError("Error while getting page of guide")
-
+        
 
 class RelativePath(Treeprocessor):
 
