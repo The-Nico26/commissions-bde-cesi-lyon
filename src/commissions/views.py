@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from commissions.models import Commission
-from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm
+from commissions.models import Commission, Event
+from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, CreateEditEventForm
 from django.contrib import messages
 from commissions.models import Tag
-from django.forms.models import model_to_dict
+from django.db.models import Q
 
 from users.models import User
 
@@ -131,11 +131,11 @@ def create_commission(request):
 
             commission.save()
 
-            messages.add_message(request, messages.SUCCESS, "Youhou ! Ta commission {} à bien été crée ! Amuses toi bien".format(commission.name))
+            messages.add_message(request, messages.SUCCESS, "Youhou ! Ta commission {} a bien été créée ! Amuse toi bien".format(commission.name))
 
             return redirect("/commissions/{}".format(commission.slug))
         else:
-            messages.add_message(request, messages.ERROR, "Tu n'as pas correctement remplis le formulaire de creation")
+            messages.add_message(request, messages.ERROR, "Tu n'as pas correctement rempli le formulaire de creation")
 
     else:
         form = CreateCommissionForm(initial={'treasurer': request.user})
@@ -143,4 +143,71 @@ def create_commission(request):
     return render(request, "create_commission.html", {
         'form': form,
         "active_commission_creation": True
+    })
+
+
+def create_event(request):
+    if not request.user.is_authenticated:
+        return render(request, "create_commission_unauthenticated.html", {
+            "active_commission_creation": True
+        })
+    # TODO: Ajouter commission
+    if not request.user.has_perm("events.add_event"):
+        messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à créer un évènement, désolé...")
+        return redirect("/")
+
+    if request.method == "POST":
+        form = CreateEditEventForm(request.POST or None, request.FILES or None)
+        if form.is_valid() and form.cleaned_data['commission']:
+            event = form.save(commit=False)
+            event.commission = Commission.objects.filter(Q(president=request.user) | Q(deputy=request.user) | Q(treasurer=request.user))
+            event.save()
+
+            messages.add_message(request, messages.SUCCESS,
+                                 "Youhou ! Ton évènement {} a bien été créée ! Amuse toi bien".format(form.cleaned_data['name']))
+            # TODO: Change redirection pour la page d'event
+            return redirect("/event/{}".format(form.cleaned_data['slug']))
+        else:
+            messages.add_message(request, messages.ERROR, "Tu n'as pas correctement rempli le formulaire de creation")
+
+    else:
+        form = CreateEditEventForm()
+    # TODO: Créer page de création d'évènement
+    return render(request, "create_event.html", {
+        'form': form
+    })
+
+
+def edit_event(request, slug):
+    if not request.user.is_authenticated:
+        return render(request, "create_commission_unauthenticated.html", {
+            "active_commission_creation": True
+        })
+
+    if not request.user.has_perm("events.add_event"):
+        messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à créer un évènement, désolé...")
+        return redirect("/")
+
+    event = get_object_or_404(Event, slug=slug)
+
+    if not event.has_change_event_permission(request):
+        messages.add_message(request, messages.ERROR, "Tu ne peux pas modifier cet évènement, désolé...")
+        # TODO: Change lien de redirection
+        return redirect("/event/{}".format(event.slug))
+
+    form = CreateEditEventForm(request.POST or None, instance=event)
+
+    if form.is_valid():
+        form.save()
+        messages.add_message(request, messages.SUCCESS, "Evènement modifié")
+        if event.has_change_event_permission(request):
+            # TODO: Change lien de redirection
+            return redirect("/event/{}/".format(event.commission.slug))
+        else:
+            return redirect("/event/{}".format(event.commission.slug))
+
+    # TODO: Créer page d'édition d'évènement
+    return render(request, "edit_event.html", {
+        "event": event,
+        "form": form
     })
