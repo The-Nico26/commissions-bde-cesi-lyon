@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="icon" type="image/png" href="{% static "img/logo.jpg" %}" />
+    <link rel="icon" type="image/png" href="{% static "img/logo.png" %}" />
     <title>{% block notitle %}{% block title %}{% endblock %} - {% endblock %}BDE Cesi Lyon</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:700&display=swap" rel="stylesheet"/>
@@ -28,7 +28,7 @@
 
     {% block opengraph %}
         <meta property="og:title" content="BDE Cesi Lyon" />
-        <meta property="og:image" content="http://{{ request.get_host }}{% static "img/logo.jpg" %}" />
+        <meta property="og:image" content="http://{{ request.get_host }}{% static "img/logo.png" %}" />
         <meta property="og:description" content="Viens participer à la vie associative du CESI de Lyon !"/>
     {% endblock %}
         <meta property="og:site_name" content="BDE Cesi Lyon"/>
@@ -43,7 +43,7 @@
     <bde-class-switcher class="mobile-close" target=".main-aside" target-class="activated"></bde-class-switcher>
     <header class="main-header">
         <a href="/">
-            <img src="{% static "img/logo.jpg" %}" alt="BDE Cesi Lyon"/>
+            <img src="{% static "img/logo.png" %}" alt="BDE Cesi Lyon"/>
         </a>
     </header>
 
