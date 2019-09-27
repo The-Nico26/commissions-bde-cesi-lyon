@@ -72,6 +72,10 @@
     .event:hover .banner img {
         transform: scale(1.05);
     }
+
+    :host(.static) .event:hover .banner img {
+        transform: scale(1);
+    }
     
     .header {
         height: 80px;
@@ -193,6 +197,14 @@
             let template = document.createElement("template")
             template.innerHTML = TEMPLATE
             this.root.appendChild(template.content.cloneNode(true))
+        }
+
+        connectedCallback(){
+            requestAnimationFrame(() => {
+                if(this.classList.contains("static")){
+                    this.root.querySelector("bde-card").classList.add("static")
+                }
+            })
         }
 
         get eventName() {

@@ -18,12 +18,23 @@ def list_commissions(request):
     })
 
 
-def view_commission(request, slug):
+def view_commission(request, slug, eventslug=None):
     com = get_object_or_404(Commission, slug=slug)
+    event = None
+
+    if eventslug is not None:
+
+        try:
+            event = Event.objects.get(slug=eventslug)
+
+        except Event.DoesNotExist:
+            messages.add_message(request, messages.ERROR, "Événement {} non trouvé".format(eventslug))
+            return redirect("/commissions/{}".format(com.slug))
 
     return render(request, "view_commission.html", {
         'com': com,
-        'can_manage': com.has_change_permission(request)
+        'can_manage': com.has_change_permission(request),
+        'event': event
     })
 
 

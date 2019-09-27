@@ -43,7 +43,7 @@
         <div class="shelf-content">
         
         {% for event in upcoming_events %}
-            <a href="/commissions/{{ event.commission.slug }}/events/{{ event.slug }}">
+            <a href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}">
                 {% include "fragments/event-card.html" %}
             </a>
         {% endfor %}
