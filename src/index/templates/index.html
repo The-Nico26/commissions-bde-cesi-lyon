@@ -9,6 +9,7 @@
     <script src="{% static "components/tag.js" %}"></script>
     <script src="{% static "components/commission-card.js" %}"></script>
     <script src="{% static "components/multiword.js" %}"></script>
+    <script src="{% static "components/event-card.js" %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -41,11 +42,11 @@
         <h2 class="shelf-title">Événements à venir</h2>
         <div class="shelf-content">
         
-        <ul>
         {% for event in upcoming_events %}
-            <li>{{event.name}}</li>
+            <a href="/commissions/{{ event.commission.slug }}/events/{{ event.slug }}">
+                {% include "fragments/event-card.html" %}
+            </a>
         {% endfor %}
-        </ul>
 
         </div>
     </div>

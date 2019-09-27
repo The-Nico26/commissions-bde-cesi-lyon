@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils import timezone
 
 from users.models import User
 
@@ -122,6 +123,9 @@ class Event(models.Model):
 
     # La date de fin de l'évènement
     event_date_end = models.DateTimeField()
+
+    def has_started(self):
+        return self.event_date_start < timezone.now() and self.event_date_end > timezone.now()
 
     def has_change_event_permission(self, request):
         return ((

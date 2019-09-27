@@ -1,0 +1,23 @@
+{% load humanize %}
+
+<bde-event-card
+	
+	event-name="{{event.name}}"
+	
+		{% if event.banner %}
+			banner-src="/media/{{event.banner}}"
+		{% endif %}
+	
+	event-start="{{event.event_date_start | date:"c" }}"
+	event-end="{{event.event_date_end | date:"c" }}"
+
+	>
+	
+	{% if event.has_started %}
+		<span slot="relative-time">Fin {{event.event_date_end| naturaltime | lower }}</span>
+	{% else %}
+		<span slot="relative-time">Débute {{event.event_date_start | naturaltime }}</span>
+	{% endif %}
+	<div slot="commission" >{% include "fragments/compact-commission.html" with com=event.commission %}</div>
+
+</bde-event-card>
