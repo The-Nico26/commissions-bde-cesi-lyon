@@ -36,6 +36,20 @@
             {% endif %}
         </div>
     </div>
+
+    <div class="content-shelf">
+        <h2 class="shelf-title">Événements à venir</h2>
+        <div class="shelf-content">
+        
+        <ul>
+        {% for event in upcoming_events %}
+            <li>{{event.name}}</li>
+        {% endfor %}
+        </ul>
+
+        </div>
+    </div>
+
     <div class="content-shelf">
         <h2 class="shelf-title">Dernières commissions</h2>
         <div class="shelf-content">
