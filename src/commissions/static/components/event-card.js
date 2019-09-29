@@ -32,6 +32,8 @@
         position: relative;
         padding: 10px;
         width: 100%;
+        
+        overflow: hidden;
     }
 
     .event > * {
@@ -45,7 +47,6 @@
         position: absolute;
         top: 0;
         left: 0;
-        border-radius: 10px 10px 0 0;
         overflow: hidden;
         z-index: 0;
     }
