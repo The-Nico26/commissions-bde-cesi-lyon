@@ -158,11 +158,16 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'simple': {
-            'format': '\t\t\t {levelname} {message}',
+            'format': '{levelname} {message}',
             'style': '{',
         },
     },
     'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
@@ -176,3 +181,14 @@ LOGGING = {
         },
     },
 }
+
+# ------ EMAIL ------#
+
+EMAIL_HOST = "smtp.office365.com"
+EMAIL_PORT = 587
+EMAIL_SUBJECT_PREFIX = "[BDE Cesi Lyon]"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv("EMAIL_FROM")
+SERVER_EMAIL = os.getenv("EMAIL_FROM")
+EMAIL_HOST_USER = os.getenv("EMAIL_FROM")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")

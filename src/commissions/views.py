@@ -1,4 +1,10 @@
+import logging
+import os
+
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
+
+from bdecesi import settings
 from commissions.models import Commission
 from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm
 from django.contrib import messages
@@ -7,6 +13,7 @@ from django.forms.models import model_to_dict
 
 from users.models import User
 
+logger = logging.getLogger(__name__)
 
 def list_commissions(request):
 
@@ -132,6 +139,27 @@ def create_commission(request):
             commission.save()
 
             messages.add_message(request, messages.SUCCESS, "Youhou ! Ta commission {} à bien été crée ! Amuses toi bien".format(commission.name))
+
+            referers = User.objects.filter(support_member=True, is_active=True)
+
+            if os.getenv("ENVIRONMENT", "production") == "production":
+                access_addr = request.build_absolute_uri("/commissions/{}".format(commission.slug)).replace("http://", "https://")
+            else:
+                access_addr = request.build_absolute_uri("/commissions/{}".format(commission.slug))
+
+            for referer in referers:
+                send_mail(
+                    'Nouvelle commissions : {}'.format(commission.name),
+                    "Une nouvelle commission nommée {} à été crée par {} !\n\n{}".format(
+                        commission.name,
+                        request.user.get_full_name(),
+                        access_addr
+                    ),
+                    settings.DEFAULT_FROM_EMAIL,
+                    [referer.email],
+                    fail_silently=False,
+                )
+                logger.debug("Sent email of created commission to {}".format(referer.email))
 
             return redirect("/commissions/{}".format(commission.slug))
         else:
