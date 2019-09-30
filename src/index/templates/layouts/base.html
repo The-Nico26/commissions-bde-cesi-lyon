@@ -116,13 +116,27 @@
         </ul>
         <ul>
             {% if status_doc %}
-                <li><a href="/media/{{ status_doc.file }}">Status</a></li>
+                <li><a href="/media/{{ status_doc.file }}">Status BDE</a></li>
             {% endif %}
             {% if rules_doc %}
-                <li><a href="/media/{{ rules_doc.file }}">Reglement intérieur</a></li>
+                <li><a href="/media/{{ rules_doc.file }}">Reglement intérieur BDE</a></li>
+            {% endif %}
+        </ul>
+    <div class="separator"></div>
+        <ul>
+            <li>BDS CESI Lyon</li>
+            <li><a href="https://instagram.com/bdscesi?igshid=nbrn774n9czv">Instagram</a></li>
+        </ul>
+        <ul>
+            {% if status_bds_doc %}
+                <li><a href="/media/{{ status_bds_doc.file }}">Status BDS</a></li>
+            {% endif %}
+            {% if rules_bds_doc %}
+                <li><a href="/media/{{ rules_bds_doc.file }}">Reglement intérieur BDS</a></li>
             {% endif %}
         </ul>
         {% if user.is_staff %}
+        <div class="separator"></div>
         <ul>
             <li><a href="/admin">Administration avancée</a></li>
         </ul>
