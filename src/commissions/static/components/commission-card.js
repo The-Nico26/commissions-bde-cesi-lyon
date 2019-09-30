@@ -156,12 +156,13 @@
                         top: 10px;
                         right: 10px;
                         height: 40px;
+                        min-width: 40px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         flex-direction: row;
                     }
-
+                    
                     .status bde-icon {
                         height: 30px;
                     }
@@ -173,6 +174,14 @@
                     .bds .status .organization .bds-token {
                         display: block;
                         color: var(--bds-color);
+                        
+                        border-radius: 40px;
+                        background: rgba(0,0,0,0.5);
+                        height: 40px;
+                        width: 40px;
+                        text-align: center;
+                        line-height: 40px;
+                        padding-top: 5px;
                     }
                     
                     .president slot::slotted(*) {
