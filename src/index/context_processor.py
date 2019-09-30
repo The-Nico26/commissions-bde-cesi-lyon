@@ -29,13 +29,13 @@ def currentDocuments(request):
         current_rules = None
 
     statusBdsQS = Document.objects.order_by("-created_at").filter(role="status-bds", current_version=True)
-    if statusQS.count() > 0:
+    if statusBdsQS.count() > 0:
         current_status_bds = statusBdsQS[0]
     else:
         current_status_bds = None
 
     rulesBdsQS = Document.objects.order_by("-created_at").filter(role="reglement-interieur-bds", current_version=True)
-    if rulesQS.count() > 0:
+    if rulesBdsQS.count() > 0:
         current_rules_bds = rulesBdsQS[0]
     else:
         current_rules_bds = None
