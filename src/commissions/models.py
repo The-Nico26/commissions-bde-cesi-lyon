@@ -69,6 +69,9 @@ class Commission(models.Model):
     # Les tags de la commission
     tags = models.ManyToManyField(Tag, blank=True)
 
+    # L'organisation en charge de la gestion de la commission (BDE ou BDS)
+    organization_dependant = models.CharField(max_length=100, choices=[("bde", "BDE"), ("bds", "BDS")], default="bde", help_text="L'organisation à laquelle appartiens la commission")
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Commission, self).save(*args, **kwargs)

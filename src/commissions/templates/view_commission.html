@@ -28,23 +28,28 @@
 
             <header class="commission-header">
 
-                <div class="logo">
+                <div class="logo {{ com.organization_dependant }}">
                     <img src="/media/{{ com.logo }}" alt="Logo de {{ com.name }}">
                 </div>
 
                 <div class="info">
-                    <div class="tags">
+                    <div class="headline">
+                        <div class="tags">
 
-                        {% if not com.is_active %}
-                            <bde-tag slot="tags">Inactive</bde-tag>
+                            {% if not com.is_active %}
+                                <bde-tag slot="tags">Inactive</bde-tag>
+                            {% endif %}
+
+                            {% for tag in com.tags.all %}
+                                <bde-tag slot="tags" color="{{ tag.color }}" >
+                                    {{ tag.name }}
+                                </bde-tag>
+                            {% endfor %}
+
+                        </div>
+                        {% if com.organization_dependant == "bds" %}
+                            <div class="bds-dependant" title="Dépendante du BDS"><span class="text">Dépendante du BDS</span><bde-icon icon="mdi-run"></bde-icon></div>
                         {% endif %}
-
-                        {% for tag in com.tags.all %}
-                            <bde-tag slot="tags" color="{{ tag.color }}" >
-                                {{ tag.name }}
-                            </bde-tag>
-                        {% endfor %}
-
                     </div>
                     <h1 class="commission-name"><bde-autoresize>{{ com.name }}</bde-autoresize></h1>
                 </div>
