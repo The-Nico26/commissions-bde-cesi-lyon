@@ -163,11 +163,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': [],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
@@ -181,6 +176,8 @@ LOGGING = {
         },
     },
 }
+
+ADMINS = (("EpicKiwi", "me@epickiwi.fr"))
 
 # ------ EMAIL ------#
 
