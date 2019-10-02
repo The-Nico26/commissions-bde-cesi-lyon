@@ -157,7 +157,7 @@ def create_commission(request):
                     ),
                     settings.DEFAULT_FROM_EMAIL,
                     [referer.email],
-                    fail_silently=False,
+                    fail_silently=True,
                 )
                 logger.debug("Sent email of created commission to {}".format(referer.email))
 
