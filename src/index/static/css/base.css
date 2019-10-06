@@ -134,6 +134,15 @@ body {
     background: rgba(0,0,0,0.1);
 }
 
+.main-aside .subsection .active {
+    border-right: solid 5px var(--secondary-color);
+    background: rgba(0,0,0,0.1);
+}
+
+.main-aside .subsection .clickable {
+    padding-left: 40px;
+}
+
 .main-aside .rainbow.active {
     border-color: var(--secondary-color);
 }

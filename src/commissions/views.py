@@ -53,6 +53,23 @@ def view_event(request, slug, eventslug):
         'event': event
     })
 
+def commission_dashboard(request, slug):
+
+    if not request.user.is_authenticated:
+        return redirect("/login?next={}".format(request.path))
+
+    com = get_object_or_404(Commission, slug=slug)
+
+    if not com.has_change_permission(request):
+        messages.add_message(request, messages.ERROR, "Tu ne peux pas acceder à cette commission, désolé...")
+        return redirect("/commissions/{}".format(com.slug))
+
+    return render(request, "dashboard_commission.html", {
+        'com': com,
+        "active_commission_id": com.id,
+        "can_change_member": com.has_change_members_permission(request)
+    })
+
 
 def edit_commission(request, slug):
 
@@ -73,13 +90,14 @@ def edit_commission(request, slug):
     if edit_form.is_valid():
         edit_form.save()
         messages.add_message(request, messages.SUCCESS, "Commission mise à jour")
-        return redirect("/commissions/{}/manage".format(com.slug))
+        return redirect("/commissions/{}/manage/edit".format(com.slug))
 
     return render(request, "edit_commission.html", {
         'com': com,
         "edit_form": edit_form,
         "active_commission_id": com.id,
-        "can_change_member": com.has_change_members_permission(request)
+        "can_change_member": com.has_change_members_permission(request),
+        "active_commission_edit": True
     })
 
 
@@ -116,6 +134,8 @@ def edit_members_commission(request, slug):
         "com": com,
         "form": form,
         "active_commission_id": com.id,
+        "active_commission_members": True,
+        "can_change_member": True
     })
 
 
