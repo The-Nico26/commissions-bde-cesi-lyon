@@ -24,6 +24,7 @@
     <script src="{% static "components/autoresize.js" %}"></script>
     <script src="{% static "components/class-switcher.js" %}"></script>
     <script src="{% static "components/mobile-header.js" %}"></script>
+    <script src="{% static "components/compact-commission.js" %}"></script>
     {% block head %}{% endblock %}
 
     {% block opengraph %}
@@ -87,8 +88,7 @@
     <ul class="nav">
         {% for com in userCommissions %}
             <li><a href="/commissions/{{ com.slug }}/manage" class="clickable small-commission{% if active_commission_id and com.id == active_commission_id %} active{% endif %}">
-                <div class="small-commission-logo"><img src="/media/{{ com.logo }}"/></div>
-                <div class="small-commission-info">{{com.name}}</div>
+                {% include "fragments/compact-commission.html" %}
             </a></li>
         {% endfor %}
     </ul>

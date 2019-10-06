@@ -10,6 +10,11 @@
     color: var(--primary-color);
 }
 
+.btn-light  {
+    border: solid 2px white;
+    color: white;
+}
+
 .btn-primary {
     color: var(--on-primary-color);
     background-color: var(--primary-color);

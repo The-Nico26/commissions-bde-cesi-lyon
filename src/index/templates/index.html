@@ -9,6 +9,7 @@
     <script src="{% static "components/tag.js" %}"></script>
     <script src="{% static "components/commission-card.js" %}"></script>
     <script src="{% static "components/multiword.js" %}"></script>
+    <script src="{% static "components/event-card.js" %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -36,6 +37,22 @@
             {% endif %}
         </div>
     </div>
+
+    {% if upcoming_events %}
+    <div class="content-shelf">
+        <h2 class="shelf-title">Événements à venir</h2>
+        <div class="shelf-content">
+        
+        {% for event in upcoming_events %}
+            <a href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}">
+                {% include "fragments/event-card.html" %}
+            </a>
+        {% endfor %}
+
+        </div>
+    </div>
+    {% endif %}
+
     <div class="content-shelf">
         <h2 class="shelf-title">Dernières commissions</h2>
         <div class="shelf-content">
