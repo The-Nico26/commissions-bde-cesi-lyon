@@ -11,6 +11,7 @@ from commissions.models import Tag
 from django.db.models import Q
 
 from users.models import User
+from webhooks.models import Webhook
 
 logger = logging.getLogger(__name__)
 
@@ -187,6 +188,11 @@ def create_commission(request):
             else:
                 access_addr = request.build_absolute_uri("/commissions/{}".format(commission.slug))
 
+            if os.getenv("ENVIRONMENT", "production") == "production":
+                logo_addr = request.build_absolute_uri("/media/{}".format(commission.logo)).replace("http://", "https://")
+            else:
+                logo_addr = request.build_absolute_uri("/media/{}".format(commission.logo))
+
             for referer in referers:
                 send_mail(
                     'Nouvelle commissions : {}'.format(commission.name),
@@ -200,6 +206,9 @@ def create_commission(request):
                     fail_silently=True,
                 )
                 logger.debug("Sent email of created commission to {}".format(referer.email))
+
+            for webhook in Webhook.objects.filter(is_active=True, event="commission-create"):
+                webhook.trigger(fail_silently=False, commission=commission, commission_url=access_addr, commission_logo_url=logo_addr)
 
             return redirect("/commissions/{}".format(commission.slug))
         else:
