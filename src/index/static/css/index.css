@@ -91,27 +91,8 @@
     }
 }
 
-.content-shelf {
-    margin: 25px 5vw 75px;
-}
-
-.shelf-title {
-    width: 100%;
-    font-family: var(--title-fonts);
-    font-size: 35px;
-    margin-bottom: 20px;
-    margin-left: 2vw;
-}
-
-.shelf-content {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.shelf-content > * {
-    margin: 10px;
+bde-shelf {
+    padding: 25px 5vw 75px;
 }
 
 .more-card {
