@@ -1,5 +1,6 @@
 # Commissions BDE CESI Lyon
-Plateforme de gestion des commissions du BDE CESI de Lyon.
+
+Plateforme de gestion des commissions du BDE CESI de Lyon. Une version Live est disponible à l'adresse [bdecesilyon.fr](https://bdecesilyon.fr)
 
 ## Installation de développement
 
@@ -49,3 +50,7 @@ Executez le script de déploiement
 ```sh-session
 ./deploy.sh
 ```
+
+## Documentation
+
+La documentation dite "Guide de la vie Asso" est rédigée sur le repository [EpicKiwi/bdecesilyon-documentation](https://github.com/EpicKiwi/bdecesilyon-documentation).
