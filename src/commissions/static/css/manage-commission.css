@@ -199,7 +199,7 @@
     color: var(--bds-color);
 
     background: rgba(0,0,0,0.5);
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px;
     padding: 5px;
 }
 
@@ -228,4 +228,20 @@
     .commission-header .headline .bds-dependant bde-icon {
         margin-left: 0;
     }
+}
+
+@media screen and (max-width: 800px) {
+
+    .commission-header .headline .bds-dependant .text {
+        display: none;
+    }
+
+    .commission-header .info {
+        margin: 0;
+    }
+
+    .banner {
+        height: 350px;
+    }
+
 }
