@@ -22,7 +22,7 @@ services:
     networks:
       - overlay
     deploy:
-      replocas: 2
+      replicas: 2
 
   proxy:
     image: epickiwi/bdecesi-proxy
@@ -35,7 +35,7 @@ services:
       - overlay
       - traefik-net
     deploy:
-      deplicas: 2
+      replicas: 2
       labels:
         traefik.enable: "true"
         traefik.http.services.bde-cesi.loadbalancer.server.port: "80"
