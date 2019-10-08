@@ -113,7 +113,7 @@ class Event(models.Model):
     banner = models.ImageField(upload_to="events/photos")
 
     # Commission liée à l'évènement
-    commission = models.ForeignKey(Commission, on_delete=models.SET_NULL, null=True, related_name='commission')
+    commission = models.ForeignKey(Commission, on_delete=models.SET_NULL, null=True, related_name='events')
 
     # La date de creation de l'évènement
     creation_date = models.DateTimeField(auto_now_add=True)
