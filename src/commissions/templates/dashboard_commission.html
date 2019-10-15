@@ -14,6 +14,8 @@
     <script src="{% static "components/tag.js" %}"></script>
     <script src="{% static "components/card.js" %}"></script>
     <script src="{% static "components/event-card.js" %}"></script>
+    <script src="{% static "components/shelf.js" %}"></script>
+    <script src="{% static "components/timeline.js" %}"></script>
 {% endblock %}
 
 {% block header %}
@@ -58,6 +60,44 @@
                     <h1 class="commission-name"><bde-autoresize>{{ com.name }}</bde-autoresize></h1>
                 </div>
             </header>
+
+        <bde-shelf class="events-shelf dashboard-section">
+            <h2 slot="title" >Évenements</h2>
+            <a href="#" slot="toolbar" class="btn">Nouveau <bde-icon icon="mdi-plus"></bde-icon></a>
+            {% if upcoming_events %}
+                {% for event in upcoming_events %}
+                    <a href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}">
+                        {% include "fragments/event-card.html" %}
+                    </a>
+                {% endfor %}
+            {% else %}
+                <a href="/commissions/{{ com.slug }}/manage/events/create">
+                    <bde-card class="noevent">
+                        <bde-icon icon="mdi-calendar" ></bde-icon>
+                        <p>Aucun événement à venir</p>
+                        <div class="btn">Créer un événement <bde-icon icon="mdi-plus"></bde-icon></div>
+                    </bde-card>
+                </a>
+                <bde-card class="noevent static">
+                    <p>Un événement peut être et doit être n'importe quel type d'activité planifié de ta commission.</p>
+                    <p>Un évenement créé sera propagé dans les calendriers des étudiants et sera affiché dans les annonces officielles</p>
+                </bde-card>
+            {% endif %}
+        </bde-shelf>
+
+        <div class="dashboard-section">
+            <h2 class="section-title timeline-title" >Timeline</h2>
+            <bde-timeline class="timeline">
+                {% for event in passed_events %}
+                    <a
+                            href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}"
+                            timeline-date="{{ event.event_date_start | date:"c" }}"
+                            timeline-id="{{ event.id }}">
+                        {% include "fragments/event-card.html" %}
+                    </a>
+                {% endfor %}
+            </bde-timeline>
+        </div>
 
         </div>
     </div>

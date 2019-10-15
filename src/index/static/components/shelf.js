@@ -54,15 +54,19 @@
             }
             
             .shelf-content *, .shelf-content ::slotted(*) {
-                margin: 10px;
+                margin: 10px !important;
             }
             
-            .shelf-toolbar {
+            .shelf-toolbar slot {
                 display: flex;
                 justify-content: flex-end;
                 align-items: flex-end;
                 flex-direction: row;
                 flex-wrap: wrap;
+            }
+            
+            .shelf-toolbar ::slotted(*) {
+                margin: 0 5px !important;
             }
             
             @media screen and (max-width: 800px) {

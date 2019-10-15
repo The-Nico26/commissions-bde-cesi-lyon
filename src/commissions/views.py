@@ -3,6 +3,8 @@ import os
 
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+
 from bdecesi import settings
 from commissions.models import Commission, Event
 from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, CreateEditEventForm
@@ -65,10 +67,15 @@ def commission_dashboard(request, slug):
         messages.add_message(request, messages.ERROR, "Tu ne peux pas acceder à cette commission, désolé...")
         return redirect("/commissions/{}".format(com.slug))
 
+    upcoming_events = Event.objects.filter(event_date_end__gte=timezone.now(), commission=com).order_by("event_date_start")
+    passed_events = Event.objects.filter(event_date_end__lt=timezone.now(), commission=com).order_by("event_date_start")
+
     return render(request, "dashboard_commission.html", {
         'com': com,
         "active_commission_id": com.id,
-        "can_change_member": com.has_change_members_permission(request)
+        "can_change_member": com.has_change_members_permission(request),
+        "upcoming_events": upcoming_events,
+        "passed_events": passed_events
     })
 
 

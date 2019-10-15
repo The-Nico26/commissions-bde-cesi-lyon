@@ -130,6 +130,9 @@ class Event(models.Model):
     def has_started(self):
         return self.event_date_start < timezone.now() and self.event_date_end > timezone.now()
 
+    def has_ended(self):
+        return self.event_date_end < timezone.now()
+
     def has_change_event_permission(self, request):
         return ((
             request.user.get_username() == self.commission.president.get_username()

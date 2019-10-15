@@ -245,3 +245,36 @@
     }
 
 }
+
+.events-shelf .noevent {
+    width: 300px;
+    height: 215px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 10px;
+    text-align: center;
+}
+
+.events-shelf .noevent > :not(:first-child) {
+    margin-top: 10px;
+}
+
+.events-shelf .noevent > bde-icon {
+    height: 50px;
+}
+
+.dashboard-section {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.dashboard-section .section-title {
+    font-family: var(--title-fonts);
+    font-size: 35px;
+    margin-bottom: 30px;
+    margin-left: 2vw;
+    color: var(--title-color);
+}

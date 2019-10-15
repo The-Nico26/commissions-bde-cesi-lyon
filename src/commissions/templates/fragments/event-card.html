@@ -15,8 +15,10 @@
 	
 	{% if event.has_started %}
 		<span slot="relative-time">Fin {{event.event_date_end| naturaltime | lower }}</span>
-	{% else %}
+	{% elif not event.has_ended %}
 		<span slot="relative-time">Débute {{event.event_date_start | naturaltime }}</span>
+    {% else %}
+		<span slot="relative-time">{{event.event_date_start | naturaltime }}</span>
 	{% endif %}
 	<div slot="commission" >{% include "fragments/compact-commission.html" with com=event.commission %}</div>
 
