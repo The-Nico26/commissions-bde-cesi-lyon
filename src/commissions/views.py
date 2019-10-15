@@ -231,13 +231,15 @@ def create_commission(request):
     })
 
 
-def create_event(request):
+def create_event(request, slug):
     if not request.user.is_authenticated:
         return render(request, "create_commission_unauthenticated.html", {
             "active_commission_creation": True
         })
-    # TODO: Ajouter commission
-    if not request.user.has_perm("events.add_event"):
+
+    com = get_object_or_404(Commission, slug=slug)
+
+    if not request.user.has_perm("events.add_event") or not com.has_add_event_permission(request):
         messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à créer un évènement, désolé...")
         return redirect("/")
 
@@ -245,20 +247,21 @@ def create_event(request):
         form = CreateEditEventForm(request.POST or None, request.FILES or None)
         if form.is_valid() and form.cleaned_data['commission']:
             event = form.save(commit=False)
-            event.commission = Commission.objects.filter(Q(president=request.user) | Q(deputy=request.user) | Q(treasurer=request.user))
+            event.commission = com
             event.save()
 
             messages.add_message(request, messages.SUCCESS,
                                  "Youhou ! Ton évènement {} a bien été créée ! Amuse toi bien".format(form.cleaned_data['name']))
-            # TODO: Change redirection pour la page d'event
-            return redirect("/event/{}".format(form.cleaned_data['slug']))
+
+            return redirect("/commissions/{}/event-{}".format(event.commission.slug, form.cleaned_data['slug']))
         else:
             messages.add_message(request, messages.ERROR, "Tu n'as pas correctement rempli le formulaire de creation")
 
     else:
         form = CreateEditEventForm()
-    # TODO: Créer page de création d'évènement
-    return render(request, "create_event.html", {
+
+    return render(request, "edit_event.html", {
+        'com': com,
         'form': form
     })
 

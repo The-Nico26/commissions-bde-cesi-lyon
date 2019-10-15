@@ -92,6 +92,9 @@ class Commission(models.Model):
     def has_change_members_permission(self, request):
         return self.is_active and request.user.get_username() == self.president.get_username()
 
+    def has_add_event_permission(self, request):
+        return self.has_change_permission(request)
+
 
 class Event(models.Model):
     """

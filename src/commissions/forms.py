@@ -4,7 +4,7 @@ from commissions.models import Tag
 from commissions.models import User
 from commissions.models import Commission
 from commissions.models import Event
-from django.forms import ModelForm, SelectDateWidget
+from django.forms import ModelForm, SelectDateWidget, SplitDateTimeWidget
 
 
 class TagSelectorWidget(forms.SelectMultiple):
@@ -116,7 +116,7 @@ class EditCommissionMembersForm(ModelForm):
 class CreateEditEventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'banner', 'commission', 'event_date_start', 'event_date_end']
+        fields = ['name', 'description', 'banner', 'event_date_start', 'event_date_end']
         labels = {
             'name': 'Nom de l\'évènement',
             'description': 'Description',
@@ -126,8 +126,8 @@ class CreateEditEventForm(ModelForm):
         }
         widgets = {
             'description': MarkdownWidget,
-            'event_date_start' : SelectDateWidget(empty_label="Sélectionne une date de début"),
-            'event_date_end': SelectDateWidget(empty_label='Sélectionne une date de fin'),
+            'event_date_start' : SplitDateTimeWidget,
+            'event_date_end': SplitDateTimeWidget,
             'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"})
         }
 
