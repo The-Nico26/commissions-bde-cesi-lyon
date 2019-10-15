@@ -43,6 +43,7 @@
     {% if upcoming_events %}
     <bde-shelf>
         <h2 slot="title">Événements à venir</h2>
+        <a href="/commissions/events" class="btn" slot="toolbar">Calendrier <bde-icon icon="mdi-chevron-right"></bde-icon></a>
         {% for event in upcoming_events %}
             <a href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}">
                 {% include "fragments/event-card.html" %}

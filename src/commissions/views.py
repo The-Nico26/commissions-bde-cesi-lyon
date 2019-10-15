@@ -1,5 +1,6 @@
 import logging
 import os
+from datetime import timedelta
 
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
@@ -295,3 +296,25 @@ def edit_event(request, slug):
         "event": event,
         "form": form
     })
+
+
+def calendar(request):
+
+    startDate = timezone.now() - timedelta(weeks=2)
+    endDate = timezone.now() + timedelta(weeks=4)
+
+    events = Event.objects.filter(event_date_end__gte=startDate, event_date_end__lte=endDate).order_by("event_date_start")
+
+    if os.getenv("ENVIRONMENT", "production") == "production":
+        base_addr = request.build_absolute_uri("/commissions").replace("http://", "https://")
+    else:
+        base_addr = request.build_absolute_uri("/commissions")
+
+    return render(request, "calendar.ics", {
+        "events": events,
+        "base_addr": base_addr
+    }, content_type="text/calendar")
+
+
+def calendar_explain(request):
+    return redirect("/guide/site/importer-le-calendrier")
