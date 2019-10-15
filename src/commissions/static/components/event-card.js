@@ -95,6 +95,7 @@
     .header .info .place {
         font-size: 20px;
         font-weight: bold;
+        margin-top: 10px;
     }
 
     .header .info .relative-time {
@@ -174,7 +175,7 @@
             </div>
             <div class="info">
                 <div class="relative-time"><slot name="relative-time"></slot></div>
-                <div class="place" id="place"></div>
+                <div class="place" id="place"><slot name="location"></slot></div>
             </div>
         </div>
 
@@ -226,24 +227,6 @@
             this.root.getElementById("banner").src = this.$bannerSrc
         }
 
-        set place(val) {
-            this.$place = val
-            if(this.$place){
-                this.root.getElementById("place").innerHTML = this.$place
-            }
-        }
-
-        get place() {
-            return this.$place
-        }
-
-        set place(val) {
-            this.$place = val
-            if(this.$place){
-                this.root.getElementById("place").innerHTML = this.$place
-            }
-        }
-
         get eventStart() {
             return this.$eventStart
         }
@@ -271,7 +254,7 @@
         }
 
         static get observedAttributes(){
-            return ['banner-src', 'event-name', 'event-start', 'event-end', 'place']
+            return ['banner-src', 'event-name', 'event-start', 'event-end']
         }
 
         attributeChangedCallback(name,lastval,newval){
@@ -281,9 +264,6 @@
                     break;
                 case 'event-name':
                     this.eventName = newval
-                    break;
-                case 'place':
-                    this.place = newval
                     break;
                 case 'event-start':
                     this.eventStart = new Date(Date.parse(newval))

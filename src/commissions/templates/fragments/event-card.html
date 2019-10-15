@@ -20,6 +20,11 @@
     {% else %}
 		<span slot="relative-time">{{event.event_date_start | naturaltime }}</span>
 	{% endif %}
-	<div slot="commission" >{% include "fragments/compact-commission.html" with com=event.commission %}</div>
+
+    {% if event.location %}
+        <span slot="location">{{ event.location }}</span>
+    {% endif %}
+
+    <div slot="commission" >{% include "fragments/compact-commission.html" with com=event.commission %}</div>
 
 </bde-event-card>

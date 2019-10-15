@@ -56,6 +56,11 @@
                     {% else %}
                         <span slot="relative-time">Débute {{event.event_date_start | naturaltime }}</span>
                     {% endif %}
+
+                    {% if event.location %}
+                        <span slot="location">{{ event.location }}</span>
+                    {% endif %}
+
                     <div slot="body" class="markdown event-desc">
                         {{ event.description | escape | markdown | safe }}
                     </div>

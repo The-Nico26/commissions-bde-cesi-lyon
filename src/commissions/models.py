@@ -106,8 +106,8 @@ class Event(models.Model):
     # La description de l'évènement
     description = models.TextField()
 
-    # Courte description de l'évènement
-    short_desc = models.CharField(max_length=60)
+    # Emplacement de l'événement
+    location = models.CharField(max_length=255, blank=True, null=True)
 
     # Photo de l'évènement
     banner = models.ImageField(upload_to="events/photos")

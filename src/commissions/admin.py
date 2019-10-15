@@ -19,6 +19,6 @@ class TagsAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     date_hierarchy = "event_date_start"
-    list_display = ("name", "commission", "short_desc", "event_date_start")
-    search_fields = ('name', 'short_desc', 'description', "commission")
+    list_display = ("name", "commission", "location", "event_date_start")
+    search_fields = ('name', 'description', "location", "commission")
     ordering = ('-event_date_start',)

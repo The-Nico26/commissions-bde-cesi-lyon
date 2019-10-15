@@ -116,11 +116,10 @@ class EditCommissionMembersForm(ModelForm):
 class CreateEditEventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'short_desc', 'banner', 'commission', 'event_date_start', 'event_date_end']
+        fields = ['name', 'description', 'banner', 'commission', 'event_date_start', 'event_date_end']
         labels = {
             'name': 'Nom de l\'évènement',
             'description': 'Description',
-            'short_desc': 'Courte description',
             'banner': 'Bannière',
             'event_date_start': 'Date de début de l\'évènement',
             'event_date_end': 'Date de fin de l\'évènement'
