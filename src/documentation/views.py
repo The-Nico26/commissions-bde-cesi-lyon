@@ -133,6 +133,10 @@ class RelativePath(Treeprocessor):
             self.run(child)
 
     def relative_path(self, relative):
+
+        if re.compile('^.+?://.*$').match(relative):
+            return relative
+
         splited = relative.split("/")
         if not self.is_directory:
             absolutePath = [*self.current_path[:-1]]
