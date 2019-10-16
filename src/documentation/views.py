@@ -79,7 +79,7 @@ def show_page(request, path="/"):
         is_directory = contentcache[request_path][3]
         binaryContent = contentcache[request_path][1]
         originalPath = contentcache[request_path][2]
-        html_url = contentcache[request_path][3]
+        html_url = contentcache[request_path][4]
 
     if not originalPath.endswith(".md"):
         return HttpResponse(binaryContent, content_type=mimetypes.guess_type(originalPath))
