@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" ></script>
     <script src="{% static "components/markdown.js" %}"></script>
     <script src="{% static "components/image-selector.js" %}"></script>
+    <script src="{% static "components/datetimepicker.js" %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -50,31 +51,15 @@
 
             <div class="com-field-wrapper{% if form.event_date_start.errors %} error{% endif %}">
                 <div class="com-field">
-                    <div class="com-field" >
-                        <label for="{{ form.event_date_start.id_for_label }}">{{ form.event_date_start.label }}</label>
-                        {{ form.event_date_start }}
-                    </div>
-                </div>
-                <div class="com-field-explaination">
-                    <p>C'est ici que tout débute</p>
-                    <p>Essaye de favoriser le Jeudi apres midi mais libre à toi de placer l'évenement ou cela t'arrange</p>
-                    <div class="com-field-errors">
-                        {{ form.event_date_start.errors }}
-                    </div>
+                    <label for="{{ form.event_date_start.id_for_label }}">{{ form.event_date_start.label }}</label>
+                    {{ form.event_date_start }}
                 </div>
             </div>
 
             <div class="com-field-wrapper{% if form.event_date_end.errors %} error{% endif %}">
                 <div class="com-field">
-                    <div class="com-field" >
-                        <label for="{{ form.event_date_end.id_for_label }}">{{ form.event_date_end.label }}</label>
-                        {{ form.event_date_end }}
-                    </div>
-                </div>
-                <div class="com-field-explaination">
-                    <div class="com-field-errors">
-                        {{ form.event_date_end.errors }}
-                    </div>
+                    <label for="{{ form.event_date_end.id_for_label }}">{{ form.event_date_end.label }}</label>
+                    {{ form.event_date_end }}
                 </div>
             </div>
 

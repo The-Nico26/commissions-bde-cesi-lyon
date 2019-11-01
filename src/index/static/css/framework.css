@@ -61,6 +61,14 @@ input:not([type="checkbox"]), .form-field {
     transition: ease border-color 0.5s;
 }
 
+input:not([type="checkbox"]).centering, .form-field.centering {
+    text-align: center;
+}
+
+input:not([type="checkbox"]).big, .form-field.big {
+    font-size: 20px;
+}
+
 input:not([type="checkbox"]):focus, .form-field:focus {
     border-color: var(--primary-color);
 }
@@ -153,6 +161,12 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 
 .com-field:not(:last-child) {
     padding-right: 50px;
+}
+
+@media screen and (max-width: 800px)  {
+    .com-field:not(:last-child) {
+        padding-right: 0;
+    }
 }
 
 .com-field > label, .com-field > input:not([type="checkbox"]), .com-field > select {

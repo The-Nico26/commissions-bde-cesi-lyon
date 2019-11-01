@@ -63,6 +63,10 @@ class MarkdownWidget(forms.Textarea):
     template_name = 'widgets/markdown.html'
 
 
+class DateTimePickerWidget(SplitDateTimeWidget):
+    template_name = 'widgets/datetimepicker.html'
+
+
 class CreateCommissionForm(forms.Form):
     name = forms.CharField(label='Nom', max_length=30, required=True)
     short_description = forms.CharField(label='Courte description', max_length=60, required=True)
@@ -126,8 +130,8 @@ class CreateEditEventForm(ModelForm):
         }
         widgets = {
             'description': MarkdownWidget,
-            'event_date_start' : SplitDateTimeWidget,
-            'event_date_end': SplitDateTimeWidget,
+            'event_date_start': DateTimePickerWidget,
+            'event_date_end': DateTimePickerWidget,
             'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"})
         }
 

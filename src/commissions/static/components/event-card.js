@@ -188,7 +188,7 @@
         <div class="commission">
             <slot name="commission"></slot>
         </div>
-    </div>
+    </bde-card>
     `
 
     customElements.define("bde-event-card",class extends HTMLElement {
