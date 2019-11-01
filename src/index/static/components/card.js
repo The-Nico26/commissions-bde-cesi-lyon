@@ -35,6 +35,16 @@
                 transform: translateY(-3px);
                 transition-duration: 0.2s;
             }
+
+            :host(.static:hover) {
+                box-shadow: 0 0 5px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.3);
+                transform: none;
+            }
+
+            :host(.static:active) {
+                box-shadow: 0 0 5px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.3);
+                transform: none;
+            }
     
         </style>
         <slot></slot>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils import timezone
 
 from users.models import User
 
@@ -90,3 +91,64 @@ class Commission(models.Model):
 
     def has_change_members_permission(self, request):
         return self.is_active and request.user.get_username() == self.president.get_username()
+
+    def has_add_event_permission(self, request):
+        return self.has_change_permission(request)
+
+
+class Event(models.Model):
+    """
+    Les évènements créés par les commissions
+    """
+    # Le nom de l'évènement
+    name = models.CharField(max_length=100)
+
+    # Le nom du tag modifié pour tenir dans une url
+    slug = models.SlugField(unique=True, blank=True)
+
+    # La description de l'évènement
+    description = models.TextField()
+
+    # Emplacement de l'événement
+    location = models.CharField(max_length=255, blank=True, null=True)
+
+    # Photo de l'évènement
+    banner = models.ImageField(upload_to="events/photos")
+
+    # Commission liée à l'évènement
+    commission = models.ForeignKey(Commission, on_delete=models.SET_NULL, null=True, related_name='events')
+
+    # La date de creation de l'évènement
+    creation_date = models.DateTimeField(auto_now_add=True)
+
+    # La date de dernière mise à jour de l'évènement
+    update_date = models.DateTimeField(auto_now=True)
+
+    # La date de début l'évènement
+    event_date_start = models.DateTimeField()
+
+    # La date de fin de l'évènement
+    event_date_end = models.DateTimeField()
+
+    def has_started(self):
+        return self.event_date_start < timezone.now() and self.event_date_end > timezone.now()
+
+    def has_ended(self):
+        return self.event_date_end < timezone.now()
+
+    def has_change_event_permission(self, request):
+        return ((
+            request.user.get_username() == self.commission.president.get_username()
+        ) or (
+            request.user.get_username() == self.commission.treasurer.get_username()
+        ) or (
+            request.user.get_username() == self.commission.deputy.get_username()
+        ))
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Event, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+

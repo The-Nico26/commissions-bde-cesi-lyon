@@ -6,6 +6,7 @@
 {% block head %}
     <link rel="stylesheet" href="{% static "css/framework.css" %}">
     <link rel="stylesheet" href="{% static "css/manage-commission.css" %}">
+    <link rel="stylesheet" href="{% static "css/markdown.css" %}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" ></script>
     <script src="{% static "components/tag-selector.js" %}"></script>
@@ -20,9 +21,6 @@
     <div class="com-toolbar">
         <a class="btn see-com" href="/commissions/{{ com.slug }}">Voir la commission</a>
         <div class="separator"></div>
-        {% if can_change_member %}
-        <a class="btn" href="/commissions/{{ com.slug }}/manage/members" >Membres</a>
-        {% endif %}
         <bde-pulse>
             <button class="btn btn-primary" id="save-button" disabled>Enregistrer</button>
         </bde-pulse>

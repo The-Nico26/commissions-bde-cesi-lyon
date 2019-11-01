@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static "css/framework.css" %}" />
     <link rel="stylesheet" href="{% static "css/markdown.css" %}" />
     <script src="{% static "components/tag.js" %}"></script>
+    <script src="{% static "components/card.js" %}"></script>
+    <script src="{% static "components/event-card.js" %}"></script>
 {% endblock %}
 
 {% block opengraph %}
@@ -58,10 +60,47 @@
 
             <p class="commission-description">{{ com.short_description }}</p>
 
+
+            {% if not com.is_active %}
+            <div class="inactive-modal">
+                <h3>Commission inactive</h3>
+                <p>Une commission inactive est une commission qui fut cloturée par son président ou le conseil d'administration car elle a terminé son projet ou qu'elle n'est pas assez active pour pouvoir accueil de nouveaux membres et organiser de nouveaux evenement</p>
+                <p><strong>Mais tout n'est pas perdu ! </strong> Il est encore possible de réouvrir la commission et ainsi la faire renaitre de ses cendres. Prend contact avec le conseil d'administration du BDE si tu est motivé pour devenir le nouveau président de {{ com.name }}...</p>
+            </div>
+            {% endif %}
+
             {% if can_manage %}
                 <div class="manage">
                     <a href="/commissions/{{ com.slug }}/manage" class="btn btn-primary"><bde-icon icon="mdi-gear"></bde-icon> Gérer</a>
                 </div>
+            {% endif %}
+
+
+            {% if event %}
+                <bde-event-card
+    
+                    class="event static"
+                    event-name="{{event.name}}"
+                    
+                        {% if event.banner %}
+                            banner-src="/media/{{event.banner}}"
+                        {% endif %}
+                    
+                    event-start="{{event.event_date_start | date:"c" }}"
+                    event-end="{{event.event_date_end | date:"c" }}"
+
+                    >
+                    
+                    {% if event.has_started %}
+                        <span slot="relative-time">Fin {{event.event_date_end| naturaltime | lower }}</span>
+                    {% else %}
+                        <span slot="relative-time">Débute {{event.event_date_start | naturaltime }}</span>
+                    {% endif %}
+                    <div slot="body" class="markdown event-desc">
+                        {{ event.description | escape | markdown | safe }}
+                    </div>
+
+                </bde-event-card>
             {% endif %}
 
             <div class="commission-roles">
@@ -77,15 +116,6 @@
                     {% endif %}
 
             </div>
-
-
-            {% if not com.is_active %}
-            <div class="inactive-modal">
-                <h3>Commission inactive</h3>
-                <p>Une commission inactive est une commission qui fut cloturée par son président ou le conseil d'administration car elle a terminé son projet ou qu'elle n'est pas assez active pour pouvoir accueil de nouveaux membres et organiser de nouveaux evenement</p>
-                <p><strong>Mais tout n'est pas perdu ! </strong> Il est encore possible de réouvrir la commission et ainsi la faire renaitre de ses cendres. Prend contact avec le conseil d'administration du BDE si tu est motivé pour devenir le nouveau président de {{ com.name }}...</p>
-            </div>
-            {% endif %}
 
             <div class="commission-long-description markdown">
                 {{ com.description | escape | markdown | safe }}

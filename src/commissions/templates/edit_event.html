@@ -1,0 +1,154 @@
+{% extends "layouts/dashboard_page.html" %}
+{% load static %}
+
+{% block dashboardhead %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" ></script>
+    <script src="{% static "components/markdown.js" %}"></script>
+    <script src="{% static "components/image-selector.js" %}"></script>
+    <script src="{% static "components/datetimepicker.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/markdown.css" %}" />
+{% endblock %}
+
+{% block dashboardtoolbar %}
+    <button class="btn btn-primary" id="save-button">Enregistrer</button>
+{% endblock %}
+
+{% block content %}
+    <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="com-field-wrapper{% if form.name.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Le nom de ton événement</p>
+                    <p>Limité à <strong>100 carractères</strong></p>
+                    <div class="com-examples">
+                        <ul>
+                            <li>Super soirée au Big White</li>
+                            <li>Tournoi de pétanque place Bellecours</li>
+                            <li>Karting en folie</li>
+                            <li>Entrainement du Lundi</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.name.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="vertical com-field-wrapper{% if form.event_date_start.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.event_date_start.id_for_label }}">{{ form.event_date_start.label }}</label>
+                    {{ form.event_date_start }}
+                </div>
+                {% if form.event_duration.errors %}
+                <div class="com-field-explaination">
+                    <div class="com-field-errors">
+                        {{ form.event_duration.errors }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="com-field-wrapper{% if form.event_duration.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.event_duration.id_for_label }}">{{ form.event_duration.label }}</label>
+                    {{ form.event_duration }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>La durée de l'évènement</p>
+                    <p>Elle doit être au format <strong>JJ HH:MM:SS</strong></p>
+                    <div class="com-examples">
+                        <ul>
+                            <li><code>1 00:00:00</code> pour "1 jour"</li>
+                            <li><code>01:00:00</code> pour "1 heure"</li>
+                            <li><code>03:30:20</code> pour "3 heure, 30 min et 20 sec"</li>
+                            <li><code>2 05:30:00</code> pour "2 jours, 3 heure et 30 min"</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.event_duration.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="vertical com-field-wrapper{% if form.description.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                    <div class="com-field-errors">
+                        {{ form.tags.description }}
+                    </div>
+                    {{ form.description }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>Tu peux formater ta description en utilisant le langage <a
+                            href="https://simplemde.com/markdown-guide">Markdown</a></p>
+                    <div class="com-examples">
+                        <h4>Aide</h4>
+                        <ul>
+                            <li><code># Titre 1</code> Titre de première importance</li>
+                            <li><code>## Titre 2</code> Titre de deuxième importance</li>
+                            <li><code>*text*</code> En italique</li>
+                            <li><code>**texte**</code> En gras</li>
+                            <li>Laisse une ligne blanche pour passer un paragraphe</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.description.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.location.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.location.id_for_label }}">{{ form.location.label }}</label>
+                    {{ form.location }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>L'emplacement de l'événement (si il y en à un)</p>
+                    <div class="com-examples">
+                        <ul>
+                            <li>Salle 202</li>
+                            <li>19 Avenue Guy de Collongue, Ecully</li>
+                            <li>Chateau de Chambord</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.location.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.banner.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
+                    <div class="form-img-field">
+                        {{ form.banner }}
+                        {% if event and event.banner %}
+                            <img src="/media/{{ event.banner }}" class="bg"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="com-field-explaination">
+                    <p>Une bannière pour l'évenement</p>
+                    <p>Elle sera affichée plus large que haute en arrière plan de tout les affichages de l'évenement</p>
+                    <p>Si tu n'en met pas, la bannière de la commission sera utilisée</p>
+                    <div class="com-field-errors">
+                        {{ form.banner.errors }}
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    <script>
+        document.getElementById("save-button").addEventListener("click", e => {
+            e.preventDefault()
+            document.getElementById("com-form").submit()
+        })
+    </script>
+{% endblock %}
