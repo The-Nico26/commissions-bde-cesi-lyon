@@ -9,6 +9,10 @@
     <script src="{% static "components/datetimepicker.js" %}"></script>
 {% endblock %}
 
+{% block dashboardtoolbar %}
+    <button class="btn btn-primary" id="save-button">Enregistrer</button>
+{% endblock %}
+
 {% block content %}
     <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
             {% csrf_token %}
@@ -43,23 +47,46 @@
                 <div class="com-field-explaination">
                     <p>Une bannière pour l'évenement</p>
                     <p>Elle sera affichée plus large que haute en arrière plan de tout les affichages de l'évenement</p>
+                    <p>Si tu n'en met pas, la bannière de la commission sera utilisée</p>
                     <div class="com-field-errors">
                         {{ form.banner.errors }}
                     </div>
                 </div>
             </div>
 
-            <div class="com-field-wrapper{% if form.event_date_start.errors %} error{% endif %}">
+            <div class="vertical com-field-wrapper{% if form.event_date_start.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ form.event_date_start.id_for_label }}">{{ form.event_date_start.label }}</label>
                     {{ form.event_date_start }}
                 </div>
+                {% if form.event_duration.errors %}
+                <div class="com-field-explaination">
+                    <div class="com-field-errors">
+                        {{ form.event_duration.errors }}
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
-            <div class="com-field-wrapper{% if form.event_date_end.errors %} error{% endif %}">
+            <div class="com-field-wrapper{% if form.event_duration.errors %} error{% endif %}">
                 <div class="com-field">
-                    <label for="{{ form.event_date_end.id_for_label }}">{{ form.event_date_end.label }}</label>
-                    {{ form.event_date_end }}
+                    <label for="{{ form.event_duration.id_for_label }}">{{ form.event_duration.label }}</label>
+                    {{ form.event_duration }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>La durée de l'évènement</p>
+                    <p>Elle doit être au format <strong>JJ HH:MM:SS</strong></p>
+                    <div class="com-examples">
+                        <ul>
+                            <li><code>1 00:00:00</code> pour "1 jour"</li>
+                            <li><code>01:00:00</code> pour "1 heure"</li>
+                            <li><code>03:30:20</code> pour "3 heure, 30 min et 20 sec"</li>
+                            <li><code>2 05:30:00</code> pour "2 jours, 3 heure et 30 min"</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.event_duration.errors }}
+                    </div>
                 </div>
             </div>
 
@@ -91,4 +118,11 @@
             </div>
 
         </form>
+
+    <script>
+        document.getElementById("save-button").addEventListener("click", e => {
+            e.preventDefault()
+            document.getElementById("com-form").submit()
+        })
+    </script>
 {% endblock %}

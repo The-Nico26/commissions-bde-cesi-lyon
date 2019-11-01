@@ -1,10 +1,14 @@
+from datetime import timedelta
+
 from django import forms
+from django.template.loader import render_to_string
 
 from commissions.models import Tag
 from commissions.models import User
 from commissions.models import Commission
 from commissions.models import Event
-from django.forms import ModelForm, SelectDateWidget, SplitDateTimeWidget
+from django.forms import ModelForm, SelectDateWidget, SplitDateTimeWidget, SplitDateTimeField, Form, ChoiceField, \
+    DurationField
 
 
 class TagSelectorWidget(forms.SelectMultiple):
@@ -117,22 +121,14 @@ class EditCommissionMembersForm(ModelForm):
         }
 
 
-class CreateEditEventForm(ModelForm):
-    class Meta:
-        model = Event
-        fields = ['name', 'description', 'banner', 'event_date_start', 'event_date_end']
-        labels = {
-            'name': 'Nom de l\'évènement',
-            'description': 'Description',
-            'banner': 'Bannière',
-            'event_date_start': 'Date de début de l\'évènement',
-            'event_date_end': 'Date de fin de l\'évènement'
-        }
-        widgets = {
-            'description': MarkdownWidget,
-            'event_date_start': DateTimePickerWidget,
-            'event_date_end': DateTimePickerWidget,
-            'banner': ImageSelectorWidget(attrs={"data-description": "Changer la bannière"})
-        }
+class EventForm(Form):
 
-
+    name = forms.CharField(label='Nom de l\'évènement', max_length=100, required=True)
+    event_date_start = SplitDateTimeField(label='Date de début de l\'évènement', widget=DateTimePickerWidget)
+    event_duration = DurationField(initial=timedelta(hours=1), label="Durée de l\'évènement")
+    banner = forms.ImageField(required=False, label='Bannière', widget=ImageSelectorWidget)
+    description = forms.CharField(
+        label='Description',
+        widget=MarkdownWidget,
+        required=True,
+        initial=render_to_string("event_description_template.md"))

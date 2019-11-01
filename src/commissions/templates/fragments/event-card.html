@@ -4,9 +4,11 @@
 	
 	event-name="{{event.name}}"
 	
-		{% if event.banner %}
-			banner-src="/media/{{event.banner}}"
-		{% endif %}
+    {% if event.banner %}
+        banner-src="/media/{{event.banner}}"
+    {% elif event.commission.banner %}
+        banner-src="/media/{{event.commission.banner}}"
+    {% endif %}
 	
 	event-start="{{event.event_date_start | date:"c" }}"
 	event-end="{{event.event_date_end | date:"c" }}"

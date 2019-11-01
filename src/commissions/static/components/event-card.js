@@ -155,6 +155,12 @@
         margin: 0;
         height: 50px;
     }
+    
+    :host(.big-title) .name {
+        font-size: 40px;
+        height: 50px;
+        padding: 10px 5vw;
+    }
 
     .name .resizer {
         display: flex;

@@ -39,11 +39,13 @@
 
             <bde-event-card
     
-                    class="event static"
+                    class="big-title event static"
                     event-name="{{event.name}}"
                     
                         {% if event.banner %}
                             banner-src="/media/{{event.banner}}"
+                        {% elif com.banner %}
+                            banner-src="/media/{{com.banner}}"
                         {% endif %}
                     
                     event-start="{{event.event_date_start | date:"c" }}"

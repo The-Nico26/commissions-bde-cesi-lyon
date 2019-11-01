@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from bdecesi import settings
 from commissions.models import Commission, Event
-from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, CreateEditEventForm
+from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, EventForm
 from django.contrib import messages
 from commissions.models import Tag
 from django.db.models import Q
@@ -244,21 +244,26 @@ def create_event(request, slug):
         return redirect("/")
 
     if request.method == "POST":
-        form = CreateEditEventForm(request.POST or None, request.FILES or None)
-        if form.is_valid() and form.cleaned_data['commission']:
-            event = form.save(commit=False)
+        form = EventForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            event = Event()
+            event.name = form.cleaned_data["name"]
+            event.event_date_start = form.cleaned_data["event_date_start"]
+            event.event_date_end = form.cleaned_data["event_date_start"] + form.cleaned_data["event_duration"]
+            event.description = form.cleaned_data["description"]
+            event.banner = form.cleaned_data["banner"]
             event.commission = com
             event.save()
 
             messages.add_message(request, messages.SUCCESS,
                                  "Youhou ! Ton évènement {} a bien été créée ! Amuse toi bien".format(form.cleaned_data['name']))
 
-            return redirect("/commissions/{}/event-{}".format(event.commission.slug, form.cleaned_data['slug']))
+            return redirect("/commissions/{}/event-{}".format(event.commission.slug, event.slug))
         else:
             messages.add_message(request, messages.ERROR, "Tu n'as pas correctement rempli le formulaire de creation")
 
     else:
-        form = CreateEditEventForm()
+        form = EventForm()
 
     return render(request, "edit_event.html", {
         'com': com,
