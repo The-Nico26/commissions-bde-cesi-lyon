@@ -6,6 +6,7 @@
     <script src="{% static "components/event-card.js" %}"></script>
     <script src="{% static "components/shelf.js" %}"></script>
     <script src="{% static "components/timeline.js" %}"></script>
+    <script src="{% static "css/markdown.css" %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -36,18 +37,34 @@
                 </bde-card>
             {% endif %}
         </bde-shelf>
-
-        <div class="dashboard-section">
-            <h2 class="section-title timeline-title" >Timeline</h2>
-            <bde-timeline class="timeline">
-                {% for event in passed_events %}
-                    <a
-                            href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}"
-                            timeline-date="{{ event.event_date_start | date:"c" }}"
-                            timeline-id="{{ event.id }}">
-                        {% include "fragments/event-card.html" %}
-                    </a>
-                {% endfor %}
-            </bde-timeline>
+    
+        <div class="dashboard-with-aside">
+            <div class="dashboard-aside-content">
+        
+            <div class="dashboard-section">
+                <h2 class="section-title timeline-title" >Timeline</h2>
+                <bde-timeline class="timeline">
+                    {% for event in passed_events %}
+                        <a
+                                href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}"
+                                timeline-date="{{ event.event_date_start | date:"c" }}"
+                                timeline-id="{{ event.id }}">
+                            {% include "fragments/event-card.html" %}
+                        </a>
+                    {% endfor %}
+                </bde-timeline>
+            </div>
+        
+            </div>
+            <aside class="dashboard-aside dashboard-section">
+                <h3 class="section-title">Quelques astuces</h3>
+                <p>Pour bien gèrer ta commission, nous avons rédigé un <a href="/guide"><bde-icon icon="fa-solid:book"></bde-icon> guide</a> qui te donne diverses astuces et qui t'explique les différentes procédures nécéssaires au bon fonctionnement de ta commission.</p>
+                <p>Voici quelques pages qui te seront peut être utiles : </p>
+                <ul>
+                    <li><a href="/guide/vie-asso/guide-du-createur"><bde-icon icon="fa-solid:book"></bde-icon> Guide général du créateur de commission</a></li>
+                    <li><a href="/guide/vie-asso/financement"><bde-icon icon="fa-solid:book"></bde-icon> Se faire financer</a></li>
+                    <li><a href="/guide/vie-asso/conseils-de-communication"><bde-icon icon="fa-solid:book"></bde-icon> Communiquer éfficacement</a></li>
+                </ul>
+            </aside>
         </div>
 {% endblock %}
