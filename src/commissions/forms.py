@@ -82,7 +82,11 @@ class CreateCommissionForm(forms.Form):
     treasurer = forms.ModelChoiceField(queryset=User.objects.all(), label='Trésorier·ere', required=False, widget=UserSelectorWidget)
     substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=UserSelectorWidget, required=False)
 
-    description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)
+    description = forms.CharField(
+        label='Description',
+        widget=MarkdownWidget,
+        required=True,
+        initial=render_to_string("commission_description_template.md"))
 
 
 class EditCommissionForm(ModelForm):

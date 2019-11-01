@@ -4,6 +4,7 @@ from datetime import timedelta
 
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.utils import timezone
 
 from bdecesi import settings
@@ -223,7 +224,8 @@ def create_commission(request):
             messages.add_message(request, messages.ERROR, "Tu n'as pas correctement rempli le formulaire de creation")
 
     else:
-        form = CreateCommissionForm(initial={'treasurer': request.user})
+        form = CreateCommissionForm(initial={
+            'treasurer': request.user})
 
     return render(request, "create_commission.html", {
         'form': form,
