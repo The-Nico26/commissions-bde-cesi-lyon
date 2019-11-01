@@ -60,6 +60,10 @@
     -webkit-backdrop-filter: blur(10px);
 }
 
+.compact-commission > :not(:first-child) {
+    margin-left: 10px;
+}
+
 .compact-commission bde-compact-commission {
     flex: 1;
     padding-right: 10px;

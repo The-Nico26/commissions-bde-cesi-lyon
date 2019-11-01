@@ -55,7 +55,8 @@ def view_event(request, slug, eventslug):
 
     return render(request, "view_event.html", {
         'com': com,
-        'event': event
+        'event': event,
+        'can_manage': event.has_change_event_permission(request)
     })
 
 def commission_dashboard(request, slug):
@@ -77,7 +78,8 @@ def commission_dashboard(request, slug):
         "active_commission_id": com.id,
         "can_change_member": com.has_change_members_permission(request),
         "upcoming_events": upcoming_events,
-        "passed_events": passed_events
+        "passed_events": passed_events,
+        'can_create_event': request.user.has_perm("events.add_event") and com.has_add_event_permission(request)
     })
 
 
@@ -233,7 +235,7 @@ def create_commission(request):
     })
 
 
-def create_event(request, com_slug, slug=None):
+def add_edit_event(request, com_slug, slug=None):
     if not request.user.is_authenticated:
         return render(request, "create_commission_unauthenticated.html", {
             "active_commission_creation": True
@@ -243,12 +245,18 @@ def create_event(request, com_slug, slug=None):
 
     if slug is not None:
         event = get_object_or_404(Event, slug=slug)
+
+        if not event.has_change_event_permission(request):
+            messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à modifier cet évènement, désolé...")
+            return redirect("/commissions/{}/manage".format(com.slug))
+
     else:
         event = None
 
-    if not request.user.has_perm("events.add_event") or not com.has_add_event_permission(request):
-        messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à créer un évènement, désolé...")
-        return redirect("/")
+        if not request.user.has_perm("events.add_event") or not com.has_add_event_permission(request):
+            messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à créer un évènement, désolé...")
+            return redirect("/commissions/{}/manage".format(com.slug))
+
 
     if request.method == "POST":
         form = EventForm(request.POST or None, request.FILES or None)

@@ -11,7 +11,9 @@
 {% block content %}
         <bde-shelf class="events-shelf dashboard-section">
             <h2 slot="title" >Évenements</h2>
-            <a href="/commissions/{{ com.slug }}/manage/event--create" slot="toolbar" class="btn">Nouveau <bde-icon icon="mdi-plus"></bde-icon></a>
+            {% if can_create_event %}
+                <a href="/commissions/{{ com.slug }}/manage/event--create" slot="toolbar" class="btn">Nouveau <bde-icon icon="mdi-plus"></bde-icon></a>
+            {% endif %}
             {% if upcoming_events %}
                 {% for event in upcoming_events %}
                     <a href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}">
@@ -19,11 +21,13 @@
                     </a>
                 {% endfor %}
             {% else %}
-                <a href="/commissions/{{ com.slug }}/manage/event--create">
+                <a {% if can_create_event %}href="/commissions/{{ com.slug }}/manage/event--create"{% endif %}>
                     <bde-card class="noevent">
                         <bde-icon icon="mdi-calendar" ></bde-icon>
                         <p>Aucun événement à venir</p>
-                        <div class="btn">Créer un événement <bde-icon icon="mdi-plus"></bde-icon></div>
+                        {% if can_create_event %}
+                            <div class="btn">Créer un événement <bde-icon icon="mdi-plus"></bde-icon></div>
+                        {% endif %}
                     </bde-card>
                 </a>
                 <bde-card class="noevent static">
