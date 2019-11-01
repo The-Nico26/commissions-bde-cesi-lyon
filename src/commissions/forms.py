@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django import forms
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 from commissions.models import Tag
 from commissions.models import User
@@ -128,7 +129,7 @@ class EditCommissionMembersForm(ModelForm):
 class EventForm(Form):
 
     name = forms.CharField(label='Nom de l\'évènement', max_length=100, required=True)
-    event_date_start = SplitDateTimeField(label='Date de début de l\'évènement', widget=DateTimePickerWidget)
+    event_date_start = SplitDateTimeField(label='Date de début de l\'évènement', widget=DateTimePickerWidget, initial=timezone.now())
     event_duration = DurationField(initial=timedelta(hours=1), label="Durée de l\'évènement")
     banner = forms.ImageField(required=False, label='Bannière', widget=ImageSelectorWidget)
     description = forms.CharField(
