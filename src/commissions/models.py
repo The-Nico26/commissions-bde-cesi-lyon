@@ -142,7 +142,7 @@ class Event(models.Model):
         ) or (
             request.user.get_username() == self.commission.treasurer.get_username()
         ) or (
-            request.user.get_username() == self.commission.deputy.get_username()
+            self.commission.deputy is not None and request.user.get_username() == self.commission.deputy.get_username()
         ))
 
     def save(self, *args, **kwargs):
