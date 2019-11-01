@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 
 from bdecesi import settings
-from commissions.models import Commission
+from commissions.models import Commission, MembreCommission
 from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm
 from django.contrib import messages
 from commissions.models import Tag
@@ -30,6 +30,7 @@ def view_commission(request, slug):
 
     return render(request, "view_commission.html", {
         'com': com,
+        'membre_inside': com.in_commission_membre(request),
         'can_manage': com.has_change_permission(request)
     })
 
@@ -172,3 +173,21 @@ def create_commission(request):
         'form': form,
         "active_commission_creation": True
     })
+
+def action_membre(request, slug, action):
+    if not request.user.is_authenticated:
+        return redirect("/login?next={}".format(request.path))
+
+    com = get_object_or_404(Commission, slug=slug)
+    if action == 'add':
+        if(com.is_possible_membre(request)) :
+            membreCommission = MembreCommission()
+            membreCommission.identification = request.user
+            membreCommission.commission = com
+            membreCommission.permission = ''
+            membreCommission.save()
+    elif action == 'remove' :
+        if(com.in_commission_membre(request)) :
+            MembreCommission.objects.filter(commission = com, identification = request.user).delete()
+        
+    return redirect("/commissions/{}".format(com.slug))

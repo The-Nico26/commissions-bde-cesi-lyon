@@ -65,25 +65,41 @@
             {% endif %}
 
             <div class="commission-roles">
+                {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
 
-                    {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
+                {% if com.deputy is not None %}
+                    {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant·e" %}
+                {% endif %}
 
-                    {% if com.deputy is not None %}
-                        {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant·e" %}
-                    {% endif %}
+                {% if com.treasurer_id != com.president_id %}
+                    {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier·ere" %}
+                {% endif %}
+            </div>
 
-                    {% if com.treasurer_id != com.president_id %}
-                        {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier·ere" %}
-                    {% endif %}
-
+            <div class="commission-roles">
+                {% if com.get_membres %}
+                    {% for membre in com.get_membres %}
+                        {% include "fragments/safe_user.html" with user=membre.identification role=membre.role %}
+                    {% endfor %}
+                {% endif %}
+                {% if not can_manage and not membre_inside %}
+                    <div class="manage">
+                        <a href="{% url 'action_membre' com.slug 'add' %}" class="btn"><bde-icon icon="mdi-account-plus"></bde-icon> inside</a>
+                    </div>
+                {% endif %}
+                {% if membre_inside %}
+                    <div class="manage">
+                        <a href="{% url 'action_membre' com.slug 'remove' %}" class="btn"><bde-icon icon="mdi-delete-outline"></bde-icon> remove</a>
+                    </div>
+                {% endif %}
             </div>
 
 
             {% if not com.is_active %}
             <div class="inactive-modal">
                 <h3>Commission inactive</h3>
-                <p>Une commission inactive est une commission qui fut cloturée par son président ou le conseil d'administration car elle a terminé son projet ou qu'elle n'est pas assez active pour pouvoir accueil de nouveaux membres et organiser de nouveaux evenement</p>
-                <p><strong>Mais tout n'est pas perdu ! </strong> Il est encore possible de réouvrir la commission et ainsi la faire renaitre de ses cendres. Prend contact avec le conseil d'administration du BDE si tu est motivé pour devenir le nouveau président de {{ com.name }}...</p>
+                <p>Une commission inactive est une commission qui fut cloturée par son président ou le conseil d'administration car elle a terminé son projet ou qu'elle n'est pas assez active pour pouvoir accueillir de nouveaux membres et organiser de nouveau evenement</p>
+                <p><strong>Mais tout n'est pas perdu ! </strong> Il est encore possible de réouvrir la commission et ainsi la faire renaitre de ses cendres. Prends contact avec le conseil d'administration du BDE si tu est motivé.e pour devenir le nouveau président de {{ com.name }}...</p>
             </div>
             {% endif %}
 

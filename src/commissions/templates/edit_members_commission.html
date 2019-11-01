@@ -43,6 +43,27 @@
                 {{ form.non_field_errors }}
             </div>
 
+            <div class="com-field-wrapper">
+                <table style="border-spacing:0 15px; border-collapse: separate;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for membre in com.get_membres %}
+                            <tr>
+                                <td>{{ membre.identification.email }}</td>
+                                <td>{{ membre.role }} </td>
+                                <td>...</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
             <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
@@ -94,10 +115,10 @@
         <bde-modal id="president-changed-modal" data-initialpresident="{{ form.president.value }}">
             <div class="danger-area modal-content president-changed-modal">
                 <h3 class="modal-title">Passation de pouvoirs</h3>
-                <p>Tu as changé le président de cette commission. Cela signifie qui tu éfféctue une passation de pouvoir de l'ensemble de la direction de la commission <strong id="commission-name">{{com.name}}</strong> à <strong id="new-president">Jhon Doe</strong>.</p>
+                <p>Tu as changé le président de cette commission. Cela signifie qui tu efféctue une passation de pouvoir de l'ensemble de la direction de la commission <strong id="commission-name">{{com.name}}</strong> à <strong id="new-president">Jhon Doe</strong>.</p>
                 <p>Cette personne disposera des pleins pouvoirs de modification de la commissions et de ses membres. Elle sera aussi reconnue comme président au yeux du BDE et sera responsable de la commission.</p>
                 <p>Apres cette action, tu n'aura plus accès à cette page et tu perdra tes pouvoirs de président</p>
-                <p>Est tu sûr de vouloir effectuer une passation de pouvoirs ? Si oui, écrit le nom de la commission en entier dans le champ ci-dessous pour valider l'action.</p>
+                <p>Es-tu sûr de vouloir effectuer une passation de pouvoirs ? Si oui, écrit le nom de la commission en entier dans le champ ci-dessous pour valider l'action.</p>
 
                 <input type="text" id="validation-form" placeholder="Nom de la commission" autocomplete="off" value=""/>
 
@@ -105,10 +126,8 @@
                     <button class="btn btn-danger" id="modal-submit" disabled>Passation de pouvoirs</button>
                     <button class="btn" id="modal-cancel">Annuler</button>
                 </div>
-
             </div>
         </bde-modal>
-
     </div>
 
 {% endblock %}
