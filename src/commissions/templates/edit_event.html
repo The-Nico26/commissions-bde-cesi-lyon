@@ -40,26 +40,6 @@
                 </div>
             </div>
 
-            <div class="com-field-wrapper{% if form.banner.errors %} error{% endif %}">
-                <div class="com-field">
-                    <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
-                    <div class="form-img-field">
-                        {{ form.banner }}
-                        {% if event and event.banner %}
-                            <img src="/media/{{ event.banner }}" class="bg"/>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="com-field-explaination">
-                    <p>Une bannière pour l'évenement</p>
-                    <p>Elle sera affichée plus large que haute en arrière plan de tout les affichages de l'évenement</p>
-                    <p>Si tu n'en met pas, la bannière de la commission sera utilisée</p>
-                    <div class="com-field-errors">
-                        {{ form.banner.errors }}
-                    </div>
-                </div>
-            </div>
-
             <div class="vertical com-field-wrapper{% if form.event_date_start.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ form.event_date_start.id_for_label }}">{{ form.event_date_start.label }}</label>
@@ -119,6 +99,46 @@
                     </div>
                     <div class="com-field-errors">
                         {{ form.description.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.location.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.location.id_for_label }}">{{ form.location.label }}</label>
+                    {{ form.location }}
+                </div>
+                <div class="com-field-explaination">
+                    <p>L'emplacement de l'événement (si il y en à un)</p>
+                    <div class="com-examples">
+                        <ul>
+                            <li>Salle 202</li>
+                            <li>19 Avenue Guy de Collongue, Ecully</li>
+                            <li>Chateau de Chambord</li>
+                        </ul>
+                    </div>
+                    <div class="com-field-errors">
+                        {{ form.location.errors }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="com-field-wrapper{% if form.banner.errors %} error{% endif %}">
+                <div class="com-field">
+                    <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
+                    <div class="form-img-field">
+                        {{ form.banner }}
+                        {% if event and event.banner %}
+                            <img src="/media/{{ event.banner }}" class="bg"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="com-field-explaination">
+                    <p>Une bannière pour l'évenement</p>
+                    <p>Elle sera affichée plus large que haute en arrière plan de tout les affichages de l'évenement</p>
+                    <p>Si tu n'en met pas, la bannière de la commission sera utilisée</p>
+                    <div class="com-field-errors">
+                        {{ form.banner.errors }}
                     </div>
                 </div>
             </div>

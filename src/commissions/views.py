@@ -270,6 +270,7 @@ def add_edit_event(request, com_slug, slug=None):
             event.event_date_end = form.cleaned_data["event_date_start"] + form.cleaned_data["event_duration"]
             event.description = form.cleaned_data["description"]
             event.banner = form.cleaned_data["banner"]
+            event.location = form.cleaned_data["location"]
             event.commission = com
             event.save()
 
@@ -291,7 +292,8 @@ def add_edit_event(request, com_slug, slug=None):
                 'event_date_start': event.event_date_start,
                 'event_duration': event.event_date_end - event.event_date_start,
                 'banner': event.banner,
-                'description': event.description
+                'description': event.description,
+                'location': event.location
             }
         else:
             initials = None
