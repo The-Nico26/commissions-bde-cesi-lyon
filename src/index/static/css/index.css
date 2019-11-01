@@ -98,7 +98,10 @@ bde-shelf {
 .more-card {
     width: 200px;
     height: 200px;
-    margin: 50px;
+}
+
+.more-card-wrapper {
+    padding: 50px;
 }
 
 .more-card .more {
@@ -114,8 +117,7 @@ bde-shelf {
 }
 
 .more-card bde-icon {
-    width: 100px;
-    height: auto;
+    height: 100px;
     margin-bottom: 20px;
 }
 
