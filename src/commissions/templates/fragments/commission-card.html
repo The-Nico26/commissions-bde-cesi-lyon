@@ -15,10 +15,6 @@
             <span slot="meta">Création : {{ com.creation_date | naturalday }}{% if not com.is_active %}, Cloture : {{ com.end_date | naturalday }}{% endif %}
             </span>
 
-            <div slot="president">
-                {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
-            </div>
-
             {% for tag in com.tags.all %}
                 <bde-tag slot="tags" color="{{ tag.color }}" >{{ tag.name }}</bde-tag>
             {% endfor %}
