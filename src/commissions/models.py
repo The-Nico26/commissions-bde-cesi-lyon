@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.utils.text import slugify
 from django.utils import timezone
@@ -129,6 +131,12 @@ class Event(models.Model):
 
     # La date de fin de l'évènement
     event_date_end = models.DateTimeField()
+
+    def get_start_utc(self):
+        return self.event_date_start - timedelta(hours=1)
+
+    def get_end_utc(self):
+        return self.event_date_end - timedelta(hours=1)
 
     def has_started(self):
         return self.event_date_start < timezone.now() and self.event_date_end > timezone.now()
