@@ -43,7 +43,12 @@
             <div class="com-field-wrapper{% if form.banner.errors %} error{% endif %}">
                 <div class="com-field">
                     <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
-                    {{ form.banner }}
+                    <div class="form-img-field">
+                        {{ form.banner }}
+                        {% if event and event.banner %}
+                            <img src="/media/{{ event.banner }}" class="bg"/>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="com-field-explaination">
                     <p>Une bannière pour l'évenement</p>

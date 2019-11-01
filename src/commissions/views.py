@@ -291,6 +291,7 @@ def create_event(request, com_slug, slug=None):
 
     return render(request, "edit_event.html", {
         'com': com,
+        'event': event,
         'form': form
     })
 
