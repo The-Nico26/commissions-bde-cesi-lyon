@@ -234,6 +234,7 @@
                 this.dateField.classList.add("big")
                 this.timeField.classList.add("big")
 
+                this.loadDateTimeField()
                 if(!this.selectedDate)
                     this.selectedDate = new Date()
 
