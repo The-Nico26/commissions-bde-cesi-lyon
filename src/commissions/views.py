@@ -79,7 +79,7 @@ def commission_dashboard(request, slug):
         "can_change_member": com.has_change_members_permission(request),
         "upcoming_events": upcoming_events,
         "passed_events": passed_events,
-        'can_create_event': request.user.has_perm("events.add_event") and com.has_add_event_permission(request)
+        'can_create_event': com.has_add_event_permission(request)
     })
 
 
@@ -253,7 +253,7 @@ def add_edit_event(request, com_slug, slug=None):
     else:
         event = None
 
-        if not request.user.has_perm("events.add_event") or not com.has_add_event_permission(request):
+        if not com.has_add_event_permission(request):
             messages.add_message(request, messages.ERROR, "Tu n'es pas autorisé à créer un évènement, désolé...")
             return redirect("/commissions/{}/manage".format(com.slug))
 
