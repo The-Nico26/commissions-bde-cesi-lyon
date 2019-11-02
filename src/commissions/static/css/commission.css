@@ -79,6 +79,15 @@
     .compact-commission bde-compact-commission {
         margin-bottom: 20px;
     }
+
+    .compact-commission > :not(:first-child) {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .commission-body.reduced {
+        padding-top: 10px;
+    }
 }
 
 .logo {

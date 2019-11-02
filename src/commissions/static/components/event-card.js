@@ -50,6 +50,10 @@
         overflow: hidden;
         z-index: 0;
     }
+    
+    :host(.big-banner) .banner {
+        height: 200px;
+    }
 
     .banner img {
         width: 100%;
@@ -84,6 +88,10 @@
 
         display: flex;
         align-items: flex-end;
+    }
+    
+    :host(.big-banner) .header {
+        height: 180px;
     }
 
     .header .info {
