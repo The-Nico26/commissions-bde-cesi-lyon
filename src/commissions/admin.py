@@ -7,8 +7,9 @@ from commissions.models import Commission, Tag, Event
 class CommissionsAdmin(admin.ModelAdmin):
     date_hierarchy = "creation_date"
     list_display = ("name", "short_description", "president", "creation_date")
+    list_filter = ("is_organization", "organization_dependant")
     search_fields = ('name', 'short_description', 'description', 'president', "treasurer", "deputy")
-    ordering = ('-creation_date',)
+    ordering = ('is_organization', '-creation_date')
 
 @admin.register(Tag)
 class TagsAdmin(admin.ModelAdmin):

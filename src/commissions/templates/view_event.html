@@ -32,10 +32,15 @@
 
                 <div class="compact-commission">
                     {% include "fragments/compact-commission.html" %}
+
                     {% if can_manage %}
-                    <a href="/commissions/{{ com.slug }}/manage/event-{{ event.slug }}" class="btn btn-light"><bde-icon icon="mdi-gear"></bde-icon> Gérer</a>
+                        <a href="/commissions/{{ com.slug }}/manage/event-{{ event.slug }}" class="btn btn-light"><bde-icon icon="mdi-gear"></bde-icon> Gérer</a>
                     {% endif %}
-                    <a href="/commissions/{{ com.slug }}" class="btn btn-light">Voir la commission <bde-icon icon="mdi-chevron-right"></bde-icon></a>
+
+                    {% if not com.is_organization %}
+                        <a href="/commissions/{{ com.slug }}" class="btn btn-light">Voir la commission <bde-icon icon="mdi-chevron-right"></bde-icon></a>
+                    {% endif %}
+
                 </div>
 
             </header>

@@ -13,7 +13,7 @@ def index(request):
 
     upcoming_events = Event.objects.filter(event_date_end__gte=datetime.datetime.now()).order_by("event_date_start")
 
-    commissions = Commission.objects.order_by("-creation_date").filter(is_active=True)
+    commissions = Commission.objects.order_by("-creation_date").filter(is_active=True).filter(is_organization=False)
 
     # Get the 5 latest commissions created
     latest_commissions = commissions[:5]

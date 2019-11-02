@@ -75,6 +75,9 @@ class Commission(models.Model):
     # L'organisation en charge de la gestion de la commission (BDE ou BDS)
     organization_dependant = models.CharField(max_length=100, choices=[("bde", "BDE"), ("bds", "BDS")], default="bde", help_text="L'organisation à laquelle appartiens la commission")
 
+    # Si la "commission" est un organisation, c'est a dire qu'elle n'apparait pas sur le liste des commission mais peut profiter de toutes les fonctionnalités des commissions comme les events, les hashtags, etc..
+    is_organization = models.BooleanField(default=False, help_text="Définie que cet instance est une organisation et non une commission, une organisation n'apparait pas dans la liste des commissions mais dispose de toutes les fonctionnalités associés")
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Commission, self).save(*args, **kwargs)

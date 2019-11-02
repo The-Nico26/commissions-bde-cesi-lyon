@@ -70,7 +70,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(17,11,11,0.6) 100%);
+        background: rgba(17,11,11,0.6);
         z-index: 1;
     }
 
@@ -176,6 +176,10 @@
         justify-content: flex-start;
         align-items: center;
     }
+    
+    .place-resizer {
+        height: 30px;
+    }
 
     </style>
     <bde-card class="event">
@@ -189,7 +193,7 @@
             </div>
             <div class="info">
                 <div class="relative-time"><slot name="relative-time"></slot></div>
-                <div class="place" id="place"><slot name="location"></slot></div>
+                <div class="place" id="place"><bde-autoresize class="place-resizer"><slot name="location"></slot></bde-autoresize></div>
             </div>
         </div>
 
