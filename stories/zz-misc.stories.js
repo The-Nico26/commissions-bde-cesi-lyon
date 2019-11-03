@@ -13,4 +13,22 @@ stories.add("Pulse", () => {
     <button id="btn" onclick="document.getElementById('pulse').pulse()">Pulser maintenant</button>
 </bde-pulse>
     `
-},{notes:{markdown:""}})
+},{notes:{markdown:PulseDoc}})
+
+import "../src/index/static/components/autoresize"
+import AutoresizeDoc from "../doc/components/autoresize.md"
+
+stories.add("Texte Adaptatif", () => {
+    return `
+<style>
+    body {
+        font-size: 100px;
+    }
+
+    bde-autoresize {
+        height: 100px;
+    }
+</style>
+<bde-autoresize>Lorem ipsum dolor si amet</bde-autoresize>
+`
+},{notes:{markdown:AutoresizeDoc}})
