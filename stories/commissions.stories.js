@@ -1,8 +1,6 @@
 import {object, select, text, withKnobs} from "@storybook/addon-knobs";
 import {addDecorator, storiesOf} from "@storybook/html";
 
-export default { title: "Commissions" }
-
 addDecorator(withKnobs)
 
 import CommissionCardDoc from "../doc/components/commission-card.md"
