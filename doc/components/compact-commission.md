@@ -17,4 +17,4 @@ La commission compact permet un affichage compact et en ligne du nom, du logo et
 
 ## Slots
 
-* *default* : Le nom de la commission
+* *default* (Requis) : Le nom de la commission

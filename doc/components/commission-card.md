@@ -33,4 +33,4 @@ Le carte de commission est un élément de l'interface de taille fixe qui peut �
 
 * `meta` : Les métadonnées de la commission, affichés en bas de la carte
 * `tags` : Les tags de la commission, affichés au dessous de la description
-* *default* : La description de la commission
+* *default* (Requis) : La description de la commission

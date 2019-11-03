@@ -20,4 +20,4 @@ Le component utilisateur permet d'afficher un utilisateur de manière normalisé
 
 ## Slots
 
-* *default* : Le nom d'affichage de l'utilisateur
+* *default* (Requis) : Le nom d'affichage de l'utilisateur
