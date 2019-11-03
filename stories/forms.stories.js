@@ -18,3 +18,19 @@ stories.add("DateTimePicker", () => {
 </bde-datetimepicker>
     `
 },{notes:{markdown:DateTimePickerDoc}})
+
+import "../src/commissions/static/components/image-selector"
+import ImageSelectorDoc from "../doc/components/image-selector.md"
+
+stories.add("Selecteur d'image", () => {
+    return `
+<style>
+    bde-image-selector {
+        max-width: 300px;
+    }
+</style>
+<bde-image-selector>
+    <input type="file" />
+</bde-image-selector>
+    `
+},{notes:{markdown:ImageSelectorDoc}})
