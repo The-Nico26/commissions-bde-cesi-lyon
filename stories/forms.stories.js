@@ -34,3 +34,23 @@ stories.add("Selecteur d'image", () => {
 </bde-image-selector>
     `
 },{notes:{markdown:ImageSelectorDoc}})
+
+import "../src/commissions/static/components/markdown"
+import MarkdownDoc from "../doc/components/markdown.md"
+
+stories.add("Éditeur Markdown", () => {
+    return `
+<style>
+    bde-markdown {
+        max-width: 400px;
+    }
+</style>
+<bde-markdown>
+    <textarea>
+# Titre
+
+Un texte en **markdown**
+    </textarea>
+</bde-markdown>
+    `
+},{notes:{markdown:MarkdownDoc}})
