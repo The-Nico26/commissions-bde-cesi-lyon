@@ -15,6 +15,7 @@ services:
       - .env
     environment:
       - POSTGRES_HOST=db
+      - VERSION=${VERSION}
     depends_on:
       - db
     volumes:
@@ -22,7 +23,7 @@ services:
     networks:
       - overlay
     deploy:
-      replicas: 2
+      replicas: 1
 
   proxy:
     image: epickiwi/bdecesi-proxy
@@ -35,7 +36,7 @@ services:
       - overlay
       - traefik-net
     deploy:
-      replicas: 2
+      replicas: 1
       labels:
         traefik.enable: "true"
         traefik.http.services.bde-cesi.loadbalancer.server.port: "80"
