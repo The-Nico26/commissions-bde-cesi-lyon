@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Site de gestion de la vie asso du BDE CESI Lyon",
   "scripts": {
-    "dev": "cd src && python3 manage.py runserver",
+    "dev": "cd src && VERSION=$(../get_version.sh) python3 manage.py runserver",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook"
   },

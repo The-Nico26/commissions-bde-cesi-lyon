@@ -2,7 +2,7 @@
 echo "checking out latest version"
 git pull origin master
 
-VERSION=$(git log --oneline | head -n 1 | cut -d' ' -f1)
+VERSION=$(./get_version.sh)
 export VERSION
 echo "DEPLOYING version $VERSION"
 

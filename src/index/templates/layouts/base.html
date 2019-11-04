@@ -148,10 +148,15 @@
                 <li><a href="/media/{{ rules_bds_doc.file }}">Reglement intérieur BDS</a></li>
             {% endif %}
         </ul>
-        {% if user.is_staff %}
+        {% if user.is_staff or code_version %}
         <div class="separator"></div>
         <ul>
-            <li><a href="/admin">Administration avancée</a></li>
+            {% if user.is_staff %}
+            <li><a href="/admin">Admin</a></li>
+            {% endif %}
+            {% if code_version %}
+            <li {% if code_version != "production" %}class="not-production-env"{% endif %} ><a href="https://github.com/EpicKiwi/commissions-bde-cesi-lyon">{{code_version}}</a></li>
+            {% endif %}
         </ul>
         {% endif %}
     </footer>
