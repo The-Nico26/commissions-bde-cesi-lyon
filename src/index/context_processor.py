@@ -24,7 +24,8 @@ def currentVersion(request):
 
     return {
         'code_version': version,
-        'code_environment': environment
+        'code_environment': environment,
+        'code_is_prod': environment == "production"
     }
 
 
