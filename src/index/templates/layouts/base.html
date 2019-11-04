@@ -155,7 +155,7 @@
             <li><a href="/admin">Admin</a></li>
             {% endif %}
             {% if code_version %}
-            <li {% if code_version != "production" %}class="not-production-env"{% endif %} ><a href="https://github.com/EpicKiwi/commissions-bde-cesi-lyon">{{code_version}}</a></li>
+            <li {% if code_is_prod %}class="not-production-env"{% endif %} ><a href="https://github.com/EpicKiwi/commissions-bde-cesi-lyon">{{code_version}}</a></li>
             {% endif %}
         </ul>
         {% endif %}
