@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -66,10 +67,23 @@ class ViacesiAuthBackend:
         picture_r = requests.get(self.GET_USER_PICTURE_URL,
                                  headers={'Authorization': 'Bearer {}'.format(access_token)})
 
+        givenName = user_info_json["givenName"] if user_info_json["givenName"] is not None else ""
+        lastName = user_info_json["surname"].capitalize() if user_info_json["surname"] is not None else ""
+
+        if givenName == "" or lastName == "" and "displayName" in user_info_json:
+            splitted = re.split(r' ', user_info_json["displayName"], 1)
+            if lastName == "":
+                lastName = splitted[0].capitalize()
+            if givenName == "":
+                givenName = splitted[1]
+
+        print(user_info_json)
+        print("Given name : {}; Last name : {}".format(givenName, lastName))
+
         try:
             currentUser = User.objects.get(viacesi_id=user_info_json["id"])
-            currentUser.first_name = user_info_json["givenName"]
-            currentUser.last_name = user_info_json["surname"].capitalize()
+            currentUser.first_name = givenName
+            currentUser.last_name = lastName
             if picture_r.status_code == 200:
                 if currentUser.profile_picture is not None:
                     currentUser.profile_picture.delete(save=True)
@@ -77,6 +91,7 @@ class ViacesiAuthBackend:
                     "{}.png".format(user_info_json["id"]),
                     ContentFile(picture_r.content),
                     save=True)
+            currentUser.save()
             messages.add_message(request, messages.SUCCESS, "Bon retour {} !".format(currentUser.first_name))
 
         except User.DoesNotExist:
@@ -84,8 +99,8 @@ class ViacesiAuthBackend:
                 user_info_json["mail"],
                 password=None,
                 username=user_info_json["mail"],
-                first_name=user_info_json["givenName"],
-                last_name=user_info_json["surname"].capitalize(),
+                first_name=givenName,
+                last_name=lastName,
                 viacesi_id=user_info_json["id"])
 
             if picture_r.status_code == 200:

@@ -9,6 +9,9 @@
     <script src="{% static "components/tag.js" %}"></script>
     <script src="{% static "components/commission-card.js" %}"></script>
     <script src="{% static "components/multiword.js" %}"></script>
+    <script src="{% static "components/event-card.js" %}"></script>
+    <script src="{% static "components/shelf.js" %}"></script>
+    <script src="{% static "components/autoresize.js" %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -36,20 +39,35 @@
             {% endif %}
         </div>
     </div>
-    <div class="content-shelf">
-        <h2 class="shelf-title">Dernières commissions</h2>
-        <div class="shelf-content">
+
+    {% if upcoming_events %}
+    <bde-shelf>
+        <h2 slot="title">Événements à venir</h2>
+        <a href="/commissions/events" class="btn" slot="toolbar">Calendrier <bde-icon icon="mdi-chevron-right"></bde-icon></a>
+        {% for event in upcoming_events %}
+            <a href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}">
+                {% include "fragments/event-card.html" %}
+            </a>
+        {% endfor %}
+    </bde-shelf>
+    {% endif %}
+
+    <bde-shelf>
+        <h2 slot="title" >Dernières commissions</h2>
+        <a href="/commissions" class="btn" slot="toolbar">Toutes les commissions <bde-icon icon="mdi-chevron-right"></bde-icon></a>
         {% for com in latest_commissions %}
             {% include "fragments/commission-card.html" %}
         {% endfor %}
 
         {% if commission_count > 5 %}
-            <bde-card class="more-card">
-                <a class="more" href="/commissions">
-                    <bde-icon icon="mdi-creation" ></bde-icon>
-                    <div>Encore {{ commission_count }} commissions à découvrir</div>
-                </a>
-            </bde-card>
+            <div class="more-card-wrapper">
+                <bde-card class="more-card">
+                    <a class="more" href="/commissions">
+                        <bde-icon icon="mdi-creation" ></bde-icon>
+                        <div>Encore {{ commission_count }} commissions à découvrir</div>
+                    </a>
+                </bde-card>
+            </div>
         {% else %}
             {% if not user.is_authenticated or perms.commissions.add_commission %}
                 <bde-card class="create-commission">
@@ -61,28 +79,28 @@
                 </bde-card>
             {% endif %}
         {% endif %}
-        </div>
-    </div>
+    </bde-shelf>
 
 
     {% if commission_count > 5 %}
-        <div class="content-shelf">
-            <h2 class="shelf-title">Quelques commissions à découvrir</h2>
-            <div class="shelf-content">
+        <bde-shelf>
+            <h2 slot="title">Quelques commissions à découvrir</h2>
+            <a href="/commissions" class="btn" slot="toolbar">Toutes les commissions <bde-icon icon="mdi-chevron-right"></bde-icon></a>
             {% for com in random_commissions %}
                 {% include "fragments/commission-card.html" %}
             {% endfor %}
 
             {% if commission_count > 5 %}
+            <div class="more-card-wrapper">
                 <bde-card class="more-card">
                     <a class="more" href="/commissions">
                         <bde-icon icon="mdi-creation" ></bde-icon>
                         <div>Encore {{ commission_count }} commissions à découvrir</div>
                     </a>
                 </bde-card>
-            {% endif %}
             </div>
-        </div>
+            {% endif %}
+        </bde-shelf>
     {% endif %}
 
 {% endblock %}

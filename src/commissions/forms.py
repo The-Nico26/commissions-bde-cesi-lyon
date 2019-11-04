@@ -1,9 +1,15 @@
+from datetime import timedelta
+
 from django import forms
+from django.template.loader import render_to_string
+from django.utils import timezone
 
 from commissions.models import Tag
 from commissions.models import User
 from commissions.models import Commission
-from django.forms import ModelForm
+from commissions.models import Event
+from django.forms import ModelForm, SelectDateWidget, SplitDateTimeWidget, SplitDateTimeField, Form, ChoiceField, \
+    DurationField
 
 
 class TagSelectorWidget(forms.SelectMultiple):
@@ -62,6 +68,10 @@ class MarkdownWidget(forms.Textarea):
     template_name = 'widgets/markdown.html'
 
 
+class DateTimePickerWidget(SplitDateTimeWidget):
+    template_name = 'widgets/datetimepicker.html'
+
+
 class CreateCommissionForm(forms.Form):
     name = forms.CharField(label='Nom', max_length=30, required=True)
     short_description = forms.CharField(label='Courte description', max_length=60, required=True)
@@ -73,7 +83,11 @@ class CreateCommissionForm(forms.Form):
     treasurer = forms.ModelChoiceField(queryset=User.objects.all(), label='Trésorier·ere', required=False, widget=UserSelectorWidget)
     substitute = forms.ModelChoiceField(queryset=User.objects.all(), label='Suppléant·e', widget=UserSelectorWidget, required=False)
 
-    description = forms.CharField(label='Description', widget=MarkdownWidget, required=True)
+    description = forms.CharField(
+        label='Description',
+        widget=MarkdownWidget,
+        required=True,
+        initial=render_to_string("commission_description_template.md"))
 
 
 class EditCommissionForm(ModelForm):
@@ -110,3 +124,17 @@ class EditCommissionMembersForm(ModelForm):
             'deputy': UserSelectorWidget,
             'president': UserSelectorWidget
         }
+
+
+class EventForm(Form):
+
+    name = forms.CharField(label='Nom de l\'évènement', max_length=100, required=True)
+    location = forms.CharField(label='Emplacement', max_length=255, required=False)
+    event_date_start = SplitDateTimeField(label='Date de début de l\'évènement', widget=DateTimePickerWidget, initial=timezone.now())
+    event_duration = DurationField(initial=timedelta(hours=1), label="Durée de l\'évènement")
+    banner = forms.ImageField(required=False, label='Bannière', widget=ImageSelectorWidget)
+    description = forms.CharField(
+        label='Description',
+        widget=MarkdownWidget,
+        required=True,
+        initial=render_to_string("event_description_template.md"))

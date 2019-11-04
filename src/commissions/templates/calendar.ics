@@ -1,0 +1,13 @@
+{% load escapelines %}BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//bdecesilyon//eventcalendar v1.0//FR
+{% for event in events %}BEGIN:VEVENT
+DTSTART:{{event.get_start_utc|date:"Ymd"}}T{{event.get_start_utc|date:"Gis"}}Z
+DTEND:{{event.get_end_utc|date:"Ymd"}}T{{event.get_end_utc|date:"Gis"}}Z
+SUMMARY:{{event.name}}
+CATEGORIES:{{event.commission.name}}
+STATUS:CONFIRMED
+DESCRIPTION:Un evenement {{event.commission.name}}\n{{base_addr}}/{{event.commission.slug}}/event-{{event.slug}}
+{% if event.location %}LOCATION:{{event.location}}
+{% endif %}END:VEVENT
+{% endfor %}END:VCALENDAR

@@ -144,13 +144,6 @@
                         display: block;
                     }
 
-                    .president {
-                        position: absolute;
-                        top: 10px;
-                        left: 10px;
-                        pointer-events: none;
-                    }
-
                     .status {
                         position: absolute;
                         top: 10px;
@@ -207,10 +200,6 @@
                     <a id="link" class="link">
                         <div class="banner">
                             <img id="banner"/>
-                        </div>
-
-                        <div class="president">
-                            <slot name="president"></slot>
                         </div>
                         
                         <span class="status">

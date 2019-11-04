@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:11
     env_file:
       - .env
     volumes:
@@ -21,6 +21,8 @@ services:
       - user-media:/code/user-media
     networks:
       - overlay
+    deploy:
+      replicas: 2
 
   proxy:
     image: epickiwi/bdecesi-proxy
@@ -33,6 +35,7 @@ services:
       - overlay
       - traefik-net
     deploy:
+      replicas: 2
       labels:
         traefik.enable: "true"
         traefik.http.services.bde-cesi.loadbalancer.server.port: "80"

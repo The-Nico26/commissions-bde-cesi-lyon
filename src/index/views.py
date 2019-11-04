@@ -4,11 +4,16 @@ from django.shortcuts import render
 
 from commissions.models import Commission
 from commissions.models import Tag
+from commissions.models import Event
+
+import datetime
 
 
 def index(request):
 
-    commissions = Commission.objects.order_by("-creation_date").filter(is_active=True)
+    upcoming_events = Event.objects.filter(event_date_end__gte=datetime.datetime.now()).order_by("event_date_start")
+
+    commissions = Commission.objects.order_by("-creation_date").filter(is_active=True).filter(is_organization=False)
 
     # Get the 5 latest commissions created
     latest_commissions = commissions[:5]
@@ -17,7 +22,8 @@ def index(request):
     return render(request, "index.html", {
         "latest_commissions": latest_commissions,
         "random_commissions": random_commissions,
-        "commission_count": commissions.count()
+        "commission_count": commissions.count(),
+        "upcoming_events": upcoming_events
     })
 
 

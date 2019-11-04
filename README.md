@@ -51,6 +51,17 @@ Executez le script de déploiement
 ./deploy.sh
 ```
 
+## StoryBook
+
+Le site utilise les WebComponents et vous pouvez les tester individuellements et avec documentation en démarrant le StoryBook.
+
+```sh-session
+$ npm install
+$ npm run storybook
+```
+
 ## Documentation
+
+La documentation technique est disponible dans la dossier [doc](./doc).
 
 La documentation dite "Guide de la vie Asso" est rédigée sur le repository [EpicKiwi/bdecesilyon-documentation](https://github.com/EpicKiwi/bdecesilyon-documentation).
