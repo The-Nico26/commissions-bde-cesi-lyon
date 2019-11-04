@@ -1,12 +1,12 @@
 from django.urls import path
 
-from commissions.views import list_commissions, view_commission, create_commission, edit_commission, 
-    edit_members_commission, view_event, commission_dashboard, calendar, calendar_explain, add_edit_event, action_membre
+from commissions.views import list_commissions, view_commission, create_commission, edit_commission, edit_members_commission, view_event, commission_dashboard, calendar, calendar_explain, add_edit_event, action_membre
 
 urlpatterns = [
     path("create", create_commission, name="commission_create"),
     path("events", calendar_explain, name="calendar_explain"),
     path("events.ics", calendar, name="calendar"),
+    
     path("<slug:slug>/manage/members", edit_members_commission, name="commission_edit_members"),
     path("<slug:slug>/action_membre/<slug:action>", action_membre, name="action_membre"),
     path("<slug:slug>/manage/edit", edit_commission, name="commission_edit"),

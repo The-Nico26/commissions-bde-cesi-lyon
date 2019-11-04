@@ -121,7 +121,7 @@
                         {% include "fragments/safe_user.html" with user=membre.identification role=membre.role %}
                     {% endfor %}
                 {% endif %}
-                {% if not can_manage and not membre_inside %}
+                {% if not can_manage and not membre_inside and user.is_authenticated %}
                     <div class="manage">
                         <a href="{% url 'action_membre' com.slug 'add' %}" class="btn"><bde-icon icon="mdi-account-plus"></bde-icon> inside</a>
                     </div>
