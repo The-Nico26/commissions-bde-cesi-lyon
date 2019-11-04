@@ -8,8 +8,9 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from bdecesi import settings
-from commissions.models import Commission, Event
+from commissions.models import Commission, Event, MembreCommission
 from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, EventForm
+
 from django.contrib import messages
 from commissions.models import Tag
 from django.db.models import Q
@@ -35,6 +36,7 @@ def view_commission(request, slug):
 
     return render(request, "view_commission.html", {
         'com': com,
+        'membre_inside': com.in_commission_membre(request),
         'can_manage': com.has_change_permission(request),
         'event': event
     })
@@ -234,6 +236,23 @@ def create_commission(request):
         "active_commission_creation": True
     })
 
+def action_membre(request, slug, action):
+    if not request.user.is_authenticated:
+        return redirect("/login?next={}".format(request.path))
+
+    com = get_object_or_404(Commission, slug=slug)
+    if action == 'add':
+        if(com.is_possible_membre(request)) :
+            membreCommission = MembreCommission()
+            membreCommission.identification = request.user
+            membreCommission.commission = com
+            membreCommission.permission = ''
+            membreCommission.save()
+    elif action == 'remove' :
+        if(com.in_commission_membre(request)) :
+            MembreCommission.objects.filter(commission = com, identification = request.user).delete()
+        
+    return redirect("/commissions/{}".format(com.slug))
 
 def add_edit_event(request, com_slug, slug=None):
     if not request.user.is_authenticated:

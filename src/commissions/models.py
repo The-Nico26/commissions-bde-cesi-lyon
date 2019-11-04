@@ -27,7 +27,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-
 class Commission(models.Model):
     """
     Le modèle contant toutes les informations d'une commission
@@ -70,10 +69,11 @@ class Commission(models.Model):
     end_date = models.DateTimeField(default=None, blank=True, null=True)
 
     # Les tags de la commission
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name='tags_commissions')
 
     # L'organisation en charge de la gestion de la commission (BDE ou BDS)
     organization_dependant = models.CharField(max_length=100, choices=[("bde", "BDE"), ("bds", "BDS")], default="bde", help_text="L'organisation à laquelle appartiens la commission")
+    
 
     # Si la "commission" est un organisation, c'est a dire qu'elle n'apparait pas sur le liste des commission mais peut profiter de toutes les fonctionnalités des commissions comme les events, les hashtags, etc..
     is_organization = models.BooleanField(default=False, help_text="Définie que cet instance est une organisation et non une commission, une organisation n'apparait pas dans la liste des commissions mais dispose de toutes les fonctionnalités associés")
@@ -85,8 +85,8 @@ class Commission(models.Model):
     def __str__(self):
         return self.name
 
-    def has_change_permission(self, request):
-        return self.is_active and ((
+    def has_team_member(self, request):
+        return ((
             request.user.get_username() == self.president.get_username()
         ) or (
             request.user.get_username() == self.treasurer.get_username()
@@ -94,12 +94,46 @@ class Commission(models.Model):
             self.deputy is not None and request.user.get_username() == self.deputy.get_username()
         ))
 
+    def has_change_permission(self, request):
+        return self.is_active and self.has_team_member(request)
+
     def has_change_members_permission(self, request):
         return self.is_active and request.user.get_username() == self.president.get_username()
 
+    def add_membre_commission(self, request):
+        return self.is_active and not self.has_team_member(request)
+
+    def in_commission_membre(self, request):
+        for membre in MembreCommission.objects.filter(commission = self) :
+            if(request.user.get_username() == membre.identification.get_username()):
+                return self.is_active
+        return False
+
+    def is_possible_membre(self, request):
+        if(self.add_membre_commission(request)):
+             return False
+
+        return not in_commission_membre(request)
+
+    def get_membres(self):
+        return MembreCommission.objects.filter(commission = self)
+      
     def has_add_event_permission(self, request):
         return self.has_change_permission(request)
 
+class MembreCommission(models.Model):
+    """
+    Les membre de commission commissions
+    """
+    # L'ID du membre
+    identification = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='membre_identification')
+    commission = models.ForeignKey(Commission, on_delete=models.SET_NULL, null=True, related_name='membre_commission')
+
+    # Les permissions du membre (TODO)
+    role = models.CharField(max_length=20, default='Membre')
+
+    def __str__(self):
+        return role
 
 class Event(models.Model):
     """

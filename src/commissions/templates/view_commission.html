@@ -104,19 +104,34 @@
             {% endif %}
 
             <div class="commission-roles">
+                {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
 
-                    {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
+                {% if com.deputy is not None %}
+                    {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant·e" %}
+                {% endif %}
 
-                    {% if com.deputy is not None %}
-                        {% include "fragments/safe_user.html" with user=com.deputy role="Suppléant·e" %}
-                    {% endif %}
-
-                    {% if com.treasurer_id != com.president_id %}
-                        {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier·ere" %}
-                    {% endif %}
-
+                {% if com.treasurer_id != com.president_id %}
+                    {% include "fragments/safe_user.html" with user=com.treasurer role="Trésorier·ere" %}
+                {% endif %}
             </div>
 
+            <div class="commission-roles">
+                {% if com.get_membres %}
+                    {% for membre in com.get_membres %}
+                        {% include "fragments/safe_user.html" with user=membre.identification role=membre.role %}
+                    {% endfor %}
+                {% endif %}
+                {% if not can_manage and not membre_inside %}
+                    <div class="manage">
+                        <a href="{% url 'action_membre' com.slug 'add' %}" class="btn"><bde-icon icon="mdi-account-plus"></bde-icon> inside</a>
+                    </div>
+                {% endif %}
+                {% if membre_inside %}
+                    <div class="manage">
+                        <a href="{% url 'action_membre' com.slug 'remove' %}" class="btn"><bde-icon icon="mdi-delete-outline"></bde-icon> remove</a>
+                    </div>
+                {% endif %}
+            </div>
             <div class="commission-long-description markdown">
                 {{ com.description | escape | markdown | safe }}
             </div>
