@@ -111,3 +111,5 @@ src/user-media/*
 !src/user-media/**/.gitkeep
 src/static-files/*
 proxy/static-files/*
+
+node_modules

@@ -15,36 +15,36 @@
     margin-bottom: 15px;
 }
 
-.markdown h1,
-.markdown h2,
-.markdown h3,
-.markdown h4,
-.markdown h5,
-.markdown h6 {
+.markdown h1, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-1,
+.markdown h2, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-2,
+.markdown h3, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-3,
+.markdown h4, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-4,
+.markdown h5, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-5,
+.markdown h6, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-6 {
     font-family: var(--title-fonts);
 }
 
-.markdown h1 {
+.markdown h1, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-1 {
     font-size: 25px;
 }
 
-.markdown h2 {
+.markdown h2, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-2 {
     font-size: 20px;
 }
 
-.markdown h3 {
+.markdown h3, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-3 {
     font-size: 18px;
 }
 
-.markdown h4 {
+.markdown h4, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-4 {
     font-size: 16px;
 }
 
-.markdown h5 {
+.markdown h5, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-5 {
     font-size: 14px;
 }
 
-.markdown h6 {
+.markdown h6, .CodeMirror .CodeMirror-code .CodeMirror-line .cm-header-6 {
     font-size: 11px;
 }
 

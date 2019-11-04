@@ -91,7 +91,7 @@
 }
 
 .introduction-section .icon, .end-section .icon {
-    color: #815DA5;
+    color: var(--intermediate-color);
     height: 150px;
     margin-bottom: 50px;
 }

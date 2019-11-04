@@ -1,0 +1,28 @@
+{
+  "name": "commissions-bde-cesi-lyon",
+  "version": "1.0.0",
+  "description": "Site de gestion de la vie asso du BDE CESI Lyon",
+  "scripts": {
+    "dev": "cd src && python3 manage.py runserver",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpicKiwi/commissions-bde-cesi-lyon.git"
+  },
+  "author": "EpicKiwi <me@epickiwi.fr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EpicKiwi/commissions-bde-cesi-lyon/issues"
+  },
+  "homepage": "https://bdecesilyon.fr",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@storybook/addon-knobs": "^5.2.5",
+    "@storybook/addon-notes": "^5.2.5",
+    "@storybook/addon-storysource": "^5.2.5",
+    "@storybook/html": "^5.2.5",
+    "babel-loader": "^8.0.6"
+  }
+}

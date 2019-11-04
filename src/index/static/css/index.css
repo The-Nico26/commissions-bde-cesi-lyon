@@ -91,34 +91,17 @@
     }
 }
 
-.content-shelf {
-    margin: 25px 5vw 75px;
-}
-
-.shelf-title {
-    width: 100%;
-    font-family: var(--title-fonts);
-    font-size: 35px;
-    margin-bottom: 20px;
-    margin-left: 2vw;
-}
-
-.shelf-content {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.shelf-content > * {
-    margin: 10px;
-    width: auto;
+bde-shelf {
+    padding: 25px 5vw 75px;
 }
 
 .more-card {
     width: 200px;
     height: 200px;
-    margin: 50px;
+}
+
+.more-card-wrapper {
+    padding: 50px;
 }
 
 .more-card .more {
@@ -134,8 +117,7 @@
 }
 
 .more-card bde-icon {
-    width: 100px;
-    height: auto;
+    height: 100px;
     margin-bottom: 20px;
 }
 
