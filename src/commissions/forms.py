@@ -4,10 +4,8 @@ from django import forms
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from commissions.models import Tag
-from commissions.models import User
-from commissions.models import Commission
-from commissions.models import Event
+from commissions.models import Tag, User, Commission, MembreCommission, Event
+
 from django.forms import ModelForm, SelectDateWidget, SplitDateTimeWidget, SplitDateTimeField, Form, ChoiceField, \
     DurationField
 
@@ -127,7 +125,6 @@ class EditCommissionMembersForm(ModelForm):
 
 
 class EventForm(Form):
-
     name = forms.CharField(label='Nom de l\'évènement', max_length=100, required=True)
     location = forms.CharField(label='Emplacement', max_length=255, required=False)
     event_date_start = SplitDateTimeField(label='Date de début de l\'évènement', widget=DateTimePickerWidget, initial=timezone.now())
@@ -138,3 +135,7 @@ class EventForm(Form):
         widget=MarkdownWidget,
         required=True,
         initial=render_to_string("event_description_template.md"))
+
+class MembreCommissionForm(Form):
+    role = forms.CharField(label='Role', max_length=100, required=True, initial="Membre")
+    identification = forms.ChoiceField(label='E-mail', required=True)

@@ -29,104 +29,94 @@
         <div class="banner">
             <img src="/media/{{ com.banner }}" alt="Bannière de {{ com.name }}" />
         </div>
-        <form method="post" class="com-form" id="com-form" enctype="multipart/form-data">
-            {% csrf_token %}
-
+        <div class="com-form">
             <header class="commission-header">
                 <div class="logo">
                     <img src="/media/{{ com.logo }}" alt="Logo de {{ com.name }}">
                 </div>
             </header>
 
-            <div class="com-field-errors">
-                {{ form.non_field_errors }}
-            </div>
-
             <div class="com-field-wrapper">
-                <table style="border-spacing:0 15px; border-collapse: separate;">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for membre in com.get_membres %}
-                            <tr>
-                                <td>{{ membre.identification.email }}</td>
-                                <td>{{ membre.role }} </td>
-                                <td>...</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="com-field">
+                        {{ form_member.identification }}
+                        {{ form_member.role }}
+                        <button type="submit" class="btn btn-danger">Send</button>
+                    </div>
+                </form>
             </div>
+            <form method="post"  id="com-form" enctype="multipart/form-data">
+                {% csrf_token %}
 
-            <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
-                <div class="com-field">
-                    <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
-                    {{ form.treasurer }}
+                <div class="com-field-errors">
+                    {{ form.non_field_errors }}
                 </div>
-                <div class="com-field-explaination">
-                    <p>Le trésorier est la personne en charge de la gestion du budget de la commission. C'est le trésorier qui est en charge d'estimer les coûts, de faire des demandes de financement et de communiquer avec le BDE à propos du budget et des dépenses.</p>
-                    <p>Le président peut cumuler le poste de président et de trésorier</p>
-                    <div class="com-field-errors">
-                        {{ form.treasurer.errors }}
+
+                <div class="com-field-wrapper{% if form.treasurer.errors %} error{% endif %}">
+                    <div class="com-field">
+                        <label for="{{ form.treasurer.id_for_label }}">{{ form.treasurer.label }}</label>
+                        {{ form.treasurer }}
+                    </div>
+                    <div class="com-field-explaination">
+                        <p>Le trésorier est la personne en charge de la gestion du budget de la commission. C'est le trésorier qui est en charge d'estimer les coûts, de faire des demandes de financement et de communiquer avec le BDE à propos du budget et des dépenses.</p>
+                        <p>Le président peut cumuler le poste de président et de trésorier</p>
+                        <div class="com-field-errors">
+                            {{ form.treasurer.errors }}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="com-field-wrapper{% if form.substitute.errors %} error{% endif %}">
-                <div class="com-field">
-                    <label for="{{ form.deputy.id_for_label }}">{{ form.deputy.label }}</label>
-                    {{ form.deputy }}
-                </div>
-                <div class="com-field-explaination">
-                    <p>Le suppléant est le remplaçant du président lorsque ce dernier n'est pas disponible.</p>
-                    <p>Le poste de suppléant est <strong>facultatif</strong></p>
-                    <div class="com-field-errors">
-                        {{ form.deputy.errors }}
+                <div class="com-field-wrapper{% if form.substitute.errors %} error{% endif %}">
+                    <div class="com-field">
+                        <label for="{{ form.deputy.id_for_label }}">{{ form.deputy.label }}</label>
+                        {{ form.deputy }}
+                    </div>
+                    <div class="com-field-explaination">
+                        <p>Le suppléant est le remplaçant du président lorsque ce dernier n'est pas disponible.</p>
+                        <p>Le poste de suppléant est <strong>facultatif</strong></p>
+                        <div class="com-field-errors">
+                            {{ form.deputy.errors }}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        <div class="danger-area">
-            <h3 class="com-light-title" >Zone dangereuse</h3>
+                <div class="danger-area">
+                    <h3 class="com-light-title" >Zone dangereuse</h3>
 
-            <div class="com-field-wrapper{% if form.president.errors %} error{% endif %}">
-                <div class="com-field">
-                    <label for="{{ form.president.id_for_label }}">{{ form.president.label }}</label>
-                    {{ form.president }}
-                </div>
-                <div class="com-field-explaination">
-                    <p>Le président est le grand chef de la commission, c'est l'instigateur du projet et responsable des activités qui sont organisées</p>
-                    <p><strong>Si tu changes de président tu passes le pouvoir de cette commission au nouveau président</strong></p>
-                    <div class="com-field-errors">
-                        {{ form.president.errors }}
+                    <div class="com-field-wrapper{% if form.president.errors %} error{% endif %}">
+                        <div class="com-field">
+                            <label for="{{ form.president.id_for_label }}">{{ form.president.label }}</label>
+                            {{ form.president }}
+                        </div>
+                        <div class="com-field-explaination">
+                            <p>Le président est le grand chef de la commission, c'est l'instigateur du projet et responsable des activités qui sont organisées</p>
+                            <p><strong>Si tu changes de président tu passes le pouvoir de cette commission au nouveau président</strong></p>
+                            <div class="com-field-errors">
+                                {{ form.president.errors }}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            </form>
+
+            <bde-modal id="president-changed-modal" data-initialpresident="{{ form.president.value }}">
+                <div class="danger-area modal-content president-changed-modal">
+                    <h3 class="modal-title">Passation de pouvoirs</h3>
+                    <p>Tu as changé le président de cette commission. Cela signifie qui tu efféctue une passation de pouvoir de l'ensemble de la direction de la commission <strong id="commission-name">{{com.name}}</strong> à <strong id="new-president">Jhon Doe</strong>.</p>
+                    <p>Cette personne disposera des pleins pouvoirs de modification de la commissions et de ses membres. Elle sera aussi reconnue comme président au yeux du BDE et sera responsable de la commission.</p>
+                    <p>Apres cette action, tu n'aura plus accès à cette page et tu perdra tes pouvoirs de président</p>
+                    <p>Es-tu sûr de vouloir effectuer une passation de pouvoirs ? Si oui, écrit le nom de la commission en entier dans le champ ci-dessous pour valider l'action.</p>
+
+                    <input type="text" id="validation-form" placeholder="Nom de la commission" autocomplete="off" value=""/>
+
+                    <div class="toolbar">
+                        <button class="btn btn-danger" id="modal-submit" disabled>Passation de pouvoirs</button>
+                        <button class="btn" id="modal-cancel">Annuler</button>
+                    </div>
+                </div>
+            </bde-modal>
         </div>
-
-        </form>
-
-        <bde-modal id="president-changed-modal" data-initialpresident="{{ form.president.value }}">
-            <div class="danger-area modal-content president-changed-modal">
-                <h3 class="modal-title">Passation de pouvoirs</h3>
-                <p>Tu as changé le président de cette commission. Cela signifie qui tu efféctue une passation de pouvoir de l'ensemble de la direction de la commission <strong id="commission-name">{{com.name}}</strong> à <strong id="new-president">Jhon Doe</strong>.</p>
-                <p>Cette personne disposera des pleins pouvoirs de modification de la commissions et de ses membres. Elle sera aussi reconnue comme président au yeux du BDE et sera responsable de la commission.</p>
-                <p>Apres cette action, tu n'aura plus accès à cette page et tu perdra tes pouvoirs de président</p>
-                <p>Es-tu sûr de vouloir effectuer une passation de pouvoirs ? Si oui, écrit le nom de la commission en entier dans le champ ci-dessous pour valider l'action.</p>
-
-                <input type="text" id="validation-form" placeholder="Nom de la commission" autocomplete="off" value=""/>
-
-                <div class="toolbar">
-                    <button class="btn btn-danger" id="modal-submit" disabled>Passation de pouvoirs</button>
-                    <button class="btn" id="modal-cancel">Annuler</button>
-                </div>
-            </div>
-        </bde-modal>
     </div>
-
 {% endblock %}

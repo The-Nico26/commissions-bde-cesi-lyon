@@ -6,14 +6,12 @@ from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.contrib import messages
+from django.db.models import Q
 
 from bdecesi import settings
-from commissions.models import Commission, Event, MembreCommission
-from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, EventForm
-
-from django.contrib import messages
-from commissions.models import Tag
-from django.db.models import Q
+from commissions.models import Commission, Event, MembreCommission, Tag
+from commissions.forms import CreateCommissionForm, EditCommissionForm, EditCommissionMembersForm, EventForm, MembreCommissionForm
 
 from users.models import User
 from webhooks.models import Webhook
@@ -134,6 +132,13 @@ def edit_members_commission(request, slug):
     form.fields["deputy"].queryset = User.objects.all().filter(is_active=True).exclude(id=com.president.id)
     form.fields["president"].queryset = User.objects.all().filter(is_active=True)
 
+    formMembre = MembreCommissionForm(request.POST or None)
+    choiceMembre = []
+    for membre in MembreCommission.objects.all().filter(commission=com):
+        choiceMembre.append([membre.email, membre.email])
+
+    formMembre.fields["identification"].choices = choiceMembre
+    
     if form.is_valid():
         form.save()
         messages.add_message(request, messages.SUCCESS, "Membres de la commission modifiés")
@@ -144,9 +149,15 @@ def edit_members_commission(request, slug):
         else:
             return redirect("/commissions/{}".format(com.slug))
 
+    if formMembre.is_valid():
+        MembreCommission.objects.filter(commission = com, identification = formMembre.identification).role = formMembre.role
+        messages.add_message(request, messages.SUCCESS, "Role du membre modifiés")
+        return redirect("/commissions/{}/manage/members".format(com.slug))
+
     return render(request, "edit_members_commission.html", {
         "com": com,
         "form": form,
+        "form_member": formMembre,
         "active_commission_id": com.id,
         "active_commission_members": True,
         "can_change_member": True
@@ -242,16 +253,16 @@ def action_membre(request, slug, action):
 
     com = get_object_or_404(Commission, slug=slug)
     if action == 'add':
-        if(com.is_possible_membre(request)) :
+        if com.is_possible_membre(request) :
             membreCommission = MembreCommission()
             membreCommission.identification = request.user
             membreCommission.commission = com
             membreCommission.permission = ''
             membreCommission.save()
     elif action == 'remove' :
-        if(com.in_commission_membre(request)) :
+        if com.in_commission_membre(request) :
             MembreCommission.objects.filter(commission = com, identification = request.user).delete()
-        
+
     return redirect("/commissions/{}".format(com.slug))
 
 def add_edit_event(request, com_slug, slug=None):
