@@ -148,13 +148,7 @@ class Event(models.Model):
         return self.event_date_end < timezone.now()
 
     def has_change_event_permission(self, request):
-        return ((
-            request.user.get_username() == self.commission.president.get_username()
-        ) or (
-            request.user.get_username() == self.commission.treasurer.get_username()
-        ) or (
-            self.commission.deputy is not None and request.user.get_username() == self.commission.deputy.get_username()
-        ))
+        return self.commission.has_change_permission(request)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
