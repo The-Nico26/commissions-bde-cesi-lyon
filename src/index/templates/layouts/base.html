@@ -125,40 +125,36 @@
     <footer class="main-footer">
         <ul>
             <li>BDE CESI Lyon</li>
-            <li><a href="https://www.facebook.com/BDECesiLyon/">Facebook</a></li>
+            <li><a href="https://www.facebook.com/BDECesiLyon/"><bde-icon icon="mdi:facebook"></bde-icon></a></li>
+            <li><a href="https://www.instagram.com/bde_cesi_lyon/"><bde-icon icon="mdi:instagram"></bde-icon></a></li>
+            <li><a href="https://twitter.com/Bdecesilyon"><bde-icon icon="mdi:twitter"></bde-icon></a></li>
         </ul>
         <ul>
             {% if status_doc %}
                 <li><a href="/media/{{ status_doc.file }}">Status BDE</a></li>
             {% endif %}
             {% if rules_doc %}
-                <li><a href="/media/{{ rules_doc.file }}">Reglement intérieur BDE</a></li>
+                <li><a href="/media/{{ rules_doc.file }}">Reglement BDE</a></li>
             {% endif %}
         </ul>
-    <div class="separator"></div>
         <ul>
             <li>BDS CESI Lyon</li>
-            <li><a href="https://instagram.com/bdscesi?igshid=nbrn774n9czv">Instagram</a></li>
+            <li><a href="https://instagram.com/bdscesi"><bde-icon icon="mdi:instagram"></bde-icon></a></li>
         </ul>
         <ul>
             {% if status_bds_doc %}
                 <li><a href="/media/{{ status_bds_doc.file }}">Status BDS</a></li>
             {% endif %}
             {% if rules_bds_doc %}
-                <li><a href="/media/{{ rules_bds_doc.file }}">Reglement intérieur BDS</a></li>
+                <li><a href="/media/{{ rules_bds_doc.file }}">Reglement BDS</a></li>
             {% endif %}
         </ul>
-        {% if user.is_staff or code_version %}
-        <div class="separator"></div>
         <ul>
             {% if user.is_staff %}
             <li><a href="/admin">Admin</a></li>
             {% endif %}
-            {% if code_version %}
-            <li {% if not code_is_prod %}class="not-production-env"{% endif %} ><a href="https://github.com/EpicKiwi/commissions-bde-cesi-lyon">{{code_version}}</a></li>
-            {% endif %}
+            <li {% if not code_is_prod %}class="not-production-env"{% endif %} ><a href="https://github.com/EpicKiwi/commissions-bde-cesi-lyon" target="_blank">{{code_version}}</a></li>
         </ul>
-        {% endif %}
     </footer>
 </aside>
 <section class="main-body">
