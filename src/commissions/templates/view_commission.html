@@ -117,9 +117,16 @@
 
             </div>
 
-            <div class="commission-long-description markdown">
-                {{ com.description | escape | markdown | safe }}
-            </div>
+            {% if user.is_authenticated %}
+                <div class="commission-long-description markdown">
+                    {{ com.description | escape | markdown | safe }}
+                </div>
+            {% else %}
+                <div class="auth-box">
+                    <p class="ask-auth" >Pour voir toutes les infos des commissions, il suffit de te connecter avec ton compte Viacesi, clique simplement sur le bouton en dessous.</p>
+                    <a class="auth-button" href="/login?next={{ request.path }}">Se connecter avec Viacesi</a>
+                </div>
+            {% endif %}
 
             <div class="commission-meta">
                 <div class="created">
