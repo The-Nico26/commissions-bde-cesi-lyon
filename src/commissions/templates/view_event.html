@@ -17,7 +17,7 @@
 {% block opengraph %}
     <meta property="og:title" content="{{ event.name }} - {{ com.name }}"/>
     <meta property="og:image" content="http://{{ request.get_host }}/media/{{ com.logo }}" />
-    <meta property="og:description" content="Le {{ event.event_date_start }} {{ event.event_date_start | naturaltime }}"/>
+    <meta property="og:description" content="Le {{ event.event_date_start }}"/>
 {% endblock %}
 
 {% block body %}
