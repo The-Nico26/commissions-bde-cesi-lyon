@@ -12,6 +12,9 @@
     <script src="{% static "components/tag.js" %}"></script>
     <script src="{% static "components/card.js" %}"></script>
     <script src="{% static "components/event-card.js" %}"></script>
+    {% if com.is_organization %}
+    <meta name="robots" content="noindex">
+    {% endif %}
 {% endblock %}
 
 {% block opengraph %}
