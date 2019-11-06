@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'documents',
     'documentation',
     'webhooks',
+    'adminutils',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

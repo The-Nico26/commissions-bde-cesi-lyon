@@ -1,0 +1,3 @@
+Commission;Organisation;Président;Trésorier;Suppléant
+{% for com in commissions %}{{com.name}};{{com.organization_dependant}};{{com.president.email}};{% if com.treasurer.id != com.president.id %}{{com.treasurer.email}}{% endif %};{{com.deputy.email}}
+{% endfor %}
