@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+       - master
+    docker:
+      - image: lgatica/openssh-client
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "51:b3:01:32:82:af:98:47:c3:48:87:07:19:2b:90:7b"
+      - run:
+          name: deploy
+          command: ssh -oStrictHostKeyChecking=no epickiwi@epickiwi.fr "cd commissions-bde-cesi-lyon && ./deploy.sh"

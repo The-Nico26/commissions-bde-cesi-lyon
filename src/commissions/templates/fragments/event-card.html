@@ -23,7 +23,7 @@
 		<span slot="relative-time">{{event.event_date_start | naturaltime }}</span>
 	{% endif %}
 
-    {% if event.location %}
+    {% if event.location and user.is_authenticated %}
         <span slot="location">{{ event.location }}</span>
     {% endif %}
 

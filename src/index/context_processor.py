@@ -1,6 +1,7 @@
 from commissions.models import Commission
 from documents.models import Document
 from users.models import User
+import os
 
 
 def availableCommissions(request):
@@ -11,6 +12,20 @@ def availableCommissions(request):
             commissions.append(com)
     return {
         'userCommissions': commissions
+    }
+
+def currentVersion(request):
+
+    version = os.getenv('VERSION', "")
+    environment = os.getenv('ENVIRONMENT', "production")
+
+    if environment != "production":
+        version = environment[:3] + "-" + version
+
+    return {
+        'code_version': version,
+        'code_environment': environment,
+        'code_is_prod': environment == "production"
     }
 
 

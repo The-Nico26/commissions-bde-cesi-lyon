@@ -238,14 +238,11 @@
                 if(!this.selectedDate)
                     this.selectedDate = new Date()
 
-                this.root.getElementById("days").addEventListener("click", e => {
+                Array.from(this.timePresets.querySelectorAll("button")).forEach(el => {
+                  el.addEventListener("click", e => {
                     e.preventDefault()
-                    this.selectDate(e.originalTarget)
-                })
-
-                this.timePresets.addEventListener("click", e => {
-                    e.preventDefault()
-                    this.selectPreset(e.originalTarget)
+                    this.selectPreset(el)
+                  })
                 })
 
                 this.root.getElementById("prev-month").addEventListener("click", e => {
@@ -349,6 +346,13 @@
             }
 
             weeks.appendChild(currentRow)
+
+            Array.from(weeks.querySelectorAll("td")).forEach(el => {
+                el.addEventListener("click", e => {
+                    e.preventDefault()
+                    this.selectDate(el)
+                })
+            })
         }
 
         selectDate(target){
@@ -390,9 +394,15 @@
         createTimePreset(value, isCustom=false) {
             let element = document.createElement("button")
             element.classList.add("time-preset")
+            if(isCustom) element.classList.add("custom")
             element.dataset.value = value
             element.innerHTML = value
-            return this.timePresets.appendChild(element)
+            let el = this.timePresets.appendChild(element)
+            el.addEventListener("click", e => {
+                e.preventDefault()
+                this.selectPreset(el)
+              })
+            return el
         }
 
         selectPreset(target) {

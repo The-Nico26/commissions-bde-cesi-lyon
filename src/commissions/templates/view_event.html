@@ -17,7 +17,7 @@
 {% block opengraph %}
     <meta property="og:title" content="{{ event.name }} - {{ com.name }}"/>
     <meta property="og:image" content="http://{{ request.get_host }}/media/{{ com.logo }}" />
-    <meta property="og:description" content="Le {{ event.event_date_start }} {{ event.event_date_start | naturaltime }}"/>
+    <meta property="og:description" content="Le {{ event.event_date_start }}"/>
 {% endblock %}
 
 {% block body %}
@@ -71,13 +71,20 @@
                         <span slot="relative-time">{{event.event_date_start | naturaltime }}</span>
                     {% endif %}
 
-                    {% if event.location %}
+                    {% if event.location and user.is_authenticated %}
                         <span slot="location">{{ event.location }}</span>
                     {% endif %}
 
-                    <div slot="body" class="markdown event-desc">
-                        {{ event.description | escape | markdown | safe }}
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div slot="body" class="markdown event-desc">
+                            {{ event.description | escape | markdown | safe }}
+                        </div>
+                    {% else %}
+                        <div class="auth-box" slot="body">
+                            <p class="ask-auth" >Pour voir toutes les infos des événements, il suffit de te connecter avec ton compte Viacesi, clique simplement sur le bouton en dessous.</p>
+                            <a class="auth-button" href="/login?next={{ request.path }}">Se connecter avec Viacesi</a>
+                        </div>
+                    {% endif %}
 
             </bde-event-card>
 

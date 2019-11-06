@@ -192,6 +192,13 @@ body {
     opacity: 0.25;
 }
 
+.main-aside .main-footer .not-production-env {
+    background: #f4b2ad;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0;
+}
+
 .auth-panel.authenticated {
     display: flex;
     flex-direction: row;

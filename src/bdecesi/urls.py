@@ -23,7 +23,8 @@ urlpatterns = [
     path('', include("users.urls")),
     path('', include("index.urls")),
     path('', include("documentation.urls")),
-    path('commissions/',include("commissions.urls")),
+    path('commissions/', include("commissions.urls")),
+    path('admin/', include("adminutils.urls")),
     path('admin/', admin.site.urls),
 ]
 

@@ -293,3 +293,28 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
     font-size: 30px;
     margin: 20px 0;
 }
+
+/* ----------- Auth Box ----------- */
+
+.auth-box {
+    flex: 1;
+    border-radius: 15px;
+    background: var(--secondary-bg-color);
+    padding: 25px;
+    max-width: 700px;
+    margin: 25px auto;
+    text-align: center;
+}
+
+.auth-box .auth-button {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    background: #4d75bb;
+    padding: 10px;
+    width: 250px;
+    line-height: 100%;
+    margin: 25px auto;
+    border: none;
+}
