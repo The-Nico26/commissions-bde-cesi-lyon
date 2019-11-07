@@ -118,7 +118,7 @@ class Event(models.Model):
     location = models.CharField(max_length=255, blank=True, null=True)
 
     # Photo de l'évènement
-    banner = models.ImageField(upload_to="events/photos")
+    banner = models.ImageField(upload_to="events/photos", blank=True, null=True)
 
     # Commission liée à l'évènement
     commission = models.ForeignKey(Commission, on_delete=models.SET_NULL, null=True, related_name='events')
