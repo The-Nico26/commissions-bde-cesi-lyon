@@ -132,6 +132,10 @@
                 .timeline-end {
                     text-align: center;
                 }
+                
+                .timeline-segment-content {
+                    justify-content: center;
+                }
             
             }
             

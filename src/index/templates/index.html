@@ -12,6 +12,7 @@
     <script src="{% static "components/event-card.js" %}"></script>
     <script src="{% static "components/shelf.js" %}"></script>
     <script src="{% static "components/autoresize.js" %}"></script>
+    <script src="{% static "components/timeline.js" %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -101,6 +102,22 @@
             </div>
             {% endif %}
         </bde-shelf>
+    {% endif %}
+
+    {%  if past_events_count > 0 %}
+    <div class="body-section">
+        <h2 class="section-title timeline-title" >Activité de la Vie Asso</h2>
+        <bde-timeline class="timeline">
+            {% for event in past_events %}
+                <a
+                        href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}"
+                        timeline-date="{{ event.event_date_start | date:"c" }}"
+                        timeline-id="{{ event.id }}">
+                    {% include "fragments/event-card.html" %}
+                </a>
+            {% endfor %}
+        </bde-timeline>
+    </div>
     {% endif %}
 
 {% endblock %}

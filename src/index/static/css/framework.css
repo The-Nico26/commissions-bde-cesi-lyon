@@ -318,3 +318,16 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
     margin: 25px auto;
     border: none;
 }
+
+.body-section {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.body-section .section-title {
+    font-family: var(--title-fonts);
+    font-size: 35px;
+    margin-bottom: 30px;
+    margin-left: 2vw;
+    color: var(--title-color);
+}

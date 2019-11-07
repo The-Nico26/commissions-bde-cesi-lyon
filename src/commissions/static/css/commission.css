@@ -242,7 +242,6 @@
 }
 
 .commission-roles {
-    padding-bottom: 30px;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -253,6 +252,10 @@
 .commission-roles > * {
     width: auto;
     margin: 10px 0;
+}
+
+.commission-events, .commission-roles, .commission-long-description {
+    padding-bottom: 30px;
 }
 
 .commission-meta {

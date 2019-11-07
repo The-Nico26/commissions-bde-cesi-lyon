@@ -12,6 +12,8 @@
     <script src="{% static "components/tag.js" %}"></script>
     <script src="{% static "components/card.js" %}"></script>
     <script src="{% static "components/event-card.js" %}"></script>
+    <script src="{% static "components/shelf.js" %}"></script>
+    <script src="{% static "components/timeline.js" %}"></script>
     {% if com.is_organization %}
     <meta name="robots" content="noindex">
     {% endif %}
@@ -78,34 +80,6 @@
                 </div>
             {% endif %}
 
-
-            {% if event %}
-                <bde-event-card
-    
-                    class="event static"
-                    event-name="{{event.name}}"
-                    
-                        {% if event.banner %}
-                            banner-src="/media/{{event.banner}}"
-                        {% endif %}
-                    
-                    event-start="{{event.event_date_start | date:"c" }}"
-                    event-end="{{event.event_date_end | date:"c" }}"
-
-                    >
-                    
-                    {% if event.has_started %}
-                        <span slot="relative-time">Fin {{event.event_date_end| naturaltime | lower }}</span>
-                    {% else %}
-                        <span slot="relative-time">Débute {{event.event_date_start | naturaltime }}</span>
-                    {% endif %}
-                    <div slot="body" class="markdown event-desc">
-                        {{ event.description | escape | markdown | safe }}
-                    </div>
-
-                </bde-event-card>
-            {% endif %}
-
             <div class="commission-roles">
 
                     {% include "fragments/safe_user.html" with user=com.president role="Président·e" %}
@@ -129,6 +103,22 @@
                     <p class="ask-auth" >Pour voir toutes les infos des commissions, il suffit de te connecter avec ton compte Viacesi, clique simplement sur le bouton en dessous.</p>
                     <a class="auth-button" href="/login?next={{ request.path }}">Se connecter avec Viacesi</a>
                 </div>
+            {% endif %}
+
+            {%  if events %}
+            <div class="body-section">
+                <h2 class="section-title timeline-title" >Activité de la commission</h2>
+                <bde-timeline class="timeline">
+                    {% for event in events %}
+                        <a
+                                href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}"
+                                timeline-date="{{ event.event_date_start | date:"c" }}"
+                                timeline-id="{{ event.id }}">
+                            {% include "fragments/event-card.html" %}
+                        </a>
+                    {% endfor %}
+                </bde-timeline>
+            </div>
             {% endif %}
 
             <div class="commission-meta">

@@ -172,3 +172,7 @@ bde-shelf {
     -webkit-background-clip: border-box;
     color: var(--on-primary-color);
 }
+
+.body-section {
+    padding: 25px 5vw 75px;
+}

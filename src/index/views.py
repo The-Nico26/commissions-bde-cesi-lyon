@@ -19,11 +19,15 @@ def index(request):
     latest_commissions = commissions[:5]
     random_commissions = random.sample(list(commissions), min(5, len(commissions)))
 
+    past_events = Event.objects.filter(event_date_end__lt=datetime.datetime.now()).order_by("-event_date_start")[:50]
+
     return render(request, "index.html", {
         "latest_commissions": latest_commissions,
         "random_commissions": random_commissions,
         "commission_count": commissions.count(),
-        "upcoming_events": upcoming_events
+        "upcoming_events": upcoming_events,
+        "past_events": past_events,
+        "past_events_count": past_events.count()
     })
 
 

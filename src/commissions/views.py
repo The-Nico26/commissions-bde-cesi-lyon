@@ -31,12 +31,14 @@ def list_commissions(request):
 
 def view_commission(request, slug):
     com = get_object_or_404(Commission, slug=slug)
-    event = None
+
+    events = com.events.all()
+
 
     return render(request, "view_commission.html", {
         'com': com,
         'can_manage': com.has_change_permission(request),
-        'event': event
+        'events': events,
     })
 
 

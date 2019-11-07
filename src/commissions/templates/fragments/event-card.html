@@ -19,8 +19,6 @@
 		<span slot="relative-time">Fin {{event.event_date_end| naturaltime | lower }}</span>
 	{% elif not event.has_ended %}
 		<span slot="relative-time">Débute {{event.event_date_start | naturaltime }}</span>
-    {% else %}
-		<span slot="relative-time">{{event.event_date_start | naturaltime }}</span>
 	{% endif %}
 
     {% if event.location and user.is_authenticated %}
