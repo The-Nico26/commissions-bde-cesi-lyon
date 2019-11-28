@@ -80,6 +80,8 @@ services:
       - traefik-net
     env_file:
       - .env
+    environment:
+      - MATOMO_DATABASE_HOST=db
     deploy:
       replicas: 1
       labels:
