@@ -62,9 +62,43 @@ services:
         traefik.http.middlewares.bde-cesi-redirect.redirectregex.replacement: "$${1}://bdecesilyon.fr/$${2}"
         traefik.http.middlewares.bde-cesi-redirect.redirectregex.permanent: "true"
 
+  analytics-db:
+    image: "mariadb:10.4"
+    volumes: 
+      - "analytics-db-content:/var/lib/mysql"
+    networks:
+      - overlay
+    env_file:
+      - .env
+
+  analytics:
+    image: "matomo"
+    volumes:
+      - "analytics-content:/var/www/html"
+    networks:
+      - overlay
+      - traefik-net
+    env_file:
+      - .env
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.bde-cesi-analytics.loadbalancer.server.port: "80"
+
+        traefik.http.routers.bde-cesi-analytics.entrypoints: web-secure
+        traefik.http.routers.bde-cesi-analytics.rule: "Host(`analytics.bdecesilyon.fr`)"
+        traefik.http.routers.bde-cesi-analytics.tls.certresolver: letsencrypt
+
+        traefik.http.routers.bde-cesi-analytics-insecure.entrypoints: web
+        traefik.http.routers.bde-cesi-analytics-insecure.rule: "Host(`analytics.bdecesilyon.fr`)"
+        traefik.http.routers.bde-cesi-analytics-insecure.middlewares: force-https@file
+
 volumes:
   user-media:
   db-content:
+  analytics-db-content:
+  analytics-content:
 
 networks:
   overlay:
