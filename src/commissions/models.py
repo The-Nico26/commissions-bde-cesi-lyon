@@ -178,3 +178,16 @@ class Post(models.Model):
     author_text = models.CharField(max_length=50, help_text="Texte alternatif de l'auteur dans le cas où l'utilisateur soit Null")
 
     is_moderated = models.BooleanField(help_text="Si le poste est modéré et masqué aux utilisateurs", default=False)
+
+    def has_even_medias(self):
+        return self.images.all().count() % 2 == 0
+
+    def __str__(self):
+        return "Post de {} le {}".format(self.author if self.author is not None else self.author_text, self.date)
+
+
+class PostImage(models.Model):
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="images")
+
+    image = models.ImageField(upload_to="posts/images")

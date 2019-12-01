@@ -106,7 +106,7 @@
             .timeline-segment-content {
                 display: flex;
                 justify-content: flex-start;
-                align-items: center;
+                align-items: flex-start;
                 flex-wrap: wrap;
             }
             

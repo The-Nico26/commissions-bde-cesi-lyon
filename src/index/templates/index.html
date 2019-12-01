@@ -157,6 +157,15 @@
                             {{ post.content }}
                         </bde-autoresize>
                     </div>
+                    {% if post.images %}
+                        <div class="post-medias {% if post.has_even_medias %}even{% endif %}">
+                            {% for image in post.images.all %}
+                                <a class="post-media" href="/media/{{ image.image }}" target="_blank">
+                                    <img src="/media/{{ image.image }}"/>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="post-footer">
                         <a class="post-commission" href="{% url 'commission_view' post.commission.slug %}">
                             {% include "fragments/compact-commission.html" with com=post.commission %}

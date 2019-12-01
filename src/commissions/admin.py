@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from commissions.models import Commission, Tag, Event, Post
+from commissions.models import Commission, Tag, Event, Post, PostImage
 
 
 @admin.register(Commission)
@@ -31,3 +31,8 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ("source", "commission", "is_moderated")
     search_fields = ('source', 'commission', 'content')
     ordering = ('-date',)
+
+@admin.register(PostImage)
+class PostImageAdmin(admin.ModelAdmin):
+    list_display = ("post", "image")
+    search_fields = ('post', 'image')
