@@ -41,6 +41,19 @@
         </div>
     </div>
 
+    {% if quick_links %}
+    <ul class="quick-link-list">
+        {% for link in quick_links %}
+            <li class="quick-link {{ link.style }}">
+                <a href="{{ link.url }}">
+                    {% if link.icon %}<bde-icon icon="{{ link.icon }}"></bde-icon>{% endif %}
+                    <span class="text">{{ link.text }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     {% if upcoming_events %}
     <bde-shelf>
         <h2 slot="title">Événements à venir</h2>

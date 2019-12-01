@@ -176,3 +176,58 @@ bde-shelf {
 .body-section {
     padding: 25px 5vw 75px;
 }
+
+.quick-link-list {
+    padding: 15px 5vw;
+    text-align: center;
+}
+
+.quick-link-list .quick-link {
+    display: inline-block;
+    border: solid 2px var(--primary-color);
+    margin: 10px;
+    border-radius: 5px;
+    color: var(--primary-color);
+}
+
+.quick-link-list .quick-link:hover {
+    background: rgba(233, 69, 69, 0.2);
+}
+
+.quick-link-list .quick-link.special {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.quick-link-list .quick-link.special:hover {
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    color: var(--on-primary-color);
+}
+
+.quick-link-list .quick-link a {
+    display: inline-block;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 800px) {
+
+    .quick-link-list {
+        padding: 15px 0;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    .quick-link-list .quick-link:first-child {
+        margin-left: 5vw;
+    }
+
+    .quick-link-list .quick-link:last-child {
+        margin-right: 5vw;
+    }
+
+}

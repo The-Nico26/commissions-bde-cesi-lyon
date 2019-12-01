@@ -8,6 +8,8 @@ from commissions.models import Event
 
 import datetime
 
+from index.models import QuickLink
+
 
 def index(request):
 
@@ -21,13 +23,16 @@ def index(request):
 
     past_events = Event.objects.filter(event_date_end__lt=datetime.datetime.now()).order_by("-event_date_start")[:50]
 
+    quick_links = QuickLink.objects.filter(page="index").order_by("-weight")
+
     return render(request, "index.html", {
         "latest_commissions": latest_commissions,
         "random_commissions": random_commissions,
         "commission_count": commissions.count(),
         "upcoming_events": upcoming_events,
         "past_events": past_events,
-        "past_events_count": past_events.count()
+        "past_events_count": past_events.count(),
+        "quick_links": quick_links
     })
 
 
