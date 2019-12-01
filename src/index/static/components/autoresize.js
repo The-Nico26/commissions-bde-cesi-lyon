@@ -48,11 +48,12 @@
 
             window.addEventListener("resize", () => this.findSize())
 
-            this.findSize()
+            requestAnimationFrame(() => this.findSize())
         }
 
         disconnectedCallback(){
-            this.observer.disconnect()
+            if(this.observer)
+                this.observer.disconnect()
         }
 
         findSize(){
@@ -66,8 +67,6 @@
                 fontSize -= 1
                 this.style.fontSize = `${fontSize}px`
             }
-
-            console.log(`Found size ${fontSize}px`)
 
         }
 

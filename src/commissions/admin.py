@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from commissions.models import Commission, Tag, Event
+from commissions.models import Commission, Tag, Event, Post
 
 
 @admin.register(Commission)
@@ -23,3 +23,11 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ("name", "commission", "location", "event_date_start")
     search_fields = ('name', 'description', "location", "commission")
     ordering = ('-event_date_start',)
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    date_hierarchy = "date"
+    list_display = ("date", "source", "commission", "content")
+    list_filter = ("source", "commission", "is_moderated")
+    search_fields = ('source', 'commission', 'content')
+    ordering = ('-date',)

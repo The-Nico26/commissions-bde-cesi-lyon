@@ -331,3 +331,50 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
     margin-left: 2vw;
     color: var(--title-color);
 }
+
+/*--------- POST -------- */
+
+.post {
+    height: 215px;
+    max-width: 500px;
+    width: 100%;
+
+    border: solid 1px #bababa;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+}
+
+.post .post-content {
+    flex: 1;
+}
+
+.post .post-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+}
+
+.post .post-header .post-author {
+    padding-right: 20px;
+}
+
+.post .post-header .post-header-separator {
+    flex: 1;
+}
+
+.post .post-header .post-source a {
+    padding: 10px;
+    color: #00a7ff;
+}
+
+.post .post-header .post-source bde-icon {
+    height: 20px;
+}
+
+.post .post-content {
+    padding: 10px 0;
+    height: 107px;
+    font-size: 40px;
+}

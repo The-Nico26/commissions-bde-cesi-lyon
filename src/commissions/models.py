@@ -157,3 +157,24 @@ class Event(models.Model):
     def __str__(self):
         return self.name
 
+
+class Post(models.Model):
+
+    date = models.DateTimeField(auto_now_add=True, help_text="Date de publication du post")
+
+    content = models.CharField(max_length=280)
+
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="posts")
+
+    source = models.CharField(max_length=50, choices=[
+        ('internal', 'Système interne'),
+        ('twitter', 'Twitter')
+    ], default="internal", help_text="Provenance du post")
+
+    external_id = models.CharField(max_length=255, null=True, blank=True, help_text="Identifiant du post sur le site externe (Twitter, Instagram, etc...)")
+
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="posts", null=True, blank=True)
+
+    author_text = models.CharField(max_length=50, help_text="Texte alternatif de l'auteur dans le cas où l'utilisateur soit Null")
+
+    is_moderated = models.BooleanField(help_text="Si le poste est modéré et masqué aux utilisateurs", default=False)
