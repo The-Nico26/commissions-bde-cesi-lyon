@@ -37,6 +37,7 @@
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:url" content="{{request.build_absolute_uri}}" />
 
+        {% if code_is_prod %}
         <script type="text/javascript">
           var _paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -50,6 +51,9 @@
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
           })();
         </script>
+        {% else %}
+        <!-- DEV Environement : Analytics disabled -->
+        {% endif %}
 </head>
 <body>
 
