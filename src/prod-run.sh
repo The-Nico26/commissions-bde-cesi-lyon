@@ -7,6 +7,6 @@ done
 
 python manage.py migrate
 
-python src/manage.py collectstatic
+python manage.py collectstatic
 
 gunicorn bdecesi.wsgi --bind=0.0.0.0 $@
