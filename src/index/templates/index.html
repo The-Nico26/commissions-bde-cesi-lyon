@@ -122,7 +122,7 @@
     {%  if past_events_count > 0 %}
     <div class="body-section">
         <h2 class="section-title timeline-title" >Activité de la Vie Asso</h2>
-        <bde-timeline class="timeline">
+        <bde-timeline class="timeline nowrap">
             {% for event in past_events %}
                 <a
                         href="/commissions/{{ event.commission.slug }}/event-{{ event.slug }}"

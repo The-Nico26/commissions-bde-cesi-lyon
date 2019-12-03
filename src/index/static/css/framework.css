@@ -335,7 +335,7 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 /*--------- POST -------- */
 
 .post {
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
 
     border: solid 1px #bababa;
@@ -426,6 +426,13 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 }
 
 .post .post-footer .post-author {
+}
+
+@media screen and (max-width: 800px) {
+    .post .post-content {
+        margin: 10px 10px;
+        font-size: 20px;
+    }
 }
 
 /*-------- EMOJI -----------*/
