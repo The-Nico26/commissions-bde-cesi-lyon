@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 echo "checking out latest version"
 git pull origin master
 
