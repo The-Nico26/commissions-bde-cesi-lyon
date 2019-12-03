@@ -17,6 +17,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 			"external_id",
 			"author",
 			"author_text",
+			"author_image",
 			"commission",
 			"date",
 			"is_moderated",

@@ -348,6 +348,10 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
     flex: 1;
 }
 
+.post .post-content p {
+    margin: 10px 0;
+}
+
 .post .post-header {
     display: flex;
     flex-direction: row;
@@ -422,4 +426,13 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 }
 
 .post .post-footer .post-author {
+}
+
+/*-------- EMOJI -----------*/
+
+img.emoji {
+   height: 1em;
+   width: 1em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
 }

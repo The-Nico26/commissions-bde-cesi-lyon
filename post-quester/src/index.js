@@ -45,7 +45,7 @@ async function postTweet(tweet, quester){
 
     let cleantext = tweet.full_text.replace(/https:\/\/t\.co\/\w+[ .!,]*$/, "")
 
-    let newPost = await apiClient.createPost(cleantext, tweet.user.screen_name, quester.commission, tweet.id_str, tweet.created_at)
+    let newPost = await apiClient.createPost(cleantext, tweet.user.screen_name, tweet.user.profile_image_url_https, quester.commission, tweet.id_str, tweet.created_at)
 
     if(tweet.extended_entities && tweet.extended_entities.media){
         let images = tweet.extended_entities.media.filter(el => el.type = "photo")

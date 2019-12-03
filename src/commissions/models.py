@@ -178,6 +178,8 @@ class Post(models.Model):
 
     author_text = models.CharField(max_length=50, help_text="Texte alternatif de l'auteur dans le cas où l'utilisateur soit Null")
 
+    author_image = models.CharField(max_length=255, blank=True, null=True, help_text="URL d'image de profil de l'auteur dans le cas ou l'utilisateur est null")
+
     is_moderated = models.BooleanField(help_text="Si le poste est modéré et masqué aux utilisateurs", default=False)
 
     def has_even_medias(self):

@@ -48,12 +48,13 @@ class ApiClient {
         return new model.APIResult(result)
     }
 
-    async createPost(content, author_text, commission, external_id, date, images=[], source="twitter"){
+    async createPost(content, author_text, author_image_url, commission, external_id, date, images=[], source="twitter"){
         let dte = new Date(Date.parse(date))
 
         let req = await this.cli.post(`posts/`, {
             content,
             author_text,
+            author_image: author_image_url,
             external_id,
             date: dte.toJSON(),
             source,

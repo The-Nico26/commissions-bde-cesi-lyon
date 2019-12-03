@@ -16,7 +16,9 @@
         </div>
     </div>
     <div class="post-content">
-            {{ post.content }}
+        <bde-emoji>
+            {{ post.content|linebreaks }}
+        </bde-emoji>
     </div>
     {% if post.images %}
         <div class="post-medias {% if post.has_even_medias %}even{% endif %}">
@@ -31,7 +33,10 @@
         <div class="post-authot">
         {% if post.author %}{% include "fragments/safe_user.html" with user=post.author %}{% else %}
             {% if post.source == "twitter" %}
-                <bde-user href="https://twitter.com/{{ post.author_text }}">@{{ post.author_text }}</bde-user>
+                <bde-user
+                        href="https://twitter.com/{{ post.author_text }}"
+                        {% if post.author_image %}image-src="{{ post.author_image }}"{% endif %}
+                >@{{ post.author_text }}</bde-user>
             {% else %}
                 <bde-user>{{ post.author_text }}</bde-user>
             {% endif %}
