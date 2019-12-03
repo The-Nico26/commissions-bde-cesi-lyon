@@ -8,14 +8,6 @@ VERSION=$(./get_version.sh)
 export VERSION
 echo "DEPLOYING version $VERSION"
 
-echo "Installing requirements"
-pip3 install -r requirements.txt
-
-echo "Collecting static files"
-ENVIRONMENT=development python3 src/manage.py collectstatic
-rm -r proxy/static-files
-mv src/static-files proxy/static-files
-
 docker build . -t epickiwi/bdecesi-django
 docker build proxy -t epickiwi/bdecesi-proxy
 docker build post-quester -t epickiwi/post-quester

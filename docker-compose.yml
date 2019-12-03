@@ -20,6 +20,7 @@ services:
       - db
     volumes:
       - user-media:/code/user-media
+      - static-files:/code/static-files
     networks:
       - overlay
     deploy:
@@ -29,6 +30,7 @@ services:
     image: epickiwi/bdecesi-proxy
     volumes:
       - user-media:/var/media
+      - static-files:/var/static
     depends_on:
       - django
       - db
@@ -110,6 +112,7 @@ volumes:
   db-content:
   analytics-db-content:
   analytics-content:
+  static-files:
 
 networks:
   overlay:
