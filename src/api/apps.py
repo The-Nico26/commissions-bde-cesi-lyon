@@ -9,37 +9,36 @@ def check_token(key, username, permissions=None):
 	if permissions is None:
 		permissions = []
 
+	from rest_framework.authtoken.models import Token
+	from users.models import User
 
-from rest_framework.authtoken.models import Token
-from users.models import User
+	try:
+		usr = User.objects.get(
+			email=username
+		)
+	except User.DoesNotExist:
+		usr = User.objects.create(
+			email=username,
+			username=username
+		)
 
-try:
-	usr = User.objects.get(
-		email=username
-	)
-except User.DoesNotExist:
-	usr = User.objects.create(
-		email=username,
-		username=username
-	)
+	usr.user_permissions.set(permissions)
+	usr.save()
 
-usr.user_permissions.set(permissions)
-usr.save()
+	try:
+		token = usr.auth_token
+	except Token.DoesNotExist:
+		token = Token.objects.create(
+			key=key,
+			user=usr
+		)
 
-try:
-	token = usr.auth_token
-except Token.DoesNotExist:
-	token = Token.objects.create(
-		key=key,
-		user=usr
-	)
-
-if token.key != key:
-	token.delete()
-	Token.objects.create(
-		key=key,
-		user=usr
-	)
+	if token.key != key:
+		token.delete()
+		Token.objects.create(
+			key=key,
+			user=usr
+		)
 
 
 class ApiConfig(AppConfig):
