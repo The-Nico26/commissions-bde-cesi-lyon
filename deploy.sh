@@ -8,6 +8,8 @@ VERSION=$(./get_version.sh)
 export VERSION
 echo "DEPLOYING version $VERSION"
 
+pip3 install -r requirements.txt
+
 echo "Collecting static files"
 ENVIRONMENT=development python3 src/manage.py collectstatic
 rm -r proxy/static-files
