@@ -25,6 +25,8 @@ def check_token(key, username, permissions=None):
 
     try:
         token = usr.auth_token
+    except KeyError:
+        return
     except Token.DoesNotExist:
         token = Token.objects.create(
             key=key,
