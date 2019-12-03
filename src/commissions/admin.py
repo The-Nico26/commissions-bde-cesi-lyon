@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from commissions.models import Commission, Tag, Event, Post, PostImage
+from commissions.models import Commission, Tag, Event, Post, PostImage, CommissionSocialQuester
 
 
 @admin.register(Commission)
@@ -36,3 +36,11 @@ class PostAdmin(admin.ModelAdmin):
 class PostImageAdmin(admin.ModelAdmin):
     list_display = ("post", "image")
     search_fields = ('post', 'image')
+
+@admin.register(CommissionSocialQuester)
+class CommissionSocialQuesterAdmin(admin.ModelAdmin):
+    date_hierarchy = "since_date"
+    list_display = ("commission", "query", "since_date")
+    list_filter = ("commission",)
+    search_fields = ('commission', 'query')
+    ordering = ('-since_date',)

@@ -1,0 +1,42 @@
+<div    class="post source-{{ post.source }}"
+        timeline-date="{{ post.date | date:"c" }}"
+        timeline-id="post-{{ post.id }}">
+    <div class="post-header">
+        <div class="post-commission">
+            <a {% if not post.commission.is_organization %}href="{% url 'commission_view' post.commission.slug %}"{% endif %}>
+                {% include "fragments/compact-commission.html" with com=post.commission %}
+            </a>
+        </div>
+        <div class="post-source">
+            {% if post.source == "twitter" %}
+            <a target="_blank" href="https://twitter.com/{{ post.author_text }}/status/{{ post.external_id }}" class="source-link">
+                <bde-icon icon="mdi:twitter"></bde-icon>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="post-content">
+            {{ post.content }}
+    </div>
+    {% if post.images %}
+        <div class="post-medias {% if post.has_even_medias %}even{% endif %}">
+            {% for image in post.images.all %}
+                <a class="post-media" href="/media/{{ image.image }}" target="_blank">
+                    <img src="/media/{{ image.image }}"/>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="post-footer">
+        <div class="post-authot">
+        {% if post.author %}{% include "fragments/safe_user.html" with user=post.author %}{% else %}
+            {% if post.source == "twitter" %}
+                <bde-user href="https://twitter.com/{{ post.author_text }}">@{{ post.author_text }}</bde-user>
+            {% else %}
+                <bde-user>{{ post.author_text }}</bde-user>
+            {% endif %}
+        {% endif %}
+        </div>
+        <div class="post-footer-separator"></div>
+    </div>
+</div>

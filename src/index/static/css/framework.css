@@ -335,7 +335,6 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 /*--------- POST -------- */
 
 .post {
-    min-height: 215px;
     max-width: 500px;
     width: 100%;
 
@@ -356,11 +355,8 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
     align-items: center;
 }
 
-.post .post-header .post-author {
+.post .post-header .post-commission {
     padding-right: 20px;
-}
-
-.post .post-header .post-header-separator {
     flex: 1;
 }
 
@@ -374,9 +370,8 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 }
 
 .post .post-content {
-    padding: 10px 0;
-    height: 107px;
-    font-size: 40px;
+    margin: 10px 10px;
+    font-size: 26px;
 }
 
 .post .post-medias {
@@ -416,4 +411,15 @@ input:not([type="checkbox"]):not(:empty):invalid, .form-field:not(:empty):invali
 
 .post .post-footer {
     margin-top: 10px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.post .post-footer .post-footer-separator {
+    flex: 1;
+}
+
+.post .post-footer .post-author {
 }

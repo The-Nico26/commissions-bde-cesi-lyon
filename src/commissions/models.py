@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 from django.utils import timezone
@@ -160,7 +161,7 @@ class Event(models.Model):
 
 class Post(models.Model):
 
-    date = models.DateTimeField(auto_now_add=True, help_text="Date de publication du post")
+    date = models.DateTimeField(help_text="Date de publication du post")
 
     content = models.CharField(max_length=280)
 
@@ -185,9 +186,30 @@ class Post(models.Model):
     def __str__(self):
         return "Post de {} le {}".format(self.author if self.author is not None else self.author_text, self.date)
 
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.date is None:
+            self.date = timezone.now()
+        return super().save(force_insert, force_update, using, update_fields)
+
 
 class PostImage(models.Model):
-
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="images")
-
     image = models.ImageField(upload_to="posts/images")
+
+
+def quester_query_validator(value):
+    if value[0] != "#" and value[0] != "@":
+        raise ValidationError('{} is not a valid query, must begin with # or @'.format(value))
+    if " " in value:
+        raise ValidationError('{} is not a valid query, must not contain space'.format(value))
+
+
+class CommissionSocialQuester(models.Model):
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name="social_questers")
+    query = models.CharField(max_length=50, validators=[quester_query_validator])
+    since_date = models.DateTimeField()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.since_date is None:
+            self.since_date = timezone.now()
+        return super().save(force_insert, force_update, using, update_fields)
