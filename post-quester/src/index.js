@@ -16,11 +16,14 @@ async function enableQuester(qstr){
     }
 
     let tweets = (await twitter.get("search/tweets", {
-        q: qstr.query
+        q: qstr.query,
+        tweet_mode: "extended"
     })).statuses
+
     if(qstr.query.startsWith("@")) {
         tweets.push(...(await twitter.get("statuses/user_timeline", {
-            screen_name: qstr.query.substr(1)
+            screen_name: qstr.query.substr(1),
+            tweet_mode: "extended"
         })))
     }
 
@@ -39,7 +42,10 @@ async function postTweet(tweet, quester){
         return
     if(tweet.in_reply_to_status_id_str)
         return
-    let newPost = await apiClient.createPost(tweet.text, tweet.user.screen_name, quester.commission, tweet.id_str, tweet.created_at)
+
+    let cleantext = tweet.full_text.replace(/https:\/\/t\.co\/\w+[ .!,]*$/, "")
+
+    let newPost = await apiClient.createPost(cleantext, tweet.user.screen_name, quester.commission, tweet.id_str, tweet.created_at)
 
     if(tweet.extended_entities && tweet.extended_entities.media){
         let images = tweet.extended_entities.media.filter(el => el.type = "photo")
