@@ -8,6 +8,7 @@ VERSION=$(./get_version.sh)
 export VERSION
 echo "DEPLOYING version $VERSION"
 
+echo "Installing requirements"
 pip3 install -r requirements.txt
 
 echo "Collecting static files"
