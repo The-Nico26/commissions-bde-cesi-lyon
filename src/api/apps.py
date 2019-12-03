@@ -50,17 +50,17 @@ class ApiConfig(AppConfig):
                 key=os.getenv("POSTS_API_TOKEN"),
                 username="special.posts.api@localhost",
                 permissions=[
-                    Permission.objects.get(codename="view_commission"),
-                    Permission.objects.get(codename="view_user"),
-                    Permission.objects.get(codename="view_full_profile"),
-                    Permission.objects.get(codename="add_post"),
-                    Permission.objects.get(codename="change_post"),
-                    Permission.objects.get(codename="delete_post"),
-                    Permission.objects.get(codename="view_post"),
-                    Permission.objects.get(codename="add_postimage"),
-                    Permission.objects.get(codename="change_postimage"),
-                    Permission.objects.get(codename="delete_postimage"),
-                    Permission.objects.get(codename="view_postimage")
+                    # Permission.objects.get(codename="view_commission"),
+                    # Permission.objects.get(codename="view_user"),
+                    # Permission.objects.get(codename="view_full_profile"),
+                    # Permission.objects.get(codename="add_post"),
+                    # Permission.objects.get(codename="change_post"),
+                    # Permission.objects.get(codename="delete_post"),
+                    # Permission.objects.get(codename="view_post"),
+                    # Permission.objects.get(codename="add_postimage"),
+                    # Permission.objects.get(codename="change_postimage"),
+                    # Permission.objects.get(codename="delete_postimage"),
+                    # Permission.objects.get(codename="view_postimage")
                 ]
             )
 
