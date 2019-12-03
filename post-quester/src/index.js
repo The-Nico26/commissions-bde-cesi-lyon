@@ -2,18 +2,14 @@ const apiClient = require("./apiClient")
 const CronJob = require("cron").CronJob
 const twt = require("./twitr")
 const axios = require("axios")
+const delay = require("delay")
 
 let activeQuesters = {}
 let twitter = null
 
-async function enableQuester(qstr){
-    console.log(`Enabling quester for ${qstr.query}`)
+async function checkQuester(qstr){
+    console.log(`Checking quester for ${qstr.query}`)
     let id = qstr.query
-
-    activeQuesters[id] = {
-        quester: qstr,
-        worker: null
-    }
 
     let tweets = (await twitter.get("search/tweets", {
         q: qstr.query,
@@ -27,11 +23,14 @@ async function enableQuester(qstr){
         })))
     }
 
-    tweets = tweets.filter(el => Date.parse(el.created_at) >= Date.parse(qstr.since_date))
+    let maxDate = activeQuesters[id].last_ckeck ? activeQuesters[id].last_ckeck : Date.parse(qstr.since_date)
+
+    tweets = tweets.filter(el => Date.parse(el.created_at) >= maxDate)
 
     for(let tweet of tweets){
         await postTweet(tweet, qstr)
     }
+
 }
 
 async function postTweet(tweet, quester){
@@ -56,6 +55,8 @@ async function postTweet(tweet, quester){
             await apiClient.createImage(newPost.url, imgReq.data, imgReq.headers["content-type"])
         }))
     }
+
+    console.log(`posted tweet https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`)
 }
 
 async function checkPosts() {
@@ -64,21 +65,34 @@ async function checkPosts() {
     for(let qstr of socialQuesters.results){
         let id = qstr.query
 
-        if (activeQuesters[id] && activeQuesters[id].quester.since_date != qstr) {
+        if (activeQuesters[id] && activeQuesters[id].quester.since_date != qstr.since_date) {
             delete activeQuesters[id]
         }
 
         if(!activeQuesters[id]){
-            await enableQuester(qstr)
+            activeQuesters[id] = {
+                quester: qstr,
+                last_ckeck: null
+            }
+        }
+
+        try{
+            await checkQuester(qstr)
+            activeQuesters[id].last_ckeck = Date.now()
+        } catch(e) {
+            console.error(`Error on quester checking ${qstr.query}`, e.message)
         }
 
     }
 
 }
 
-twt.getTwitterClient().then( twtr => {
-        twitter = twtr
-        return checkPosts()
-    }).catch(e => e.response && e.response.data ? console.error(e.response) : console.log(e))
+async function init(){
+    twitter = await twt.getTwitterClient()
+    while (true){
+        await checkPosts()
+        await delay(30000)
+    }
+}
 
-new CronJob('0 * * * * *', checkPosts);
+init()
