@@ -96,6 +96,15 @@ services:
         traefik.http.routers.bde-cesi-analytics-insecure.rule: "Host(`analytics.bdecesilyon.fr`)"
         traefik.http.routers.bde-cesi-analytics-insecure.middlewares: force-https@file
 
+  post-quester:
+    image: "epickiwi/post-quester"
+    networks:
+      - overlay
+    env_file:
+      - .env
+    environment:
+      - POSTS_API_HOST=http://django
+
 volumes:
   user-media:
   db-content:

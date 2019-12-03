@@ -13,6 +13,7 @@ mv src/static-files proxy/static-files
 
 docker build . -t epickiwi/bdecesi-django
 docker build proxy -t epickiwi/bdecesi-proxy
+docker build post-quester -t epickiwi/post-quester
 
 echo "Starting stack"
 docker stack deploy --compose-file docker-compose.yml bde-cesi-lyon
