@@ -6,7 +6,7 @@ while ! pg_isready -U "$POSTGRES_USER" -h "$POSTGRES_HOST"; do
   sleep 1
 done
 
-python manage.py migrate
+IS_MIGRATING=true python manage.py migrate
 
 python manage.py collectstatic
 

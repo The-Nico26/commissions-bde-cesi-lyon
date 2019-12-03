@@ -3,68 +3,68 @@ from django.apps import AppConfig
 
 
 def check_token(key, username, permissions=None):
+	if os.getenv("IS_MIGRATING") != None:
+		return
 
-    if permissions is None:
-        permissions = []
+	if permissions is None:
+		permissions = []
 
-    from rest_framework.authtoken.models import Token
-    from users.models import User
 
-    try:
-        usr = User.objects.get(
-            email=username
-        )
-    except User.DoesNotExist:
-        usr = User.objects.create(
-            email=username,
-            username=username
-        )
+from rest_framework.authtoken.models import Token
+from users.models import User
 
-    usr.user_permissions.set(permissions)
-    usr.save()
+try:
+	usr = User.objects.get(
+		email=username
+	)
+except User.DoesNotExist:
+	usr = User.objects.create(
+		email=username,
+		username=username
+	)
 
-    try:
-        token = usr.auth_token
-    except KeyError:
-        return
-    except Token.DoesNotExist:
-        token = Token.objects.create(
-            key=key,
-            user=usr
-        )
+usr.user_permissions.set(permissions)
+usr.save()
 
-    if token.key != key:
-        token.delete()
-        Token.objects.create(
-            key=key,
-            user=usr
-        )
+try:
+	token = usr.auth_token
+except Token.DoesNotExist:
+	token = Token.objects.create(
+		key=key,
+		user=usr
+	)
+
+if token.key != key:
+	token.delete()
+	Token.objects.create(
+		key=key,
+		user=usr
+	)
 
 
 class ApiConfig(AppConfig):
-    name = 'api'
+	name = 'api'
 
-    def ready(self):
-        from django.contrib.auth.models import Permission
+	def ready(self):
+		from django.contrib.auth.models import Permission
 
-        if os.getenv("POSTS_API_TOKEN"):
-            check_token(
-                key=os.getenv("POSTS_API_TOKEN"),
-                username="special.posts.api@localhost",
-                permissions=[
-                    # Permission.objects.get(codename="view_commission"),
-                    # Permission.objects.get(codename="view_user"),
-                    # Permission.objects.get(codename="view_full_profile"),
-                    # Permission.objects.get(codename="add_post"),
-                    # Permission.objects.get(codename="change_post"),
-                    # Permission.objects.get(codename="delete_post"),
-                    # Permission.objects.get(codename="view_post"),
-                    # Permission.objects.get(codename="add_postimage"),
-                    # Permission.objects.get(codename="change_postimage"),
-                    # Permission.objects.get(codename="delete_postimage"),
-                    # Permission.objects.get(codename="view_postimage")
-                ]
-            )
+		if os.getenv("POSTS_API_TOKEN"):
+			check_token(
+				key=os.getenv("POSTS_API_TOKEN"),
+				username="special.posts.api@localhost",
+				permissions=[
+					# Permission.objects.get(codename="view_commission"),
+					# Permission.objects.get(codename="view_user"),
+					# Permission.objects.get(codename="view_full_profile"),
+					# Permission.objects.get(codename="add_post"),
+					# Permission.objects.get(codename="change_post"),
+					# Permission.objects.get(codename="delete_post"),
+					# Permission.objects.get(codename="view_post"),
+					# Permission.objects.get(codename="add_postimage"),
+					# Permission.objects.get(codename="change_postimage"),
+					# Permission.objects.get(codename="delete_postimage"),
+					# Permission.objects.get(codename="view_postimage")
+				]
+			)
 
-        super(ApiConfig, self).ready()
-
+		super(ApiConfig, self).ready()
